@@ -1,0 +1,69 @@
+# This is your sidebar TOC. The sidebar code loops through sections here and provides the appropriate formatting.
+
+entries:
+- title: sidebar
+  product: Tristan
+  version: v2
+
+  folders:
+
+  - title: Home
+    output: web
+    folderitems:
+      - title: Latest updates
+        url: /index.html
+        output: web
+
+  - title: Getting Started
+    output: web
+    folderitems:
+      - title: Configuring, compiling, running
+        url: /tristanv2-configure.html
+        output: web
+      - title: Input file
+        url: /tristanv2-inputfile.html
+        output: web
+      - title: User file
+        url: /tristanv2-userfile.html
+        output: web
+      - title: Visualization
+        url: /tristanv2-visualization.html
+        output: web
+
+  - title: Code Description
+    output: web
+    folderitems:
+      - title: Particle-in-cell concept
+        url: /tristanv2-pic-concept.html
+        output: web
+      - title: Simulation units
+        url: /tristanv2-sim-units.html
+        output: web
+      - title: Structure of memory
+        url: /tristanv2-structure.html
+        output: web
+      - title: Numerical algorithms
+        url: /tristanv2-algorithms.html
+        output: web
+      - title: Load balancing
+        url: /tristanv2-loadbal.html
+        output: web
+      - title: Radiation
+        url: /tristanv2-radiation.html
+        output: web
+      - title: QED
+        url: /tristanv2-qed.html
+        output: web
+
+  - title: Useful Guides
+    output: web
+    folderitems:
+      - title: Writing a user file
+        url: /tristanv2-writinguserfile.html
+        output: web
+      - title: Supported flags
+        url: /tristanv2-confflags.html
+        output: web
+      - title: Coding style
+        url: /tristanv2-codestyle.html
+        output: web

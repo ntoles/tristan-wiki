@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Brief introduction to how particle-in-cell works.">
+<meta name="keywords" content=" pic, general, algorithm">
+<title>Particle-in-cell concept | Tristan v2 Wiki</title>
+<link rel="stylesheet" href="css/syntax.css">
+
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<!--<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">-->
+<link rel="stylesheet" href="css/modern-business.css">
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="css/customstyles.css">
+<link rel="stylesheet" href="css/boxshadowproperties.css">
+<!-- most color styles are extracted out to here -->
+<link rel="stylesheet" href="css/theme-blue.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+<script src="js/jquery.navgoco.min.js"></script>
+
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<!-- Anchor.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.2.0/anchor.min.js"></script>
+<script src="js/toc.js"></script>
+<script src="js/customscripts.js"></script>
+
+<link rel="shortcut icon" href="images/favicon.ico">
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<link rel="alternate" type="application/rss+xml" title="tristan-v2" href="http://localhost:4000/feed.xml">
+
+    <script>
+        // $(document).ready(function() {
+        //     // Initialize navgoco with default options
+        //     $("#mysidebar").navgoco({
+        //         caretHtml: '',
+        //         accordion: false,
+        //         openClass: 'active', // open
+        //         save: false, // leave false or nav highlighting doesn't work right
+        //         cookie: {
+        //             name: 'navgoco',
+        //             expires: false,
+        //             path: '/'
+        //         },
+        //         slide: {
+        //             duration: 400,
+        //             easing: 'swing'
+        //         }
+        //     });
+        //
+        //     $("#collapseAll").click(function(e) {
+        //         e.preventDefault();
+        //         $("#mysidebar").navgoco('toggle', false);
+        //     });
+        //
+        //     $("#expandAll").click(function(e) {
+        //         e.preventDefault();
+        //         $("#mysidebar").navgoco('toggle', true);
+        //     });
+        //
+        // });
+
+    </script>
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+    <script>
+        $(document).ready(function() {
+            $("#tg-sb-link").click(function() {
+                $("#tg-sb-sidebar").toggle();
+                $("#tg-sb-content").toggleClass('col-md-9');
+                $("#tg-sb-content").toggleClass('col-md-12');
+                $("#tg-sb-icon").toggleClass('fa-toggle-on');
+                $("#tg-sb-icon").toggleClass('fa-toggle-off');
+            });
+        });
+    </script>
+    
+    <script>
+MathJax = {
+  tex: {
+    inlineMath: [['$', '$'], ['\\(', '\\)']],
+    displayMath: [             // start/end delimiter pairs for display math
+      ['$$', '$$'],
+      ['\\[', '\\]']
+    ]
+  }
+};
+</script>
+<script id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+</script>
+
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-static-top">
+    <div class="container topnavlinks">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="fa fa-home fa-lg navbar-brand" href="index.html">&nbsp;<span class="projectTitle"> Tristan v2 Documentation</span></a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <!-- toggle sidebar button -->
+                <li><a id="tg-sb-link" href="#"><i id="tg-sb-icon" class="fa fa-toggle-on"></i> Nav</a></li>
+                <!-- entries without drop-downs appear here -->
+
+
+
+
+                
+                
+                
+                <li><a href="https://github.com/PrincetonUniversity/tristan-v2" target="_blank" rel="noopener">Tristan v2 GitHub</a></li>
+                
+                
+                
+                <!-- entries with drop-downs appear here -->
+                <!-- conditional logic to control which topnav appears for the audience defined in the configuration file.-->
+                
+                <!-- 
+			<li>
+
+
+
+  <a class="email" title="Submit feedback" href="#" onclick="javascript:window.location='mailto:?subject= feedback&body=I have some feedback about the Particle-in-cell concept page: ' + window.location.href;"><i class="fa fa-envelope-o"></i> Feedback</a>
+
+</li>
+
+		 -->
+                <!--comment out this block if you want to hide search-->
+                <li>
+                    <!--start search-->
+                    <div id="search-demo-container">
+                        <input type="text" id="search-input" placeholder="search...">
+                        <ul id="results-container"></ul>
+                    </div>
+                    <script src="js/jekyll-search.js" type="text/javascript"></script>
+                    <script type="text/javascript">
+                            SimpleJekyllSearch.init({
+                                searchInput: document.getElementById('search-input'),
+                                resultsContainer: document.getElementById('results-container'),
+                                dataSource: 'search.json',
+                                searchResultTemplate: '<li><a href="{url}" title="Particle-in-cell concept">{title}</a></li>',
+                    noResultsText: 'No results found.',
+                            limit: 10,
+                            fuzzy: true,
+                    })
+                    </script>
+                    <!--end search-->
+                </li>
+            </ul>
+        </div>
+        </div>
+        <!-- /.container -->
+</nav>
+
+<!-- Page Content -->
+<div class="container">
+  <div id="main">
+    <!-- Content Row -->
+    <div class="row">
+        
+        
+            <!-- Sidebar Column -->
+            <div class="col-md-3" id="tg-sb-sidebar">
+                
+
+<ul id="mysidebar" class="nav">
+  <li class="sidebarTitle">Tristan v2</li>
+  
+  
+  
+  <li>
+      <a title="Home" href="#">Home</a>
+      <ul>
+          
+          
+          
+          <li><a title="Latest updates" href="index.html">Latest updates</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      <a title="Getting Started" href="#">Getting Started</a>
+      <ul>
+          
+          
+          
+          <li><a title="Configuring, compiling, running" href="tristanv2-configure.html">Configuring, compiling, running</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Input file" href="tristanv2-inputfile.html">Input file</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="User file" href="tristanv2-userfile.html">User file</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Visualization" href="tristanv2-visualization.html">Visualization</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      <a title="Code Description" href="#">Code Description</a>
+      <ul>
+          
+          
+          
+          <li class="active"><a title="Particle-in-cell concept" href="tristanv2-pic-concept.html">Particle-in-cell concept</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Simulation units" href="tristanv2-sim-units.html">Simulation units</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Structure of memory" href="tristanv2-structure.html">Structure of memory</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Numerical algorithms" href="tristanv2-algorithms.html">Numerical algorithms</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Load balancing" href="tristanv2-loadbal.html">Load balancing</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Radiation" href="tristanv2-radiation.html">Radiation</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="QED" href="tristanv2-qed.html">QED</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+  
+  <li>
+      <a title="Useful Guides" href="#">Useful Guides</a>
+      <ul>
+          
+          
+          
+          <li><a title="Writing a user file" href="tristanv2-writinguserfile.html">Writing a user file</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Supported flags" href="tristanv2-confflags.html">Supported flags</a></li>
+          
+          
+          
+          
+          
+          
+          <li><a title="Coding style" href="tristanv2-codestyle.html">Coding style</a></li>
+          
+          
+          
+          
+      </ul>
+   </li>
+     
+      
+      
+      <!-- if you aren't using the accordion, uncomment this block: -->
+     <!-- <p class="external">
+         <a href="#" id="collapseAll">Collapse All</a> | <a href="#" id="expandAll">Expand All</a>
+     </p> -->
+
+</ul>
+
+<!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.-->
+<script>$("li.active").parents('li').toggleClass("active");</script>
+
+            </div>
+            
+        
+
+        <!-- Content Column -->
+        <div class="col-md-9" id="tg-sb-content">
+            <div class="post-header">
+   <h1 class="post-title-main">Particle-in-cell concept</h1>
+</div>
+
+
+
+<div class="post-content">
+
+   
+    <div class="summary">Brief introduction to how particle-in-cell works.</div>
+   
+
+    
+    
+<!-- this handles the automatic toc. use ## for subheads to auto-generate the on-page minitoc. if you use html tags, you must supply an ID for the heading element in order for it to appear in the minitoc. -->
+<script>
+$( document ).ready(function() {
+  // Handler for .ready() called.
+
+$('#toc').toc({ minimumHeaders: 0, listType: 'ul', showSpeed: 0, headers: 'h2,h3,h4' });
+
+/* this offset helps account for the space taken up by the floating toolbar. */
+$('#toc').on('click', 'a', function() {
+  var target = $(this.getAttribute('href'))
+    , scroll_target = target.offset().top
+
+  $(window).scrollTop(scroll_target - 10);
+  return false
+})
+  
+});
+</script>
+
+<div id="toc"></div>
+
+    
+
+
+    
+
+   <p>Particle-in-cell (PIC) is a methodology of solving coupled Maxwell-Boltzmann equations (Vlasov system) for a relativistic collisionless plasma. Instead of dealing with a 6-dimensional distribution function as in full Vlasov system, particle-in-cell instead samples the distribution function with a finite number of macroparticles, carrying the information about the mass and momenta distributions. These macroparticles live on a discrete grid, where the values of the electric and magnetic fields (as well as the currents) are being stored. The positions and velocities of macroparticles are updated according to the Lorentz force they experience, and along with that particles feedback on the fields by depositing currents. The fields themselves are self-consistently updated according to Faraday’s and Ampere’s laws.</p>
+
+<hr />
+
+<p>Generic PIC code employs the following steps.</p>
+
+<h5 id="0-initialize-particles-and-fields">0. Initialize particles and fields</h5>
+<p>We start by initializing all the particles and field components. Notice that in <code class="language-plaintext highlighter-rouge">Tristan</code> we a-priori initialize the electric fields to zeros, meaning that all the particles have to start in the same position (in such a way, that the charge density is zero).</p>
+<figure><img class="docimage" src="images/tristan_v2/pic_concept/step0.png" alt="step0" /></figure>
+
+<div class="alert alert-success" role="alert"><i class="fa fa-check-square-o"></i> <b>Tip:</b> One may actually take advantage of the fact that the electric fields are initialized to zero. If the initial charge distribution does not yield $\rho=0$, solving Maxwell’s equations further will introduce static “ghost” charges. This can be used to, say, initialize cold immobile “ions”.</div>
+
+<h5 id="1-faradays-law-for-half-timestep">1. Faraday’s law for half timestep</h5>
+<p>Advance <code class="language-plaintext highlighter-rouge">B</code>-field half step forward according to Faraday’s law.</p>
+<figure><img class="docimage" src="images/tristan_v2/pic_concept/step1.png" alt="step1" /></figure>
+
+<h5 id="2-lorentz-force">2. Lorentz force</h5>
+<p>Compute the Lorentz forces on particles and advance their velocities and positions according to that.</p>
+<figure><img class="docimage" src="images/tristan_v2/pic_concept/step2.png" alt="step2" /></figure>
+
+<h5 id="3-faradays-law-for-half-timestep-and-amperes-law">3. Faraday’s law for half timestep and Ampere’s law</h5>
+<p>Advance <code class="language-plaintext highlighter-rouge">B</code>-field for the remaining half step (Faraday’s law) and also advance the <code class="language-plaintext highlighter-rouge">E</code>-field according to Ampere’s law (without current).</p>
+<figure><img class="docimage" src="images/tristan_v2/pic_concept/step3.png" alt="step3" /></figure>
+
+<h5 id="4-current-deposition">4. Current deposition</h5>
+<p>Compute currents deposited by moving particles on the grid.</p>
+<figure><img class="docimage" src="images/tristan_v2/pic_concept/step4.png" alt="step4" /></figure>
+
+<h5 id="5-amperes-law-with-currents">5. Ampere’s law with currents</h5>
+<p>Add currents to the Ampere’s law.</p>
+<figure><img class="docimage" src="images/tristan_v2/pic_concept/step5.png" alt="step5" /></figure>
+
+<h5 id="6-output">6. Output</h5>
+<p>And return to step 1.</p>
+
+<div class="alert alert-info" role="alert"><i class="fa fa-info-circle"></i> <b>Note:</b> While the general algorithm is generic among different PIC codes, some details may still differ. There exist different algorithms for pushing particles (Boris, Vay), depositing currents (zig-zag, Esirkepov), filtering, etc.</div>
+
+
+
+    <div class="tags">
+        
+    </div>
+
+
+
+
+</div>
+
+<hr class="shaded"/>
+
+<footer>
+<div class="row">
+  <div class="col-lg-12 footer">
+    &copy;2019 Plasmoids. All rights reserved. <br />
+<span>Page last updated:</span> Dec 17, 2019<br/> Site last generated: Dec 22, 2019 <br />
+  </div>
+</div>
+</footer>
+
+
+        </div>
+    <!-- /.row -->
+</div>
+<!-- /.container -->
+</div>
+<!-- /#main -->
+    </div>
+</body>
+</html>
