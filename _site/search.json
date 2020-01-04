@@ -142,6 +142,17 @@
 
 
 {
+"title": "Writing a documentation",
+"tags": "",
+"keywords": "documentation, doc, tutorial, wiki, edit",
+"url": "tristanv2-writingdoc.html",
+"summary": "Tutorial on how to contribute to this wiki."
+}
+,
+
+
+
+{
 "title": "Writing a user file",
 "tags": "",
 "keywords": "userfile, setup, domain, fields, initialize",

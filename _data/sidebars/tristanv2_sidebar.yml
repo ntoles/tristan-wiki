@@ -64,6 +64,9 @@ entries:
       - title: Supported flags
         url: /tristanv2-confflags.html
         output: web
+      - title: Writing a documentation
+        url: /tristanv2-writingdoc.html
+        output: web
       - title: Coding style
         url: /tristanv2-codestyle.html
         output: web
