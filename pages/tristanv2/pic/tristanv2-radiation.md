@@ -70,7 +70,7 @@ $$</div>
 
 Now we might also want to know what the radiated photon spectrum looks like. For that we need a way to take the radiated energy subtracted by the radiation reaction force and deposit it to photons (either real photon particles or just into spectrum).
 
-We will assume that at each moment in time particle can only radiate a photon with the corresponding synchrotron peak energy. For that we need another dimensionless parameter, $\tilde{\gamma}\_{\rm syn}$ (think of `\tilde` as of photon `:)`), which determines the Lorentz-factor of a particle that in the magnetic field $B = B_{\rm norm}$ has a synchrotron peak equal to the particle rest mass energy, $m_e c^2$:
+We will assume that at each moment in time particle can only radiate a photon with the corresponding synchrotron peak energy. For that we need another dimensionless parameter, $\tilde{\gamma}_{\rm syn}$ (think of `\tilde` as of photon `:)`), which determines the Lorentz-factor of a particle that in the magnetic field $B = B_{\rm norm}$ has a synchrotron peak equal to the particle rest mass energy, $m_e c^2$:
 
 <div>$$
 \frac{3}{2}\frac{\hbar e B_{\rm norm} {\color{red}\tilde{\gamma}_{\rm syn}^2}}{m_e c}
@@ -144,3 +144,46 @@ The IC cooling can also be turned on or off for a particular particle species th
 ```
 
 ### IC radiation drag
+
+The drag on a relativistic particle in an isotropic soft radiation field with energy density $U_{\rm ph}$ is
+given by
+<div>$$
+m_e c \frac{\mathrm{d}\boldsymbol{u}}{\mathrm{d}t} =
+  \boldsymbol{f}_{\rm IC} = -\frac{4}{3}\sigma_{\rm T}U_{\rm ph}\gamma^2\boldsymbol{\beta},
+$$</div>
+where $\sigma_T = (8\pi/3) r_e^2$ is the Thomson cross section. Similar as for synchrotron cooling, we introduce a characteristic Lorentz factor $\gamma_{\rm IC}$ (named `gamma_ic` in the input file), which characterizes the cooling
+strength. This is defined by balancing the inverse Compton cooling against the acceleration from a fiducial reconnection electric field:
+<div>$$
+|e|\beta_{\rm rec}B_{\rm norm}\color{red}{(c?!)} = \frac{4}{3}\sigma_{\rm T}U_{\rm ph}\gamma_{\rm IC}^2.
+$$</div>
+In the new parametrization, the IC drag (in `Tristan` units) reads
+<div>$$
+\frac{\mathrm{d}\boldsymbol{u}}{\mathrm{d}t} = - \frac{\beta_{\rm rec}B_{\rm norm}}{c}\left(\frac{\gamma}{\gamma_{\rm IC}}\right)^2\boldsymbol{\beta}.
+$$</div>
+
+### IC photon emission
+
+When emission is switched on, particles may randomly emit photons with energy equal to the
+IC peak energy. The peak energy of the upscattered photons is
+$\varepsilon_{\rm ph}\approx \gamma^2\varepsilon_{0},$ where
+$\varepsilon_{0}$ is the energy of the soft photons before scattering. Instead of using $\varepsilon_0$
+we introduce $\tilde{\gamma}_{\rm IC} = \sqrt{m_ec^2/\varepsilon_0}$ (parameter `emit_gamma_ic` in
+the input file), which gives the particle Lorentz
+factor required to emit a photon with energy $m_ec^2$. The IC photon energy can be
+therefore written as
+<div>$$
+\frac{\varepsilon_{\rm ph}}{m_ec^2} = \left(\frac{\gamma}{\tilde{\gamma}_{\rm IC}}\right)^2.
+$$</div>
+
+Same as for synchrotron emission, we introduce the emission probability $p_{\rm ph}$,
+which is found at every step and for every particle via momentum conservation. That is, we require that the change of
+particle momementum due to the IC drag is equal (in a statistical sense) to the momentum of the newely
+emitted photons:
+<div>$$
+\frac{\mathrm{d} \boldsymbol{u}}{\mathrm{d} t} = -p_{\rm ph} \frac{\varepsilon_{\rm ph}}{m_e c^2}\frac{\boldsymbol{\beta}}{\beta} = -p_{\rm ph}\left(\frac{\gamma}{\tilde{\gamma}_{\rm IC}}\right)^2\frac{\boldsymbol{\beta}}{\beta} =
+-\frac{\beta_{\rm rec}B_{\rm norm}}{c}\left(\frac{\gamma}{\gamma_{\rm IC}}\right)^2\boldsymbol{\beta}
+$$</div>
+This gives for the emission probability (again, in `Tristan` units)
+<div>$$
+p_{\rm ph} = \frac{\beta_{\rm rec}B_{\rm norm}}{c}\beta \left(\frac{\tilde{\gamma}_{\rm IC}}{\gamma_{\rm IC}}\right)^2.
+$$</div>
