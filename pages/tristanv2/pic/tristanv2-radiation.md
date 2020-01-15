@@ -33,7 +33,7 @@ The cooling can also be turned on or off for a particular particle species throu
 
 ### Synchrotron radiation drag
 
-Radiation reaction force for a particle with a 4-velocity $\gamma\boldsymbol{\beta}$ is given by the following expression (in `Tristan` [units](tristanv2-sim-units.html)):
+Radiation reaction force for a particle with a 4-velocity $\gamma\boldsymbol{\beta}$ is given by the following expression:
 
 <div>$$
 m_e c \frac{\mathrm{d}\boldsymbol{u}}{\mathrm{d}t} =
@@ -154,7 +154,7 @@ $$</div>
 where $\sigma_T = (8\pi/3) r_e^2$ is the Thomson cross section. Similar as for synchrotron cooling, we introduce a characteristic Lorentz factor $\gamma_{\rm IC}$ (named `gamma_ic` in the input file), which characterizes the cooling
 strength. This is defined by balancing the inverse Compton cooling against the acceleration from a fiducial reconnection electric field:
 <div>$$
-|e|\beta_{\rm rec}B_{\rm norm}\color{red}{(c?!)} = \frac{4}{3}\sigma_{\rm T}U_{\rm ph}\gamma_{\rm IC}^2.
+|e|\beta_{\rm rec}B_{\rm norm}\color{red} = \frac{4}{3}\sigma_{\rm T}U_{\rm ph}\gamma_{\rm IC}^2.
 $$</div>
 In the new parametrization, the IC drag (in `Tristan` units) reads
 <div>$$
