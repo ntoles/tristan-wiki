@@ -33,7 +33,7 @@ In Gaussian units we take $k_1 = 1$ and $\alpha = c$ to get:
 \frac{\partial \boldsymbol{E}_G}{\partial t} & = & c\nabla\times \boldsymbol{B}_G - 4\pi \boldsymbol{J}_G, \\
 \frac{\partial \boldsymbol{B}_G}{\partial t} & = & -c\nabla\times \boldsymbol{E}_G,
 \end{eqnarray}
-$$</div> 
+$$</div>
 
 where the fields $\boldsymbol{E}_G$, $\boldsymbol{B}_G$ and $\boldsymbol{J}_G$ are in CGS units.
 
@@ -68,7 +68,7 @@ $$</div>
 We further also assume $\|e\| = m_e$, so the Lorentz force becomes
 
 <div>$$
-\frac{\mathrm{d} \boldsymbol{v}}{\mathrm{d} t} = \frac{\hat{q}}{\hat{m}} c B_{\rm norm}\left(\boldsymbol{e} + \frac{\boldsymbol{v}}{c}\times \boldsymbol{b}\right),
+\frac{\mathrm{d} (\gamma \boldsymbol{v})}{\mathrm{d} t} = \frac{\hat{q}}{\hat{m}} B_{\rm norm}\left(\boldsymbol{e} + \frac{\boldsymbol{v}}{c}\times \boldsymbol{b}\right),
 $$</div>
 
 where $\hat{q}$ and $\hat{m}$ are normalized to $\|e\|$ and $m_e$.
