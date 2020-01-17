@@ -107,7 +107,7 @@ folder: tristanv2
     `--radiation=[MECHANISM]`
   </td>
   <td markdown="span">
-    Enable radiation reaction with the specified `MECHANISM`. Currently supports `sync` for synchrotron and `ic` for inverse Compton radiation. To enable both do `--radiation=ic+syn`.
+    Enable radiation reaction with the specified `MECHANISM`. Currently supports `sync` for synchrotron and `ic` for inverse Compton radiation. To enable both do `--radiation=sync+ic`.
   </td>
 </tr>
 <tr>

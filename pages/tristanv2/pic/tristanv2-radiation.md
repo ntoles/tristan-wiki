@@ -33,7 +33,7 @@ The cooling can also be turned on or off for a particular particle species throu
 
 ### Synchrotron radiation drag
 
-Radiation reaction force for a particle with a 4-velocity $\gamma\boldsymbol{\beta}$ is given by the following expression:
+Radiation reaction force for a particle with a 4-velocity $\boldsymbol{u}=\gamma\boldsymbol{\beta}$ is given by the following expression:
 
 <div>$$
 m_e c \frac{\mathrm{d}\boldsymbol{u}}{\mathrm{d}t} =
@@ -153,7 +153,10 @@ m_e c \frac{\mathrm{d}\boldsymbol{u}}{\mathrm{d}t} =
   \boldsymbol{f}_{\rm IC} = -\frac{4}{3}\sigma_{\rm T}U_{\rm ph}\gamma^2\boldsymbol{\beta},
 $$</div>
 
-where $\sigma_T = (8\pi/3) r_e^2$ is the Thomson cross section. Similar as for synchrotron cooling, we introduce a characteristic Lorentz factor $\gamma_{\rm IC}$ (named `gamma_ic` in the input file), which characterizes the cooling
+where $\sigma_T = (8\pi/3) r_e^2$ is the Thomson cross section. We assume that the
+Klein-Nishina effect is negligible, although this would only add
+a multiplicative factor to the scattering cross section.
+Similar as for synchrotron cooling, we introduce a characteristic Lorentz factor $\gamma_{\rm IC}$ (named `gamma_ic` in the input file), which characterizes the cooling
 strength. This is defined by balancing the inverse Compton cooling against the acceleration from a fiducial reconnection electric field:
 
 <div>$$
@@ -172,7 +175,7 @@ When emission is switched on, particles may randomly emit photons with energy eq
 IC peak energy. The peak energy of the upscattered photons is
 $\varepsilon_{\rm ph}\approx \gamma^2\varepsilon_{0},$ where
 $\varepsilon_{0}$ is the energy of the soft photons before scattering. Instead of using $\varepsilon_0$
-we introduce 
+we introduce
 
 <div>$$
 {\color{red}\tilde{\gamma}_{\rm IC}^2} \varepsilon_0 {\color{red}\equiv }  m_e c^2
@@ -180,7 +183,7 @@ $$</div>
 
 (parameter `emit_gamma_ic` in
 the input file), which gives the particle Lorentz
-factor required to emit a photon with energy $m_ec^2$. The IC photon energy can be
+factor required to emit a photon with energy $m_ec^2.$ The IC photon energy can be
 therefore written as
 
 <div>$$
@@ -199,3 +202,13 @@ This gives the emission probability at a given timestep:
 <div>$$
 p_{\rm ph} = \frac{|e|}{m_e}\frac{B_{\rm norm}}{c}\beta \beta_{\rm rec} \left(\frac{\tilde{\gamma}_{\rm IC}}{\gamma_{\rm IC}}\right)^2.
 $$</div>
+
+### Numerical tests
+
+One astrophysically relevant test is a radiatively cooled plasma where particles are continuously
+injected by sampling from a power-law energy distribution. In the test below, we study the evolution of the
+electron energy spectrum in the presence of such continuous injection and IC cooling. The injected particles
+have a $p=-2$ energy spectrum exponent. As theoretically expected, the energy spectrum develops a
+cooling break with a spectral exponent of $p-1$. The break shifts to ever lower energies over time.
+
+{% include image.html file="tristan_v2/radiation/ic_cool_and_inject.png" alt="ic_cool_and_inject"%}
