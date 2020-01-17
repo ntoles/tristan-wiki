@@ -10,7 +10,7 @@ Load balancing is a way to distribute the computational domain between MPI proce
 
 ### Static load balancing
 
-Static load balancing for `Tristan v2` has to be turned on during the configuration with `-slb` flag. When we do that, we should see the following line:
+Static load balancing for `Tristan-MP v2` has to be turned on during the configuration with `-slb` flag. When we do that, we should see the following line:
 
 ```bash
   Load balancing:          static

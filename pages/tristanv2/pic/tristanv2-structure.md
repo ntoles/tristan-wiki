@@ -18,7 +18,7 @@ Each core has the information about the whole simulation domain and its decompos
 Field quantities, such as the components of the electric and magnetic field, as well as the components of the current density are stored locally on each MPI unit. These are simple 3d arrays for the cells corresponding to specific subdomain assigned to the specific MPI rank. These field arrays are, however, slightly larger than the size of the local subdomain (by `NGHOST` cells in each dimension) which allows to store a small part of data from the neighboring subdomains. This vastly increases the performance by decreasing the number of MPI communications required.
 
 ##### 3. Particles.
-Since `Tristan v2` is has a multi-species architecture, particles are stored in the array called `species(:)`. Each `species(s)` object has a three dimensional array of tiles, `prtl_tile(:,:,:)`, which basically subdivides the local subdomain into finer regions (typically few cells in size). These tiles further contain all the necessary particle information, such as coordinates and velocities.
+Since `Tristan-MP v2` is has a multi-species architecture, particles are stored in the array called `species(:)`. Each `species(s)` object has a three dimensional array of tiles, `prtl_tile(:,:,:)`, which basically subdivides the local subdomain into finer regions (typically few cells in size). These tiles further contain all the necessary particle information, such as coordinates and velocities.
 
 Visually the structure looks like the animation below. Further in this section we will discuss all the components in more details.
 

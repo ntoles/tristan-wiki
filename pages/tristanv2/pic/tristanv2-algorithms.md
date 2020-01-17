@@ -2,12 +2,12 @@
 title: Numerical algorithms
 keywords: pic, algorithm, filter, solver, pusher, interpolate
 last_updated: Dec 18, 2019
-summary: "Brief description of all the main numerical algorithms implemented in Tristan v2."
+summary: "Brief description of all the main numerical algorithms implemented in Tristan-MP v2."
 permalink: tristanv2-algorithms.html
 folder: tristanv2
 ---
 
-Because `Tristan v2` uses adjustable number of ghost zones per each MPI subdomain it is fairly easy to implement any high order Maxwell solver schemes or different particle shape functions. However, in its most basic version we use the simplest schemes. Recommended minimum number of ghost cells is `--NGHOSTS=3`, but keep in mind that the performance may vary with different number of ghost cells depending on the particular setup. We focus on the main loop with the correct ordering of operations in the [other section](tristanv2-pic-concept.html). In this section we describe the numerical aspects of each of the substeps.
+Because `Tristan-MP v2` uses adjustable number of ghost zones per each MPI subdomain it is fairly easy to implement any high order Maxwell solver schemes or different particle shape functions. However, in its most basic version we use the simplest schemes. Recommended minimum number of ghost cells is `--NGHOSTS=3`, but keep in mind that the performance may vary with different number of ghost cells depending on the particular setup. We focus on the main loop with the correct ordering of operations in the [other section](tristanv2-pic-concept.html). In this section we describe the numerical aspects of each of the substeps.
 
 ## Field solver
 

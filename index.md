@@ -1,13 +1,13 @@
 ---
-title: "Tristan v2 wiki homepage"
+title: "Tristan-MP v2 wiki homepage"
 keywords: homepage
 sidebar: tristanv2_sidebar
 permalink: index.html
 ---
 
-## Latest on `Tristan v2`
+## Latest on `Tristan-MP v2`
 
-`Tristan v2` is the second (arguably third) reincarnation of the most awesome astroplasma particle-in-cell code in the world written in Fortran 90.
+`Tristan-MP v2` is the second (arguably third) reincarnation of the most awesome astroplasma particle-in-cell code in the world written in Fortran 90.
 
 If you would like to learn more about the code structure, compilation rules, or how to build a user file, feel free to read through this wiki. Navigation bar is on the right.
 

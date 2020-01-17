@@ -3,10 +3,10 @@ repository: PrincetonUniversity/tristan-v2
 output: web
 # this property is useful for conditional filtering of content that is separate from the PDF.
 
-topnav_title: Tristan v2 Documentation
+topnav_title: Tristan-MP v2 Documentation
 # this appears on the top navigation bar next to the home button
 
-site_title: Tristan v2 Wiki
+site_title: Tristan-MP v2 Wiki
 # this appears in the html browser tab for the site title (seen mostly by search engines, not users)
 
 company_name: Plasmoids

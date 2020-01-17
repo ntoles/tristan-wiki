@@ -6,7 +6,7 @@ permalink: tristanv2-writinguserfile.html
 folder: tristanv2
 ---
 
-In this section we are going to learn the basics of writing a user file in `Tristan v2`.
+In this section we are going to learn the basics of writing a user file in `Tristan-MP v2`.
 
 As an example we are going to write a user file for a two dimensional double periodic reconnection setup, since it involves some of the most basic and necessary routines and building blocks.
 
