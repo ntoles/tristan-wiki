@@ -14,19 +14,19 @@ If you would like to learn more about the code structure, compilation rules, or 
 ### Recent updates
 
 * [Static load balancing](tristanv2-loadbal.html#static-load-balancing)
-* [Synchrotron radiation/cooling](tristanv2-radiation.html#synchrotron-cooling)
+* [Synchrotron radiation/cooling](tristanv2-radiation.html#synchrotron-cooling) [_not available in public release_]
 * Absorbing boundary conditions in 2D
+* [Inverse Compton radiation/cooling](tristanv2-radiation.html#inverse-compton-cooling) [_not available in public release_]
 
 ### Under development
 
 * Two-photon pair production
-* Inverse Compton radiation/cooling
+* Vectorization/alignment
+* Adaptive load balancing
 
 ### Future plans
 
 * Restart
-* Vectorization/alignment
-* Adaptive load balancing
 * Absorbing boundary conditions in 3D
 * Compton scattering
 * $\gamma + \boldsymbol{B}$ pair production
