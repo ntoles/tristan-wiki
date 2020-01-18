@@ -26,7 +26,7 @@ entries:
       - title: User file
         url: /tristanv2-userfile.html
         output: web
-      - title: Visualization
+      - title: Output & visualization
         url: /tristanv2-visualization.html
         output: web
 

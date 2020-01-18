@@ -131,7 +131,7 @@ function userSpatialDistribution(x_glob, y_glob, z_glob,&
 end function
 ```
 
-{% include tip.html content="detailed description of particle structure can be found [here](...)."%}
+{% include tip.html content="detailed description of particle structure can be found [here](tristanv2-structure.html#particles)."%}
 
 ### Initializing fields
 Field initialization is fairly straightforward, except that we need to worry about the staggering. In this case we will only be initializing the `by` as a function of `x`, so we don't have to worry about staggering at all. Here is what the `userInitFields()` routine should look like:
@@ -167,4 +167,4 @@ end subroutine userInitFields
 And that's it. If you run it and read the initial data, it will produce something similar to this (left panel: density, right panel: `by`):
 {% include image.html file="tristan_v2/guides/2d2prec.png" alt="2d2prec"%}
 
-{% include tip.html content="To learn how to read the output and visualize the data, please read the following [chapter](...)."%}
+{% include tip.html content="To learn how to read the output and visualize the data, please read the following [chapter](tristanv2-visualization.html#visualization)."%}

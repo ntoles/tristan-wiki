@@ -3,9 +3,11 @@
 topnav:
 - title: Topnav
   items:
-    - title: Tristan-MP v2 GitHub
+    - title: Tristan-MP v2
       external_url: https://github.com/PrincetonUniversity/tristan-v2
-#
+    - title: Tristan-MP v2 [public]
+      external_url: https://github.com/PrincetonUniversity/tristan-mp-v2
+
 # #Topnav dropdowns
 # topnav_dropdowns:
 # - title: Topnav dropdowns
