@@ -6,7 +6,7 @@ permalink: tristanv2-visualization.html
 folder: tristanv2
 ---
 
-<!-- ## Output
+## Output
 
 `Tristan-MP v2` outputs several files in `hdf5` format while running the simulation.
 
@@ -242,4 +242,4 @@ Plot the data parsed from the `report` file by either a stackplot of all substep
 isolde.plotReport(ax, report)
 # optional arguments:
 #    `only_fullstep `: plot only the full step or a stackplot of all substeps [`True` or `False`]
-``` -->
+```
