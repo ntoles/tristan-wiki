@@ -58,6 +58,9 @@ entries:
   - title: Useful Guides
     output: web
     folderitems:
+      - title: Performance and scaling
+        url: /tristanv2-performance.html
+        output: web
       - title: Writing a user file
         url: /tristanv2-writinguserfile.html
         output: web

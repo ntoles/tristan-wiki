@@ -11,3 +11,7 @@
     background-color: #dfdfdf;
     color: #333;
 }
+
+.axis-grid line {
+  stroke: #def;
+}
