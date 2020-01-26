@@ -6,6 +6,8 @@ permalink: tristanv2-radiation.html
 folder: tristanv2
 ---
 
+{% include note.html content="This module is not available in the public version." %}
+
 ## Synchrotron cooling
 
 To enable synchrotron cooling add the following flag during the configuration: `--radiation=sync`. This will enable the synchrotron drag force and the instantaneous photon spectrum. To also create physical photons tracked in simulation as regular particles add the `-emit` flag.
@@ -211,4 +213,4 @@ electron energy spectrum in the presence of such continuous injection and IC coo
 have a $p=-2$ energy spectrum exponent. As theoretically expected, the energy spectrum develops a
 cooling break with a spectral exponent of $p-1$. The break shifts to ever lower energies over time.
 
-{% include image.html file="tristan_v2/radiation/ic_cool_and_inject.png" alt="ic_cool_and_inject"%}
+{% include image.html file="tristan_v2/radiation/ic_cool_and_inject.png" max-width="70%" alt="ic_cool_and_inject"%}
