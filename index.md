@@ -17,16 +17,17 @@ If you would like to learn more about the code structure, compilation rules, or 
 * [Synchrotron radiation/cooling](tristanv2-radiation.html#synchrotron-cooling) [_not available in public release_]
 * Absorbing boundary conditions in 2D
 * [Inverse Compton radiation/cooling](tristanv2-radiation.html#inverse-compton-cooling) [_not available in public release_]
+* [Two-photon pair production](tristanv2-qed.html#breit-wheeler-pair-production) [_not available in public release_]
+* Vectorization/alignment
 
 ### Under development
 
-* Two-photon pair production
-* Vectorization/alignment
+* Particle weights and downsampling
 * Adaptive load balancing
+* Compton scattering
 
 ### Future plans
 
 * Restart
 * Absorbing boundary conditions in 3D
-* Compton scattering
 * $\gamma + \boldsymbol{B}$ pair production
