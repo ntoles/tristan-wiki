@@ -130,3 +130,15 @@ Depending on which algorithm is chosen, the routine goes through some procedure 
 On the plot below we compare the two pairing methods (binary and Monte-Carlo) with the analytic model from [Aharonyan+ 1983](https://link.springer.com/article/10.1007%2FBF01005624). We initialize a periodic box with two isotropically distributed monoenergetic photon populations with energies $\varepsilon_1 = 0.1 m_e c^2$ and $\varepsilon_2 = 100 m_e c^2$.
 
 {% include image.html file="tristan_v2/qed/mc_bin_an.png" alt="mc_bin_ad" max-width="70%"%}
+
+#### Weights
+
+Pair production process respects particle weights. This means that (in an ideal situation) there should be almost no difference between two-photon pair production of two macro-photons with weights `1` and `10`, and between `11` separate macro-photons. However, of course, there is no free lunch, so downsampling, as expected may reduce the sampling resolution of the photon distribution function, and, as a result, the distribution function of  produced electron-positron pairs.
+
+Below we present an example simulation where we initialize two monoenergetic photon sources, with energies $E\sim 5 m_e c^2$, emitting two counterstreaming photon populations at a given rate. We present 3 cases with varying weights of emitted photons, the rates are adjusted accordingly. The leftmost panel in all 3 cases is the photon number density, the central panel is the density of produced pairs (which for the purposes of demonstration are frozen), and the rightmost panel is the spectrum of produced pairs.
+
+{% include image.html file="tristan_v2/qed/mc_1.png" alt="mc1" max-width="70%" caption="Both sources emit photons with weight 1." %}
+
+{% include image.html file="tristan_v2/qed/mc_10.png" alt="mc10" max-width="70%" caption="Both sources emit photons with weight 10." %}
+
+{% include image.html file="tristan_v2/qed/mc_5_1.png" alt="mc51" max-width="70%" caption="Left source emits weight 5 photons, while the right one -- with weight 1." %}

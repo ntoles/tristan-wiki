@@ -19,6 +19,7 @@ folder: tristanv2
 </thead>
 <tbody>
 
+
 <tr class="header">
   <th colspan="2">Compiler specifications</th>
 </tr>
@@ -104,6 +105,30 @@ folder: tristanv2
 </tr>
 <tr>
   <td markdown="span">
+    `--unit=[UNIT_FILE]`
+  </td>
+  <td markdown="span">
+    Name of the unit file (for debugging) from the `unit/` directory (without the extension).
+  </td>
+</tr>
+<tr>
+  <td markdown="span">
+    `-extfields`
+  </td>
+  <td markdown="span">
+    Enable user specified stationary external fields in the mover.
+  </td>
+</tr>
+<tr>
+  <td markdown="span">
+    `-dwn`
+  </td>
+  <td markdown="span">
+    Enable particle downsampling.
+  </td>
+</tr>
+<tr>
+  <td markdown="span">
     `--radiation=[MECHANISM]`
   </td>
   <td markdown="span">
@@ -132,6 +157,19 @@ folder: tristanv2
   </td>
   <td markdown="span">
     Enable the Breit-Wheeler pair production.
+  </td>
+</tr>
+
+
+<tr class="header">
+  <th colspan="2">Cluster specific shortcuts</th>
+</tr>
+<tr>
+  <td markdown="span">
+    `-perseus`
+  </td>
+  <td markdown="span">
+    Configures with `ifport`, `mpi` and `intel` for the [Perseus](https://researchcomputing.princeton.edu/systems-and-services/available-systems/perseus) cluster.
   </td>
 </tr>
 

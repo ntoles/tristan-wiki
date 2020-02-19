@@ -45,6 +45,9 @@ entries:
       - title: Numerical algorithms
         url: /tristanv2-algorithms.html
         output: web
+      - title: Particle downsampling
+        url: /tristanv2-downsampling.html
+        output: web
       - title: Load balancing
         url: /tristanv2-loadbal.html
         output: web

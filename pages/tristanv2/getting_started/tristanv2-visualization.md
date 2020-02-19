@@ -77,6 +77,7 @@ The output parameters can be configured from the `input` file. Following are the
   stride        = 100            # particle stride (save every N-th particle)
   istep         = 4              # field downsampling
   flds_at_prtl  = 1              # save fields at particle position
+  write_xdmf    = 1              # enable XDMF file writing (to open hdf5 in VisIt)
 
   spec_min      = 1e-2           # min energy for `spec` file (`g - 1` for massive and `e` for massless)
   spec_max      = 1e3            # max energy for `spec` file (`g - 1` for massive and `e` for massless)
@@ -89,7 +90,14 @@ At the moment there are two ways to visualize the output data.
 
 ### `VisIt` app
 
-If `hdf5` flag is enabled during the execution, along with the field quantities the code will also output the `.xdmf` files. These are basically `xml` formatted files that contain the detailed description of the data structure in the `flds.tot.*****` (see details [here](http://www.xdmf.org/index.php/Main_Page)). This is necessary for the `VisIt` visualization app to recognize the `hdf`-files and be able to read them. `VisIt` is probably the fastest way to visualize three dimensional field quantities.
+If `hdf5` flag is enabled during the execution, along with the field quantities the code will also output the `.xdmf` files. These are basically `xml` formatted files that contain the detailed description of the data structure in the `flds.tot.*****` (see details [here](http://www.xdmf.org/index.php/Main_Page)). This is necessary for the `VisIt` visualization app to recognize the `hdf`-files and be able to read them. `VisIt` is probably the fastest way to visualize three dimensional field quantities. You can enable/disable the output of these auxiliary files from the `input` file:
+
+```bash
+<output>
+  # ...
+  write_xdmf    = 1              # enable XDMF file writing (to open hdf5 in VisIt)
+  # ...
+```
 
 ### `python` module
 
