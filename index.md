@@ -23,7 +23,6 @@ If you would like to learn more about the code structure, compilation rules, or 
 ### Under development
 
 * Compton scattering
-* Vectorization/alignment
 * Absorbing boundary conditions in 3D
 
 ### Future plans
