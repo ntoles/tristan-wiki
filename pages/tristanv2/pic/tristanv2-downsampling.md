@@ -8,15 +8,15 @@ folder: tristanv2
 
 ### Weights
 
-In `Tristan-MP v2` particles, along with other parameters like coordinates and momenta, have weights. This quantity is stored similarly on a tile `tile%weight(p)` (it has a type of `integer(kind=2)`). Likewise the weight can be passed to particle injection functions:
+In `Tristan-MP v2` particles, along with other parameters like coordinates and momenta, have weights. This quantity is stored similarly on a tile `tile%weight(p)` (it has a type of `real`). Likewise the weight can be passed to particle injection functions:
 
 ```fortran
-call injectParticleGlobally(s, x, y, z, u, v, w, weight = 123_2)
+call injectParticleGlobally(s, x, y, z, u, v, w, weight = 123.0)
 ! or
-call createParticle(s, xi, yi, zi, dx, dy, dz, u, v, w, weight = 123_2)
+call createParticle(s, xi, yi, zi, dx, dy, dz, u, v, w, weight = 123.0)
 ```
 
-Notice that the weight, `123_2`, is in the form of 2 byte integer (one could also equivalently do `INT(123, 2)`). If the weight is not passed, by default a particle with weight of `1` is created.
+Notice that the weight, `123.0`, is in the form of a floating point number. If the weight is not passed, by default a particle with weight of `1.0` is created.
 
 Particle weights are taken into account when computing the densities and energy densities saved into the `flds.tot.*****` files. Weights are also saved as particle quantities, and can then be accessed from `prtl.tot.*****`:
 
