@@ -27,7 +27,7 @@ particles = isolde.getParticles(filename)
 weights = particles['1']['wei'] # <- weights are saved into `wei` hdf5 database
 ```
 
-Both [pair production routines](tristanv2-qed.html#binary-vs-monte-carlo-coupling) (Monte-Carlo and binary) respect particle weights, and adjust accordingly, i.e. two particles with weights `10` and `1` will pair-produce as if there were `11` particles in total.
+Both [pair production routines](tristanv2-qed.html#binary-vs-monte-carlo-coupling) (Monte-Carlo and binary) respect particle weights, and adjust accordingly, i.e. two photons with weights `10.7` and `1.2` will pair-produce as if there were `11` particles in total. Photons with weights less than `1` do not participate in pair production. For this reason it is a good idea to make sure there are few photons below `1` in the simulation. 
 
 ### Particle downsampling
 
