@@ -27,15 +27,15 @@ Maxwell solver itself consists of three separate substeps. Faraday's law over ha
 
 <div>$$
 \begin{eqnarray}
-\frac{\boldsymbol{B}^{(n)} - \boldsymbol{B}^{(n-1/2)}}{\Delta t/2} &=& \tilde{c}\nabla\times \boldsymbol{E}^{(n)},~\text{and}\\
-\frac{\boldsymbol{B}^{(n+1/2)} - \boldsymbol{B}^{(n)}}{\Delta t/2} &=& \tilde{c}\nabla\times \boldsymbol{E}^{(n)}.
+\frac{\boldsymbol{B}^{(n)} - \boldsymbol{B}^{(n-1/2)}}{\Delta t/2} &=& -\tilde{c}\nabla\times \boldsymbol{E}^{(n)},~\text{and}\\
+\frac{\boldsymbol{B}^{(n+1/2)} - \boldsymbol{B}^{(n)}}{\Delta t/2} &=& -\tilde{c}\nabla\times \boldsymbol{E}^{(n)}.
 \end{eqnarray}
 $$</div>
 
 The Ampere's law over the full timestep $\Delta t$:
 
 <div>$$
-\frac{\boldsymbol{\tilde{E}}^{(n+1)} - \boldsymbol{E}^{(n)}}{\Delta t} = -\tilde{c}\nabla\times \boldsymbol{B}^{(n+1/2)}.
+\frac{\boldsymbol{\tilde{E}}^{(n+1)} - \boldsymbol{E}^{(n)}}{\Delta t} = \tilde{c}\nabla\times \boldsymbol{B}^{(n+1/2)}.
 $$</div>
 
 And the correction to the Ampere's law from the deposited currents:
