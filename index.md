@@ -15,7 +15,7 @@ If you would like to learn more about the code structure, compilation rules, or 
 
 * [Static load balancing](tristanv2-loadbal.html#static-load-balancing)
 * [Synchrotron radiation/cooling](tristanv2-radiation.html#synchrotron-cooling) [_N/A in public release_]
-* Absorbing boundary conditions in 2D
+* Absorbing boundary conditions in 2D/3D
 * [Inverse Compton radiation/cooling](tristanv2-radiation.html#inverse-compton-cooling) [_N/A in public release_]
 * [Two-photon pair production](tristanv2-qed.html) [_N/A in public release_]
 * [Particle weights](tristanv2-downsampling.html)
@@ -23,10 +23,9 @@ If you would like to learn more about the code structure, compilation rules, or 
 ### Under development
 
 * Compton scattering
-* Absorbing boundary conditions in 3D
+* Restart
 
 ### Future plans
 
 * Adaptive load balancing
-* Restart
 * $\gamma + \boldsymbol{B}$ pair production
