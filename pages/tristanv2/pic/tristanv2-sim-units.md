@@ -11,7 +11,7 @@ folder: tristanv2
 
 Each simulation cell by definition has a size of $\Delta x = \Delta y = \Delta z = 1$ in all dimensions, and the unit time (duration of the simulation timestep) is also $\Delta t = 1$.
 
-So fundamentally all spatial dimensions are measured in the number of cells, and temporal intervals are measured in the number of timesteps. The speed of light, `CC` (in code), is defined on compilation time (in `src/defs.F90`) and is usually taken to be `0.45` to ensure the CFL condition is always satisfied: $c\Delta t / \Delta x < 0.5$.
+So fundamentally all spatial dimensions are measured in the number of cells, and temporal intervals are measured in the number of timesteps. The speed of light, `CC` (in code), is defined in the input file and is usually taken to be `0.45` to ensure the CFL condition is always satisfied: $c\Delta t / \Delta x < 0.5$.
 
 ### Electromagnetic units
 
