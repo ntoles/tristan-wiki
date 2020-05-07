@@ -19,6 +19,15 @@ folder: tristanv2
 
 <tr>
   <td markdown="span">
+    `sim.params`
+  </td>
+  <td markdown="span">
+    Parameters of the simulation read from the `input` file. This one is a simple text file of the following format: `<BLOCKNAME> : <VARNAME> : <VALUE>`.
+  </td>
+</tr>
+
+<tr>
+  <td markdown="span">
     `flds.tot.*****`
   </td>
   <td markdown="span">

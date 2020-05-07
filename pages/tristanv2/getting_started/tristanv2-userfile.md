@@ -9,9 +9,10 @@ folder: tristanv2
 This is probably the most important chapter for the end-user, since the code is thought and designed in such a way, that a simple user might not want to touch the main skeleton of the code, and will only set up a problem through the so-called user file (stored in `user/*`) and the [input](tristanv2-inputfile.html) file.
 
 User file is a problem specific set of instructions for the simulation. It basically consists of three different types of routines:
-1. User specific initialization [`userInitialize()`]: read the problem specific parameters from the input file (those under `<problem>` block) and store them in private variables (ideally accessible only within the user file itself), initialize fields and particles;
-2. user specific driving [`userDriveParticles()`]: a subroutine called on every timestep to perform some action with particles;
-3. user specific boundary conditions [`userParticleBoundaryConditions()` and `userFieldBoundaryConditions()`]: these are also called at every timestep and are meant to contain a problem specific boundary conditions on particles (e.g., injection/reflection) and fields (e.g., forcing field values in specific regions).
+1. User specific parameters [`userReadInput()`]: read the problem specific parameters from the input file (those under the `<problem>` block) and store them in private variables (ideally accessible only within the user file itself);
+2. user specific initialization [`userInitParticles()` and `userInitFields()`]: initialize problem specific configuration of particles and fields;
+3. user specific driving [`userDriveParticles()`]: a subroutine called on every timestep to perform some action with particles;
+4. user specific boundary conditions [`userParticleBoundaryConditions()` and `userFieldBoundaryConditions()`]: these are also called at every timestep (field boundary conditions are called several times) and are meant to contain a problem specific boundary conditions on particles (e.g., injection/reflection) and fields (e.g., forcing field values in specific regions).
 
 {% include note.html content="Even if you don't want to do anything inside some of these user-specific subroutines, it is necessary to at least define them (keep empty) in the user file, as the main loop will be trying to access them. The most up-to-date dummy user file can be found [here](https://github.com/PrincetonUniversity/tristan-v2/blob/master/user/user_dummy.F90), when starting to write a problem generator from scratch, it's a good idea to start from that file." %}
 

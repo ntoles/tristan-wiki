@@ -17,7 +17,7 @@ $ mpiexec -np 8 ./tristan-mp2d -i myinput
 
 Following is an example of such an input file.
 
-```bash
+```python
 <node_configuration>
 
   sizex         = 2              # number of cpus in x direction

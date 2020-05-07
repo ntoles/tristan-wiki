@@ -29,6 +29,9 @@ entries:
       - title: Output & visualization
         url: /tristanv2-visualization.html
         output: web
+      - title: Restarting simulation
+        url: /tristanv2-restart.html
+        output: web
 
   - title: Code Description
     output: web
