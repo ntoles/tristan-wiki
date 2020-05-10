@@ -19,10 +19,10 @@ folder: tristanv2
 
 <tr>
   <td markdown="span">
-    `sim.params`
+    `params.*****`
   </td>
   <td markdown="span">
-    Parameters of the simulation read from the `input` file. This one is a simple text file of the following format: `<BLOCKNAME> : <VARNAME> : <VALUE>`.
+    Scalar variables for the simulation (timestep, etc) as well as parameters of the simulation read from the `input` file. Parameters are saved in the following format: `[<BLOCKNAME>_<VARNAME>] = <VALUE>` if saved in `hdf5` or `<BLOCKNAME> : <VARNAME> : <VALUE>` if saved in text format.
   </td>
 </tr>
 
