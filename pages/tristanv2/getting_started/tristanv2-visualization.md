@@ -1,6 +1,6 @@
 ---
 title: Output & visualization
-keywords: visualization, python, plot, draw, read, hdf5
+keywords: visualization, python, plot, draw, read, hdf5, params, fields, spectrum, spectra, particles
 last_updated: Jan 17, 2020
 permalink: tristanv2-visualization.html
 folder: tristanv2
@@ -22,7 +22,7 @@ folder: tristanv2
     `params.*****`
   </td>
   <td markdown="span">
-    Scalar variables for the simulation (timestep, etc) as well as parameters of the simulation read from the `input` file. Parameters are saved in the following format: `[<BLOCKNAME>_<VARNAME>] = <VALUE>` if saved in `hdf5` or `<BLOCKNAME> : <VARNAME> : <VALUE>` if saved in text format.
+    Scalar variables for the simulation (timestep, etc) as well as parameters of the simulation read from the `input` file.
   </td>
 </tr>
 
@@ -73,6 +73,8 @@ folder: tristanv2
 
 </tbody>
 </table>
+
+{% include note.html content="Parameters are saved in the following format: `[<BLOCKNAME>:<VARNAME>] = <VALUE>` if saved in `hdf5` or `<BLOCKNAME> : <VARNAME> : <VALUE>` if saved in text format. Also notice that the `<BLOCKNAME>` will be shortened to 3 symbols for simplicity, so to find the # of cpus in x direction from `params.*****` file you can simply read of the `[cpu:sizex]` variable, speed of light will be `[alg:c]` and `ppc0` -- `[pls:ppc0]`."%}
 
 {% include note.html content="The code makes sure particles saved in each output are the same to enable individual particle tracking."%}
 
