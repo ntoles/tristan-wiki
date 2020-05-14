@@ -113,6 +113,14 @@ folder: tristanv2
 </tr>
 <tr>
   <td markdown="span">
+    `-absorb`
+  </td>
+  <td markdown="span">
+    Enable absorbing boundary conditions (enables custom `-DABSORB` macros flag).
+  </td>
+</tr>
+<tr>
+  <td markdown="span">
     `-extfields`
   </td>
   <td markdown="span">
