@@ -22,8 +22,8 @@ If you would like to learn more about the code structure, compilation rules, or 
 
 #### Physics updates
 * <span class='date'>Aug 24 2019</span>[Synchrotron radiation/cooling](tristanv2-radiation.html#synchrotron-cooling) [_N/A in public release_]
-* <span class='date'>Dec 02 2029</span>[Inverse Compton radiation/cooling](tristanv2-radiation.html#inverse-compton-cooling) [_N/A in public release_]
-* <span class='date'>Dec 16 2029</span>[Two-photon pair production](tristanv2-qed.html) [_N/A in public release_]
+* <span class='date'>Dec 02 2019</span>[Inverse Compton radiation/cooling](tristanv2-radiation.html#inverse-compton-cooling) [_N/A in public release_]
+* <span class='date'>Dec 16 2019</span>[Two-photon pair production](tristanv2-qed.html) [_N/A in public release_]
 * <span class='date'>Mar 16 2020</span>Absorbing boundary conditions in 2D/3D
 
 ### Under development
