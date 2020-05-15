@@ -14,17 +14,17 @@ If you would like to learn more about the code structure, compilation rules, or 
 ### Recent updates
 
 #### Technical updates
-* [Static load balancing](tristanv2-loadbal.html#static-load-balancing)
-* [Particle weights](tristanv2-downsampling.html)
-* <span class='date'>10 May 2020</span>[Restart](tristanv2-restart.html)
-* <span class='date'>13 May 2020</span>[Parameters file](tristanv2-visualization.html#parameters)
-* <span class='date'>14 May 2020</span>[History](tristanv2-visualization.html#history)
+* <span class='date'>Aug 12 2019</span>[Static load balancing](tristanv2-loadbal.html#static-load-balancing)
+* <span class='date'>Feb 12 2020</span>[Particle weights & downsampling](tristanv2-downsampling.html)
+* <span class='date'>May 10 2020</span>[Restart](tristanv2-restart.html)
+* <span class='date'>May 13 2020</span>[Parameters file](tristanv2-visualization.html#parameters)
+* <span class='date'>May 14 2020</span>[History](tristanv2-visualization.html#history)
 
 #### Physics updates
-* [Synchrotron radiation/cooling](tristanv2-radiation.html#synchrotron-cooling) [_N/A in public release_]
-* Absorbing boundary conditions in 2D/3D
-* [Inverse Compton radiation/cooling](tristanv2-radiation.html#inverse-compton-cooling) [_N/A in public release_]
-* [Two-photon pair production](tristanv2-qed.html) [_N/A in public release_]
+* <span class='date'>Aug 24 2019</span>[Synchrotron radiation/cooling](tristanv2-radiation.html#synchrotron-cooling) [_N/A in public release_]
+* <span class='date'>Mar 16 2020</span>Absorbing boundary conditions in 2D/3D
+* <span class='date'>Dec 02 2029</span>[Inverse Compton radiation/cooling](tristanv2-radiation.html#inverse-compton-cooling) [_N/A in public release_]
+* <span class='date'>Dec 16 2029</span>[Two-photon pair production](tristanv2-qed.html) [_N/A in public release_]
 
 ### Under development
 
