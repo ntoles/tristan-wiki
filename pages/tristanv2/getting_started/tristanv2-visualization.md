@@ -8,7 +8,7 @@ folder: tristanv2
 
 ## Output
 
-`Tristan-MP v2` outputs several files in `hdf5` format while running the simulation.
+`Tristan-MP v2` outputs several files in `hdf5` and text format while running the simulation.
 
 <table>
 <colgroup>
@@ -74,11 +74,9 @@ folder: tristanv2
 </tbody>
 </table>
 
-{% include note.html content="Parameters are saved in the following format: `[<BLOCKNAME>:<VARNAME>] = <VALUE>` if saved in `hdf5` or `<BLOCKNAME> : <VARNAME> : <VALUE>` if saved in text format. Also notice that the `<BLOCKNAME>` will be shortened to 3 symbols for simplicity, so to find the # of cpus in x direction from `params.*****` file you can simply read of the `[cpu:sizex]` variable, speed of light will be `[alg:c]` and `ppc0` -- `[pls:ppc0]`."%}
+{% include tip.html content="The code makes sure particles saved in each output are the same to enable individual particle tracking."%}
 
-{% include note.html content="The code makes sure particles saved in each output are the same to enable individual particle tracking."%}
-
-The output parameters can be configured from the `input` file. Following are the most important output configurations with their corresponding description.
+Output can be configured from the `input` file. Following are the most important output configurations with their corresponding description.
 
 ```bash
 <output>
@@ -90,10 +88,46 @@ The output parameters can be configured from the `input` file. Following are the
   flds_at_prtl  = 1              # save fields at particle position
   write_xdmf    = 1              # enable XDMF file writing (to open hdf5 in VisIt)
 
+  hst_enable    = 0              # enable/disable history file
+  hst_interval  = 1              # interval between history outputs
+
   spec_min      = 1e-2           # min energy for `spec` file (`g - 1` for massive and `e` for massless)
   spec_max      = 1e3            # max energy for `spec` file (`g - 1` for massive and `e` for massless)
   spec_num      = 100            # number of energy bins
 ```
+
+### Parameters
+Simulation parameters are saved into the `params.*****` file with the following format: `[<BLOCKNAME>:<VARNAME>] = <VALUE>` if saved in `hdf5` or `<BLOCKNAME> : <VARNAME> : <VALUE>` if saved in text format. The `<BLOCKNAME>` will be shortened to 3 symbols for simplicity, so to find, say, the # of cpus in x direction from `params.*****` file you can simply read of the `[cpu:sizex]` variable, speed of light will be `[alg:c]` and `ppc0` -- `[pls:ppc0]`.
+
+```python
+with h5py.File('params.%05d' % 0, 'r') as param:
+  print (param.keys()) # <- list all the parameters
+  ppc0 = param['pls:ppc0'][0]
+  c = param['alg:c'][0]
+  # ... etc
+```
+
+### History
+
+To provide an additional control over the energy partition and conservation during the simulation you may enable the history output: set `hst_enable` to `1` from the `input` (in the `<output>` block). Code will print out electromagnetic and particle energies (with a specified frequency) summed over the whole domain in the following format:
+
+```bash
+=================================================================
+         |                                         |
+ [time]  |        [E^2]        [B^2]    [E^2+B^2]  |
+         |     [% Etot]     [% Etot]     [% Etot]  |       [Etot]
+         |                                         |
+         |       [lecs]       [ions]   [tot part]  |    [% dEtot]
+         |     [% Etot]     [% Etot]     [% Etot]  |
+         |                                         |
+=================================================================
+```
+
+Here `E^2` and `B^2` are the electric and magnetic energies, `lecs` and `ions` are the energies of negatively and positively charged particles respectively, `Etot` is the total energy, `% Etot` is the fraction of the corresponding variable from the total energy, and `% dEtot` is the change of the total energy w.r.t. its initial value.
+
+File named `history` with all this information for all the timesteps (with specified interval) will be saved and updated during runtime in the output directory.
+
+{% include note.html content="If massless particles (photons) are present in the simulation, in the `history` file instead of splitting partition of particle energy between electrons and ions, code will split it into massive and massless particles."%}
 
 ## Visualization
 

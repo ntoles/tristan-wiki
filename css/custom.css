@@ -15,3 +15,15 @@
 .axis-grid line {
   stroke: #def;
 }
+
+li > span.date {
+  border-style: solid;
+  border-radius: 5px;
+  border-width: 1px;
+  padding: 5px;
+  border-color: lightgray;
+  color: gray;
+  background-color: #f2f2f2;
+  font-size: 12px;
+  margin-right:10px
+}
