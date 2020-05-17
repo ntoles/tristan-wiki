@@ -79,3 +79,10 @@ entries:
       - title: Coding style
         url: /tristanv2-codestyle.html
         output: web
+
+  - title: Useful Tools
+    output: web
+    folderitems:
+      - title: Code unit calculator tool
+        url: /tristanv2-codeunitcalc.html
+        output: web

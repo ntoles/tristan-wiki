@@ -1,0 +1,187 @@
+.slider-group,
+.setvalue-group,
+.getvalue-group {
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  justify-content: center;
+  margin-bottom: 25px;
+}
+
+.slider-group {
+  border: 1px solid #99A3BA;
+  border-radius: 5px;
+  padding: 10px 15px;
+}
+
+.small-container {
+  padding-left: 0px;
+}
+
+.slider-minmax {
+  display: flex;
+  justify-content: space-between;
+}
+
+.slider-max {
+  text-align: right;
+}
+
+.panel-collapse {
+  padding-left: 10px;
+}
+
+.row.slider-row {
+  margin-left: 10px;
+}
+
+.slider-group input:not([type='range']),
+.setvalue-group input:not([type='range']),
+.setvalue input:not([type='range']) {
+  padding: 4px 8px;
+  width: 60px;
+  line-height: 25px;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: inherit;
+  border-radius: 6px;
+  -webkit-appearance: none;
+  color: #99A3BA;
+  border: 1px solid #CDD9ED;
+  background: #fff;
+  transition: border .3s ease;
+  &::placeholder {
+    color: #CBD1DC;
+  }
+  &:focus {
+    outline: none;
+    border-color: #275EFE;
+  }
+}
+
+.slider-small {
+  /* width: 100%; */
+  height: 28px; /* thumbHeight + (2 x thumbBorderWidth)*/
+  -webkit-appearance: none; /*remove the line*/
+  outline: none;
+  /*background-color:cyan;*/
+  border: 0; /*for firefox on android*/
+  padding: 0 8px; /*for IE*/
+  margin: 8px 0;
+}
+
+/*chrome and opera*/
+.slider-small::-webkit-slider-runnable-track {
+  background: #ccc; /*trackColor*/
+  height: 4px; /*trackHeight*/
+  border-radius: 4px; /*trackHeight*/
+  transition: 0.3s;
+}
+
+.slider-small:hover::-webkit-slider-runnable-track,
+.slider-small:focus::-webkit-slider-runnable-track {
+  background: #777; /*activeTrackColor*/
+}
+
+.slider-small::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  background: red; /*thumbColor*/
+  width: 28px; /* thumbHeight + (2 x thumbBorderWidth)*/
+  height: 28px; /* thumbHeight + (2 x thumbBorderWidth)*/
+  border-radius: 50%;
+  margin-top: -12px; /* -[thumbHeight + (2 x thumbBorderWidth) - trackHeight]/2*/
+  cursor: pointer;
+  border: 4px solid #fff; /*border-width should be equal to thumbBorderWidth if you want same border width across all browsers and border-color should match the background*/
+  transition: 0.3s;
+}
+
+.slider-small:hover::-webkit-slider-thumb,
+.slider-small:focus::-webkit-slider-thumb {
+  background: darkOrange; /*activeThumbColor*/
+}
+
+/*firefox*/
+.slider-small::-moz-focus-outer {
+  border: 0;
+}
+
+.slider-small::-moz-range-track {
+  background: #ccc; /*trackColor*/
+  height: 4px; /*trackHeight*/
+  border-radius: 4px; /*trackHeight*/
+  /*background isn't animatable, so can't use transition*/
+}
+
+.slider-small:hover::-moz-range-track,
+.slider-small:focus::-moz-range-track {
+  background: #777; /*activeTrackColor*/
+}
+
+.slider-small::-moz-range-thumb {
+  background: red; /*thumbColor*/
+  width: 20px; /*thumbHeight*/
+  height: 20px; /*thumbHeight*/
+  border-radius: 50%;
+  cursor: pointer;
+  border: 4px solid #fff; /*border-width = thumbBorderWidth, border-color should match the background*/
+}
+
+.slider-small:hover::-moz-range-thumb,
+.slider-small:focus::-moz-range-thumb {
+    background: darkOrange; /*activeThumbColor*/
+}
+
+.slider-small::-moz-range-progress {
+  background: red; /*thumbColor*/
+  border-radius: 4px; /*trackHeight*/
+  height: 4px; /*trackHeight*/
+}
+
+.slider-small:hover::-moz-range-progress,
+.slider-small:focus::-moz-range-progress {
+  background: darkOrange; /*activeThumbColor*/
+}
+
+/*edge and IE*/
+.slider-small::-ms-track {
+  background: #ccc; /*trackColor*/
+  height: 4px; /*trackHeight*/
+  border-radius: 4px; /*trackHeight*/
+  border: none;
+  color: transparent;
+}
+
+.slider-small:hover::-ms-track,
+.slider-small:focus::-ms-track {
+  background: #777; /*activeTrackColor*/
+}
+
+.slider-small::-ms-thumb {
+  background: red; /*thumbColor*/
+  width: 20px; /*thumbHeight*/
+  height: 20px; /*thumbHeight*/
+  border-radius: 50%;
+  border: none;
+  margin: 0 4px 0; /*0 thumbBorderWidth 0*/
+  box-shadow: 0 0 0 4px #fff; /*0 0 0 thumbBorderWidth #fff, box-shadow color should match the background*/
+  /*cursor:pointer; doesn't work*/
+}
+
+.slider-small:hover::-ms-thumb,
+.slider-small:focus::-ms-thumb {
+  background: darkOrange; /*activeThumbColor*/
+}
+
+.slider-small::-ms-tooltip {
+    display: none; /*tooltip makes thumb sliding lagy*/
+}
+
+.slider-small::-ms-fill-lower {
+    background: red; /*thumbColor*/
+    border-radius: 4px; /*trackHeight*/
+}
+
+.slider-small:hover::-ms-fill-lower,
+.slider-small:focus::-ms-fill-lower {
+    background: darkOrange; /*activeThumbColor*/
+}
