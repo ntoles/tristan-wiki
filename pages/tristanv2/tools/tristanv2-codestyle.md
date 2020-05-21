@@ -122,7 +122,20 @@ For all the details on how the code units are defined see the following [section
       </div>
       <div id="collapseOne" class="panel-collapse collapse noCrossRef in" aria-expanded="true">
         <div class="panel-body">
-          <p>Pulsar setup is initialized with a conducting sphere of radius $R_*$ (in cells) in the middle of the simulation box. The field is initially dipolar, while the conductor rotates with a period $P$ (in units of $\Delta t$). Important quantities include $R_{\rm LC}$ - size of the light cylinder, $r_L(R_{\rm LC})$ - larmor radius of particles near the light cylinder, $n_{\rm GJ}^*$ - GJ density required to screen the parallel electric field near the star, and the associated magnetization - $\sigma^*(n_{\rm GJ})$. </p>
+          <p>Pulsar setup is initialized with a conducting sphere of radius $R_*$ (in cells) in the middle of the simulation box. The field is initially dipolar, while the conductor rotates with a period $P$ (in units of $\Delta t$). Important quantities include $R_{\rm LC}$ - size of the light cylinder, $r_L(R_{\rm LC})$ - larmor radius of particles near the light cylinder, $n_{\rm GJ}^*$ - GJ density required to screen the parallel electric field near the star, and the associated magnetization - $\sigma^*(n_{\rm GJ}^*)$ - and the skin depth - $d_e(n_{\rm GJ}^*)$. $\Delta V$ is the potential drop across the polar cap.
+          </p>
+          <p>
+          We use the following equations (all the quantities are in code units)
+
+          <div class="long-eqn">$$
+          \Omega = \frac{2\pi}{P},~~R_{\rm LC} = \frac{c}{\Omega},~~B_{\rm LC}\approx B_*\left(\frac{R_{\rm LC}}{R_*}\right)^{-3},
+          $$</div>
+
+          <div class="long-eqn">$$
+          n_{\rm GJ}^* = \frac{2\Omega B_*}{c|e|},~~\frac{\Delta V}{m_e c^2}=\frac{1}{c^2}B_*R_*\left(\frac{R_*}{R_{\rm LC}}\right)^2.
+          $$</div>
+
+          </p>
           <div style="margin-top: 20px">
             <div class="row">
               <div class="col-sm-4 small-container">
@@ -154,6 +167,11 @@ For all the details on how the code units are defined see the following [section
                     <p>$r_L(R_{\rm LC})=\gamma\beta~$<span class="value"></span></p>
                   </div>
                 </div>
+                <div id="de-output" class="dependent-value col-xs-12">
+                  <div class="value-output">
+                    <p>$\Delta V/m_e c^2=~$<span class="value"></span></p>
+                  </div>
+                </div>
               </div>
 
               <div class="col-sm-4 small-container">
@@ -164,7 +182,12 @@ For all the details on how the code units are defined see the following [section
                 </div>
                 <div id="sigmagj-output" class="dependent-value col-xs-12">
                   <div class="value-output">
-                    <p>$\sigma^*(n_{\rm GJ})=~$<span class="value"></span></p>
+                    <p>$\sigma^*(n_{\rm GJ}^*)=~$<span class="value"></span></p>
+                  </div>
+                </div>
+                <div id="degj-output" class="dependent-value col-xs-12">
+                  <div class="value-output">
+                    <p>$d_e(n_{\rm GJ}^*)=\langle\gamma\rangle^{1/2}~$<span class="value"></span></p>
                   </div>
                 </div>
               </div>
@@ -273,15 +296,25 @@ For all the details on how the code units are defined see the following [section
 
         let rstar = document.getElementById("rstar-input").getElementsByClassName("value")[0].value;
         let rlatlc_el = document.getElementById("rlatlc-output");
-        rlatlc_el.getElementsByClassName("value")[0].innerHTML = precise((comp / Math.sqrt(sigma)) * (rlc / rstar)**3);
+        let rlatlc = (comp / Math.sqrt(sigma)) * (rlc / rstar)**3
+        rlatlc_el.getElementsByClassName("value")[0].innerHTML = precise(rlatlc);
 
-        let nGJ = b_norm / (period * CC * qe);
+        let nGJ = 4 * Math.PI * ppc0 * comp * Math.sqrt(sigma) / (CC * period);
         let ngj_el = document.getElementById("ngj-output");
         ngj_el.getElementsByClassName("value")[0].innerHTML = precise(nGJ);
 
-        let sigmaGJ = sigma * ppc0 / nGJ;
+        let sigmaGJ = CC * period * Math.sqrt(sigma) / (4 * Math.PI * comp);
         let sigmagj_el = document.getElementById("sigmagj-output");
         sigmagj_el.getElementsByClassName("value")[0].innerHTML = precise(sigmaGJ);
+
+        let degj = CC * period / (4 * Math.PI * Math.sqrt(sigma));
+        let degj_el = document.getElementById("degj-output");
+        degj_el.getElementsByClassName("value")[0].innerHTML = precise(degj);
+
+        let de = 4 * Math.PI**2 * rstar**3 * Math.sqrt(sigma) / (CC**2 * comp * period**2);
+        let de_el = document.getElementById("de-output");
+        de_el.getElementsByClassName("value")[0].innerHTML = precise(de);
+
       }
     }
   };
