@@ -48,7 +48,7 @@ For all the details on how the code units are defined see the following [section
       <div id="nppc-slider" class="independent-value slider-group col-sm-12">
         <div class="slider border border-primary">
           <p>$n_{\rm ppc}=$<input class="value slider-label" value="1"></p>
-          <input type="range" class="value slider-small" step="0.1">
+          <input type="range" class="value slider-small" step="1">
           <div class="slider-minmax">
             <input class="slider-min" value="0">
             <input class="slider-max" value="100">
@@ -61,7 +61,7 @@ For all the details on how the code units are defined see the following [section
       <div id="comp-slider" class="independent-value slider-group col-sm-12">
         <div class="slider">
           <p>$d_e=$<input class="value slider-label" value="5"></p>
-          <input type="range" class="value slider-small" step="0.1">
+          <input type="range" class="value slider-small" step="1">
           <div class="slider-minmax">
             <input class="slider-min" value="0">
             <input class="slider-max" value="50">
@@ -74,7 +74,7 @@ For all the details on how the code units are defined see the following [section
       <div id="sigma-slider" class="independent-value slider-group col-sm-12">
         <div class="slider">
           <p>$\sigma=$<input class="value slider-label" value="100"></p>
-          <input type="range" class="value slider-small" step="0.1">
+          <input type="range" class="value slider-small" step="1">
           <div class="slider-minmax">
             <input class="slider-min" value="0">
             <input class="slider-max" value="1000">
@@ -122,7 +122,7 @@ For all the details on how the code units are defined see the following [section
       </div>
       <div id="collapseOne" class="panel-collapse collapse noCrossRef in" aria-expanded="true">
         <div class="panel-body">
-          <p>Pulsar setup is initialized with a conducting sphere of radius $R_*$ (in cells) in the middle of the simulation box. The field is initially dipolar, while the conductor rotates with a period $P$ (in units of $\Delta t$). Important quantities include $R_{\rm LC}$ - size of the light cylinder, $r_L(R_{\rm LC})$ - larmor radius of particles near the light cylinder, $n_{\rm GJ}^*$ - GJ density required to screen the parallel electric field near the star, and the associated magnetization - $\sigma^*(n_{\rm GJ}^*)$ - and the skin depth - $d_e(n_{\rm GJ}^*)$. $\Delta V$ is the potential drop across the polar cap.
+          <p>Pulsar setup is initialized with a conducting sphere of radius $R_*$ (in cells) in the middle of the simulation box. The field is initially dipolar, while the conductor rotates with a period $P$ (in units of $\Delta t$). Important quantities include $R_{\rm LC}$ - size of the light cylinder, $r_L^{\rm LC}$ - larmor radius of particles near the light cylinder, $n_{\rm GJ}^*$ - GJ density required to screen the parallel electric field near the star, and the associated magnetization - $\sigma^*(n_{\rm GJ}^*)$ - and the skin depth - $d_e(n_{\rm GJ}^*)$. $\Delta V$ is the potential drop across the polar cap. All the other quantities with a sub-/super- script "${}^*$" are measured at the stellar surface, and with "${}^{\rm LC}$" - near the light cylinder.
           </p>
           <p>
           We use the following equations (all the quantities are in code units)
@@ -142,7 +142,7 @@ For all the details on how the code units are defined see the following [section
                 <div id="psrperiod-slider" class="independent-value slider-group col-sm-12">
                   <div class="slider border border-primary">
                     <p>$P=$<input class="value slider-label" value="1500"></p>
-                    <input type="range" id="psr" class="value slider-small" step="1">
+                    <input type="range" id="psr" class="value slider-small" step="100">
                     <div class="slider-minmax">
                       <input class="slider-min" value="0">
                       <input class="slider-max" value="5000">
@@ -164,12 +164,17 @@ For all the details on how the code units are defined see the following [section
                 </div>
                 <div id="rlatlc-output" class="dependent-value col-xs-12">
                   <div class="value-output">
-                    <p>$r_L(R_{\rm LC})=\gamma\beta~$<span class="value"></span></p>
+                    <p>$r^{\rm LC}_L=\gamma\beta~$<span class="value"></span></p>
                   </div>
                 </div>
-                <div id="de-output" class="dependent-value col-xs-12">
+                <div id="dv-output" class="dependent-value col-xs-12">
                   <div class="value-output">
                     <p>$\Delta V/m_e c^2=~$<span class="value"></span></p>
+                  </div>
+                </div>
+                <div id="degj-output" class="dependent-value col-xs-12">
+                  <div class="value-output">
+                    <p>$d_e(n_{\rm GJ}^*)=\langle\gamma\rangle^{1/2}~$<span class="value"></span></p>
                   </div>
                 </div>
               </div>
@@ -185,9 +190,14 @@ For all the details on how the code units are defined see the following [section
                     <p>$\sigma^*(n_{\rm GJ}^*)=~$<span class="value"></span></p>
                   </div>
                 </div>
-                <div id="degj-output" class="dependent-value col-xs-12">
+                <div id="ngjatlc-output" class="dependent-value col-xs-12">
                   <div class="value-output">
-                    <p>$d_e(n_{\rm GJ}^*)=\langle\gamma\rangle^{1/2}~$<span class="value"></span></p>
+                    <p>$n^{\rm LC}_{\rm GJ}=~$<span class="value"></span></p>
+                  </div>
+                </div>
+                <div id="sigmagjatlc-output" class="dependent-value col-xs-12">
+                  <div class="value-output">
+                    <p>$\sigma^{\rm LC}(n_{\rm GJ}^{\rm LC})=~$<span class="value"></span></p>
                   </div>
                 </div>
               </div>
@@ -311,9 +321,17 @@ For all the details on how the code units are defined see the following [section
         let degj_el = document.getElementById("degj-output");
         degj_el.getElementsByClassName("value")[0].innerHTML = precise(degj);
 
-        let de = 4 * Math.PI**2 * rstar**3 * Math.sqrt(sigma) / (CC**2 * comp * period**2);
-        let de_el = document.getElementById("de-output");
-        de_el.getElementsByClassName("value")[0].innerHTML = precise(de);
+        let dv = 4 * Math.PI**2 * rstar**3 * Math.sqrt(sigma) / (CC**2 * comp * period**2);
+        let dv_el = document.getElementById("dv-output");
+        dv_el.getElementsByClassName("value")[0].innerHTML = precise(dv);
+
+        let nGJLC = 2 * (2 * Math.PI / period) * b_norm * (rlc / rstar)**(-3) / (CC * qe);
+        let ngjlc_el = document.getElementById("ngjatlc-output");
+        ngjlc_el.getElementsByClassName("value")[0].innerHTML = precise(nGJLC);
+
+        let sigmaGJLC = sigma * ((rlc / rstar)**(-3))**2 / (nGJLC / ppc0)
+        let sigmagjlc_el = document.getElementById("sigmagjatlc-output");
+        sigmagjlc_el.getElementsByClassName("value")[0].innerHTML = precise(sigmaGJLC);
 
       }
     }
