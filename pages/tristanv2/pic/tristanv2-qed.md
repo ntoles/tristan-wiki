@@ -197,35 +197,44 @@ the random sampling of the photon scattering angle in the electron rest frame.
 The differential Klein-Nishina cross section for unpolarized
 photons in the electron frame reads (see, e.g.,
 [Berestetskii+, Quantum Electrodynamics (Pergamon, Oxford, 1982)](https://ui.adsabs.harvard.edu/abs/1980MINTF...4.....B/abstract)):
+<div>$$
 \begin{equation}
-\frac{d\sigma}{du} = \frac{3\sigma_{\rm T}}{8}\rho^2
+\frac{{\rm d}\sigma}{{\rm d}u} = \frac{3\sigma_{\rm T}}{8}\rho^2
 \left(\rho + \frac{1}{\rho} + u^2 - 1 \right),
 \end{equation}
+$$</div>
 where $u = \cos\theta'$ is the cosine of the scattering angle (i.e.,
 the angle between the initial and scattered photon direction in the electron
 frame),  $\sigma_{\rm T}$ is the Thomson cross section,
  and $\rho$ is the ratio of the scattered to initial photon energy
  in the (primed) electron rest frame:
+ <div>$$
 \begin{align}
 \rho = \frac{\epsilon_1'}{\epsilon_0'} =  \frac{1}{1 + \epsilon_0'(1- u)}.
 \end{align}
+$$</div>
 Here $\epsilon_{0,1}' = \hbar\omega_{0,1}' / m_ec^2$ is the normalized energy.
 The total cross section (integrated over $u$) can be written as
 
+<div>$$
 \begin{align}
 \sigma =
 \frac{3\sigma_{\rm T}}{8\epsilon_0'}\left[ \left( 1 - \frac{2}{\epsilon_0'} - \frac{2}{\epsilon_0'^2} \right)
 \log\left(1 + 2\epsilon_0'\right)
 + \frac{1}{2}  + \frac{4}{\epsilon_0'} - \frac{1}{2\left(1 + 2\epsilon_0'\right)^2} \right].
 \end{align}
+$$</div>
 For the random sampling of $u = \cos\theta'$ we make use of the
 cumulative probability distribution similar to Del Gaudio+. The
 cumulative distribuion can be expressed as
+<div>$$
 \begin{align}
 {\rm CDF}(u) = c_4\left[ c_3 + \epsilon_0'u + (\epsilon_0' \rho)^2/2 + c_0\rho +
 c_2\log(c_0 \rho) \right],
 \end{align}
+$$</div>
 where
+<div>$$
 \begin{align}
 c_0 &=  1 + 2\epsilon_0', &
 c_1 &=  \epsilon_0' / c_0, &
@@ -233,6 +242,7 @@ c_2 &=  \epsilon_0'^2 - 2\epsilon_0' - 2, &\\
 c_3 &=  \epsilon_0' - 1 - c_1^2/2, &
 c_4 &=  \left[ 4\epsilon_0' + 2\epsilon_0'(1 + \epsilon_0')c_1^2 + c_2\log(c_0) \right]^{-1}. &
 \end{align}
+$$</div>
 To obtain a random cosine $u$, we select a random number $R\in[0,1)$ and solve
 iteratively (via a Newton root find) for ${\rm CDF}(u) = R$. The
 coefficients $\{c_i\}$ can be computed only once per every root find.
@@ -245,17 +255,21 @@ The (Monte-Carlo) scattering algorithm works as follows. We first construct rand
 electron-photon pairs on every tile. For each pair from the list,
 the photon momentum and energy are transformed into the electron (or positron)
 rest frame:
+<div>$$
 \begin{align}
 \epsilon_0' & =  \gamma \epsilon_0 - \boldsymbol p_0 \cdot \boldsymbol k_0,&
 \boldsymbol k_0' & =  \boldsymbol k_0 + \left(\frac{\boldsymbol p_0\cdot\boldsymbol k_0}{\gamma_0 + 1} - \epsilon_0\right)\boldsymbol p_0, &
 \end{align}
+$$</div>
 where $\boldsymbol p_0$ is the electron momentum and $\boldsymbol k_0$ is
 the initial simulation-frame photon momentum (both in units of $m_e c$).
 Once in the lab frame, the electron-photon pair is scattered with
 probability
+<div>$$
 \begin{align}
     P =   \tau_{\rm T}\,\hat{\sigma} \,P_{\rm corr}\, \epsilon_0'/\epsilon_0\gamma_0  ,
 \end{align}
+$$</div>
 where $\tau_{\rm T}$ is our fiducial Thomson scattering optical depth
 (as measured in code units; $\Delta t = \Delta x = 1$),
 $\hat \sigma = \sigma(\epsilon_0')/\sigma_{\rm T}$ is the total Klein-Nishina
@@ -288,9 +302,11 @@ the normalization step by step.
 
 First, the probability should be independent of the number of particles per cell, tile size,
 and time step. This gives as a starting point:
+<div>$$
 \begin{equation}
 P_{\rm corr} =  \frac{\Delta t_C / \Delta t} {n_{\rm ppc} s_x s_y s_z},
 \end{equation}
+$$</div>
 where $n_{\rm ppc}$ is the number of particles per cell, $s_x$, $s_y$, $s_z$ are the tile
 sizes in cell units, $\Delta t_C$ is the time step for Compton scattering, and
 $\Delta t$ is the PIC loop step. By normalizing with the reference number of particles per tile,
@@ -301,9 +317,11 @@ probabilities *do* increase accordingly.
 Next, we consider the matching of probabilites with full binary pairing. In the case of MC, each
 (split) particle can interact with at most one particle from the other group. In reality, all possible
 interactions should be considered. To account for this, the probability needs to increase:
-$$
+<div>$$
+\begin{equation}
 P_{\rm corr} \rightarrow P_{\rm corr} \max(w_1, w_2),
-$$
+\end{equation}
+$$</div>
 where $w_1$ and $w_2$ is the total weight of particles in group 1 and group 2, respectively.
 
 Finally, we mention the implications of pairs with non-equal weights. Without counting particles
@@ -317,16 +335,20 @@ split away from the heavier one, and only the split portion is scattered (see [H
 [Del Gaudio+ 2020](https://arxiv.org/abs/2004.11404)) . To account for these
 circumstances, the probability needs to be
 adjusted:
-$$
+<div>$$
+\begin{equation}
 P_{\rm corr} \rightarrow P_{\rm corr} \frac{\min(w_1, w_2)}{\sum\limits_{\rm pairs}\min(w_{1i}, w_{2j})}.
-$$
+\end{equation}
+$$</div>
 Here, the numerator represents the amount of weight that could be scattered in an ideal
 situation, while the denominator is the amount that can be actually scattered. All the
 probability corrections can be now combined into the final expression:
+<div>$$
 \begin{equation}
 P_{\rm corr} =  \frac{\Delta t_C / \Delta t} {n_{\rm ppc} s_x s_y s_z}
 \frac{w_1 w_2}{\sum\limits_{\rm pairs}\min(w_{1i}, w_{2j})},
 \end{equation}
+$$</div>
 
 #### Tests
 
@@ -340,12 +362,12 @@ electron and photon weight. This leads to the splitting of
 particles. The physical results are unaffected by such choice remain in
 excellent agreement with the case where all weights are 1.
 
-{% include image.html file="tristan_v2/qed/kompaneets.png" alt="mc1" max-width="70%" caption="Kompaneets test.
+{% include image.html file="tristan_v2/qed/kompaneets.png" alt="mc1" max-width="85%" caption="Kompaneets test.
 At late time, the photon spectrum approaches the
 theoretically expected Wien solution $\sim \epsilon_{\rm ph}^2\exp(−\epsilon_{\rm ph}/\theta_e)$,
 where $\theta_e =k_{\rm B}T_e/m_ec^2$ is the (dimensionless) background temperature. Left: both electrons
 and photons have weight 1. Right: electrons have initial weight 3.1 and photons 2.4." %}
 
-{% include image.html file="tristan_v2/qed/jones.png" alt="mc1" max-width="70%" caption="Spectrum of
+{% include image.html file="tristan_v2/qed/jones.png" alt="mc1" max-width="60%" caption="Spectrum of
 photons scattered of a relativistic electron. The numerical result (blue line) is compared against the
 expression derived by Jones 1968, valid for $\gamma_e\gg 1$." %}
