@@ -306,7 +306,7 @@ $$</div>
 where $n_{\rm ppc}$ is the number of particles per cell, $s_x$, $s_y$, $s_z$ are the tile
 sizes in cell units, $\Delta t_C$ is the time step for Compton scattering, and
 $\Delta t$ is the PIC loop step. By normalizing with the reference number of particles per tile,
-the physical density is effectively set with the choice of the optical depth $\tau_C$. *Note*:
+the physical density is effectively set with the choice of the optical depth $\tau_{\rm T}$. *Note*:
 If the number of particles per tile increases above the (fixed) reference value during simulation the
 probabilities *do* increase accordingly.
 
