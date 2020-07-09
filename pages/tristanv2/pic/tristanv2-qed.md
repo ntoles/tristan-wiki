@@ -197,10 +197,10 @@ the random sampling of the photon scattering angle in the electron rest frame.
 The differential Klein-Nishina cross section for unpolarized
 photons in the electron frame reads (see, e.g.,
 [Berestetskii+, Quantum Electrodynamics (Pergamon, Oxford, 1982)](https://ui.adsabs.harvard.edu/abs/1980MINTF...4.....B/abstract)):
-$$
-\frac{{\rm d} \sigma}{{\rm d} u} = \frac{3\sigma_{\rm T}}{8}\rho^2
+\begin{equation}
+\frac{d\sigma}{du} = \frac{3\sigma_{\rm T}}{8}\rho^2
 \left(\rho + \frac{1}{\rho} + u^2 - 1 \right),
-$$
+\end{equation}
 where $u = \cos\theta'$ is the cosine of the scattering angle (i.e.,
 the angle between the initial and scattered photon direction in the electron
 frame),  $\sigma_{\rm T}$ is the Thomson cross section,
