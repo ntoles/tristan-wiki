@@ -69,10 +69,10 @@ folder: tristanv2
 </tr>
 <tr>
   <td markdown="span">
-    `-3d`
+    `-1d`/`-2d`/`-3d`
   </td>
   <td markdown="span">
-    Enable 3D (enables custom `-DthreeD` macros flag).
+    Specify the dimension of the simulation (enables one of the `-DoneD`/`DtwoD`/`-DthreeD` macros flags).
   </td>
 </tr>
 <tr>
@@ -135,6 +135,10 @@ folder: tristanv2
     Enable particle downsampling.
   </td>
 </tr>
+
+<tr class="header">
+  <th colspan="2">Extra physics</th>
+</tr>
 <tr>
   <td markdown="span">
     `--radiation=[MECHANISM]`
@@ -164,7 +168,23 @@ folder: tristanv2
     `-bwpp`
   </td>
   <td markdown="span">
-    Enable the Breit-Wheeler pair production.
+    Enable the Breit-Wheeler pair production (requires `-qed` enabled).
+  </td>
+</tr>
+<tr>
+  <td markdown="span">
+    `-compton`
+  </td>
+  <td markdown="span">
+    Enable Compton scattering (requires `-qed` enabled).
+  </td>
+</tr>
+<tr>
+  <td markdown="span">
+    `-gca`
+  </td>
+  <td markdown="span">
+    Enable GCA (guiding center approximation) mover.
   </td>
 </tr>
 

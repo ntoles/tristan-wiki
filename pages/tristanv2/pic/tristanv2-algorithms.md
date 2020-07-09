@@ -52,6 +52,32 @@ This is sometimes called a leap-frog approach; intermediate value of $\boldsymbo
 
 ## Particle pusher
 
+### Guiding center approximation
+
+The GCA algorithm is an alternative particle pusher which may be used when the Larmor radius is critically underresolved (for more details on the algorithm see *Bacchini+*). It relies on the conservation of adiabatic invariant, while evolving the parallel (w.r.t. the local magnetic field) component of the velocity according to the $E_\parallel$. To enable `GCA` one has to compile the code with the `-gca` flag. Keep in mind that the curvature term is still not implemented, so the current version of the `GCA` algorithm might be unusable for cases where the curvature drift is important.
+
+This algorithm is only used in hybrid with the default Boris pusher, with the GCA only pushing the particles for which the electric field and the gyroradius are small: $E < f B$ and $\rho_L < \rho_{\rm crit}$ (in cells). Parameters $f$ and $\rho_{\rm crit}$ are configured in the input:
+
+```python
+<algorithm>
+
+  ...
+
+  gca_rhoL      = 1              # critical larmor radius at which GCA kicks in
+  gca_EoverB    = 1              # critical E/B at which GCA kicks in
+```
+
+One can also enable/disable `GCA` for certain particle species (defaults to `.true.` if particles are charged and the `-gca` flag is enabled):
+
+```python
+<particles>
+
+  ...
+  
+  gca1          = 1               # use GCA for species #1     
+  gca2          = 0               # never use GCA for species #2
+```
+
 ## Field interpolation
 
 ## Current deposition

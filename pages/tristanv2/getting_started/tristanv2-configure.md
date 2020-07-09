@@ -12,23 +12,23 @@ To configure the code simply type the following command
 $ python configure.py [-FLAGS]
 ```
 
-The following command will configure the three-dimensional version of the code with the intel compatible MPI, hdf5 output, 5 ghost cells and the `user_mysetup.F90` userfile:
+For example, the following command will configure the three-dimensional version of the code with the intel compatible MPI, hdf5 output, 5 allocated ghost cells and the `user_mysetup.F90` problem generator:
 ```bash
 $ python configure.py -3d -intel -mpi -hdf5 --nghosts=5 --user=user_mysetup
 ```
 
-List of all the flags available in the latest version can be found [here](tristanv2-confflags.html).
+{% include tip.html content="List of all the available flags in the latest version can be found [here](tristanv2-confflags.html)."%}
 
-As a result of this python command the `Makefile` will be generated in the main directory (from `Makefile.in`). Now the code can be compiled with `make all` or cleaned with `make clean`.
+As a result of this python command the `Makefile` will be generated in the main directory (from the `Makefile.in`). Now the code can be compiled with `make all` or cleaned with `make clean`.
 
 {% include note.html content="The compilation takes place in two stages. During the precompilation step all the precompiler flags are processed by the `C` compiler and all the files are copied into a temporary `src_/` directory. During the second stage, the all the files in `src_/` directory are compiled and linked. This two step magic is done to support the indented macros (`#ifdef`, etc)." %}
 
 ### Running
-Executable is generated in `exec` directory named either `tristan-mp2d` or `tristan-mp3d`. Simply run with
+Executable is generated in `exec` directory named `tristan-mp1d`, `tristan-mp2d` or `tristan-mp3d`. Then you may simply run it with
 ```bash
 $ exec/tristan-mp2d -i [input_file_name] -o [output_dir_name] -r [restart_dir_name]
 ```
-or if compiled with `mpif90` one can run in MPI
+or if compiled with `mpif90` you can run in MPI
 ```bash
 $ mpiexec -np [NPROC] exec/tristan-mp2d -i [input_file_name] -o [output_dir_name] -r [restart_dir_name]
 ```
@@ -49,6 +49,8 @@ Most clusters use the so-called `slurm` scheduling system where jobs are submitt
 EXECUTABLE=tristan-mp2d
 INPUT=input
 OUTPUT_DIR=output
+SLICE_DIR=slices
+RESTART_DIR=restart
 REPORT_FILE=report
 ERROR_FILE=error
 
@@ -64,5 +66,5 @@ mkdir $OUTPUT_DIR
 # backup the executable and the input file
 cp $EXECUTABLE $OUTPUT_DIR
 cp $INPUT $OUTPUT_DIR
-srun $EXECUTABLE -i $INPUT -o $OUTPUT_DIR > $OUTPUT_DIR/$REPORT_FILE 2> $OUTPUT_DIR/$ERROR_FILE
+srun $EXECUTABLE -i $INPUT -o $OUTPUT_DIR -s $SLICE_DIR -r $RESTART_DIR > $OUTPUT_DIR/$REPORT_FILE 2> $OUTPUT_DIR/$ERROR_FILE
 ```

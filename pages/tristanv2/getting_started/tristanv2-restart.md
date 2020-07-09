@@ -6,7 +6,7 @@ permalink: tristanv2-restart.html
 folder: tristanv2
 ---
 
-`Tristan-MP v2` allows simulations to pause. For that the code can store all the field and particle data into separate files. When restarted, the simulation can read all the data from that file and initialize all the relevant quantities as if it never stopped running in the first place.
+`Tristan-MP v2` allows simulations to be paused and continued later. For that the code can store all the field and particle data into separate files. When restarted, the simulation can read all the data from that file and initialize all the relevant quantities as if it never stopped running in the first place.
 
 ### Saving restart files
 

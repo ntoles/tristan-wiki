@@ -74,27 +74,42 @@ folder: tristanv2
 </tbody>
 </table>
 
-{% include tip.html content="The code makes sure particles saved in each output are the same to enable individual particle tracking."%}
+{% include tip.html content="The code makes sure particles saved in each output are the same (even when the specified `stride` is not `1`) to enable individual particle tracking."%}
 
-Output can be configured from the `input` file. Following are the most important output configurations with their corresponding description.
+Output can be configured from the `input` file. Following are the most up-to-date output configurations with their corresponding description.
 
-```bash
+```python
 <output>
 
+  enable        = 1              # enable/disable output [defaults to TRUE]
   start         = 0              # first output step
-  interval      = 500            # number of simulation timesteps between output steps
-  stride        = 100            # particle stride (save every N-th particle)
+  interval      = 10             # interval between output steps
+  stride        = 100            # particle stride
   istep         = 4              # field downsampling
   flds_at_prtl  = 1              # save fields at particle position
   write_xdmf    = 1              # enable XDMF file writing (to open hdf5 in VisIt)
 
-  hst_enable    = 0              # enable/disable history file
-  hst_interval  = 1              # interval between history outputs
+  hst_enable    = 0
+  hst_interval  = 1
+  hst_readable  = 1              # human readable format for numbers in the history ...
+                                 # .. (can be less accurate sometimes)
 
-  spec_min      = 1e-2           # min energy for `spec` file (`g - 1` for massive and `e` for massless)
-  spec_max      = 1e3            # max energy for `spec` file (`g - 1` for massive and `e` for massless)
+  spec_min      = 1e-3           # `g - 1` for massive and `e` for massless
+  spec_max      = 1e1            # `g - 1` for massive and `e` for massless
   spec_num      = 100            # number of energy bins
 ```
+
+On top of that each particle species can be enabled separately to be saved into the `prtl.tot.*****` files. For that under the `<particles>` block in the `input` file we need to specify:
+
+```bash
+<particles>
+# ...
+  output1       = 1               # particles of species #1 will be saved to `prtl.tot.`
+# ...
+  output2       = 0               # particles of species #2 will NOT be saved to `prtl.tot.`
+```
+
+{% include note.html content="When the `debug` flag is enabled fields are not interpolated for the output, and are rather saved with their original staggered positions. The densities are also not convolved with the gaussial filter in the `debug` regime."%}
 
 ### Parameters
 Simulation parameters are saved into the `params.*****` file with the following format: `[<BLOCKNAME>:<VARNAME>] = <VALUE>` if saved in `hdf5` or `<BLOCKNAME> : <VARNAME> : <VALUE>` if saved in text format. The `<BLOCKNAME>` will be shortened to 3 symbols for simplicity, so to find, say, the # of cpus in x direction from `params.*****` file you can simply read of the `[cpu:sizex]` variable, speed of light will be `[alg:c]` and `ppc0` -- `[pls:ppc0]`.
@@ -128,6 +143,37 @@ Here `E^2` and `B^2` are the electric and magnetic energies, `lecs` and `ions` a
 File named `history` with all this information for all the timesteps (with specified interval) will be saved and updated during runtime in the output directory.
 
 {% include note.html content="If massless particles (photons) are present in the simulation, in the `history` file instead of splitting partition of particle energy between electrons and ions, code will split it into massive and massless particles."%}
+
+## Slices [for 3D only]
+
+Large three dimensional simulations can be very heavy to store in the filesystem frequently. But sometimes saving just a single two dimensional cut of the 3d grid is enough. For that our code has a special `writeSlices()` routine which can save slices of field values along specified axes with specified displacements as frequently as one needs. The output directory for slice data is specified when running the simulation:
+
+```bash
+$ mpiexec ... -s [slice_dir_name]
+```
+
+All the slices are saved as `hdf5` files with the following naming format: `slice[X/Y/Z]=AAAAA.BBBBB`, where `X/Y/Z` show the direction of the slice (axis to which the slice is perpendicular), `AAAAA` is the displacement in cells, `BBBBB` is the timestamp (not the actual timestep of the simulation). For example, `sliceY=00280.00500` corresponds to `500`-th slice (i.e., corresponding timestep is `500` times the slice interval) of field quantities along `Y=280`.
+
+Parameters for slice outputs are specified in the `input` file:
+
+```python
+<slice_output>
+
+  enable        = 1              # only works in 3d
+  start         = 0              # first slice output step
+  interval      = 10             # interval between slice output steps
+
+  # save 5 different slices of a 3d run ...
+  # ... the number after the underscore is just an id of the slice
+  sliceX_1      = 60
+  sliceX_2      = 360
+  sliceX_3      = 560
+
+  sliceY_1      = 5
+  sliceY_2      = 140
+
+  sliceZ_1      = 100
+```
 
 ## Visualization
 

@@ -1,5 +1,5 @@
 ---
-title: Structure of Memory
+title: Grid, fields and particles
 keywords: pic, general, structure, memory, domain, field, particle, mpi, meshblock
 last_updated: Dec 17, 2019
 summary: "This section describes how the domain decomposition works, and how the field quantities and particles are stored in memory."
@@ -120,7 +120,7 @@ Here `NGHOST` is a global variable defined on a compilation time which determine
 
 ### Usage example
 
-Let's say we want to setup an electromagnetic field propagating in xy direction in a periodic box. Here's a simple loop that will do the job (example from `user/user_emwave.F90`).
+Let's say we want to setup an electromagnetic field propagating in xy direction in a periodic box. Here's a simple loop that will do the job.
 ```fortran
 ! `kx` and `ky` are the wavenumbers in global coordinates:
 kx = 5; ky = 2
@@ -168,14 +168,26 @@ Particles along with fields are the heart and soul of every particle-in-cell cod
 
 In this code we support arbitrary number of species that are treated separately. To take care of that we have a special type called `particle_species` which has an instance array, `species(:)`, containing all the information about particle species.
 
-##### Structure of species type, `species(s)%...`, where `s = 1, ..., nspec`:
+##### Structure of species type
 
-|-------|--------|
-| `cntr_sp` | integer counter to keep track of indexing for the newly created particles |
-| `m_sp`, `ch_sp` | mass and charge (normalized to code units) for the species `s` |
-| `tile_sx`, `tile_sy`, `tile_sz`  | dimensions of particle tiles |
-| `tile_nx`, `tile_ny`, `tile_nz`  | numbers of particle tiles |
-| `prtl_tile(:,:,:)%...` | 3d array of particle tiles themselves |
+The `species(s)` objects, where `s = 1, ..., nspec`, contain useful information about the particular particle species, as well as all the data about individual particles themselves. Let's have a look at what this object contains:
+
+| Attribute | Description | Default value if not specified | Used with flag... |
+|-------|--------|--------|--------|
+| `cntr_sp` | integer counter to keep track of indexing for the newly created particles | -- |
+| `m_sp`, `ch_sp` | mass and charge (normalized to code units) | -- | -- |
+| `tile_sx`, `tile_sy`, `tile_sz`  | dimensions of particle tiles | -- | -- |
+| `tile_nx`, `tile_ny`, `tile_nz`  | numbers of particle tiles | -- | -- |
+| `deposit_sp` | do particles deposit | `.true.` if `ch_sp != 0` | -- |
+| `move_sp` | do particles move | `.true.` | -- |
+| `output_sp` | are particles saved into the `prtl.tot.` file | `.true.` | -- |
+| `cool_sp` | are particles cooled | `.true.` if `ch_sp != 0` | `--radiation` |
+| `dwn_sp` | can particles be downsampled (merged) | `.false.` | `-dwn` |
+| `bw_sp` | `0` means species does not participate in BW process, `1` and `2` would be separate BW groups | `0` | `-bwpp` |
+| `compton_sp` | do particles participate in Compton scattering | `.false.` | `-compton` |
+| `gca_sp` | can particles be treated in the GCA approach | `.true.` if `ch_sp != 0` | `-gca` |
+
+Along with all the common information, the object `species(s)` also contains the individual particles themselves which exist on the so-called tiles (`species(s)%prtl_tile(:,:,:)%...`).
 
 ### Tiles and particles
 

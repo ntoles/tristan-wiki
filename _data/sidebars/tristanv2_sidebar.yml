@@ -42,7 +42,7 @@ entries:
       - title: Simulation units
         url: /tristanv2-sim-units.html
         output: web
-      - title: Structure of memory
+      - title: Grid, fields and particles
         url: /tristanv2-structure.html
         output: web
       - title: Numerical algorithms

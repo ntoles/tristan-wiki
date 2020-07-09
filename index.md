@@ -19,18 +19,20 @@ If you would like to learn more about the code structure, compilation rules, or 
 * <span class='date'>May 10 2020</span>[Restart](tristanv2-restart.html)
 * <span class='date'>May 13 2020</span>[Parameters file](tristanv2-visualization.html#parameters)
 * <span class='date'>May 14 2020</span>[History](tristanv2-visualization.html#history)
+* <span class='date'>Jun 28 2020</span>[Slice outputs in 3d](tristanv2-visualization.html#slices-for-3d-only)
 
 #### Physics updates
-* <span class='date'>Aug 24 2019</span>[Synchrotron radiation/cooling](tristanv2-radiation.html#synchrotron-cooling) [_N/A in public release_]
-* <span class='date'>Dec 02 2019</span>[Inverse Compton radiation/cooling](tristanv2-radiation.html#inverse-compton-cooling) [_N/A in public release_]
-* <span class='date'>Dec 16 2019</span>[Two-photon pair production](tristanv2-qed.html) [_N/A in public release_]
+* <span class='date'>Aug 24 2019</span>[Synchrotron radiation/cooling](tristanv2-radiation.html#synchrotron-cooling)
+* <span class='date'>Dec 02 2019</span>[Inverse Compton radiation/cooling](tristanv2-radiation.html#inverse-compton-cooling)
+* <span class='date'>Dec 16 2019</span>[Two-photon pair production](tristanv2-qed.html)
 * <span class='date'>Mar 16 2020</span>Absorbing boundary conditions in 2D/3D
+* <span class='date'>Jun 25 2020</span>[Guiding center approximation (GCA)](tristanv2-algorithms.html#guiding-center-approximation)
+* <span class='date'>Jul 09 2020</span>[Compton scattering](tristanv2-qed.html#compton-scattering)
 
 ### Under development
 
-* Compton scattering
+* Adaptive load balancing
 
 ### Future plans
 
-* Adaptive load balancing
 * $\gamma + \boldsymbol{B}$ pair production

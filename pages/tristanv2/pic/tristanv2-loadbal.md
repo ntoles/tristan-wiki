@@ -57,3 +57,7 @@ As an example, we can use a centrally clumped spatial distribution (e.g., if we'
 which results in the following distribution of meshblocks.
 
 {% include image.html file="tristan_v2/loadbal/slb.png" alt="slb"%}
+
+Below is another example of static load balancing done in three dimensions with meshblocks concentrated at the center of the grid.
+
+{% include image.html file="tristan_v2/loadbal/3d.png" alt="slb"%}
