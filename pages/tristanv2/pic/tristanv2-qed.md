@@ -215,13 +215,9 @@ frame),  $\sigma_{\rm T}$ is the Thomson cross section,
 $$</div>
 Here $\epsilon_{0,1}' = \hbar\omega_{0,1}' / m_ec^2$ is the normalized energy.
 The total cross section (integrated over $u$) can be written as
-
 <div>$$
 \begin{align}
-\sigma =
-\frac{3\sigma_{\rm T}}{8\epsilon_0'}\left[ \left( 1 - \frac{2}{\epsilon_0'} - \frac{2}{\epsilon_0'^2} \right)
-\log\left(1 + 2\epsilon_0'\right)
-+ \frac{1}{2}  + \frac{4}{\epsilon_0'} - \frac{1}{2\left(1 + 2\epsilon_0'\right)^2} \right].
+\sigma = \frac{3\sigma_{\rm T}}{8\epsilon_0'}\left[\left( 1 - \frac{2}{\epsilon_0'} - \frac{2}{\epsilon_0'^2} \right) \log\left(1 + 2\epsilon_0'\right) + \frac{1}{2}  + \frac{4}{\epsilon_0'} - \frac{1}{2(1 + 2\epsilon_0')^2} \right].
 \end{align}
 $$</div>
 For the random sampling of $u = \cos\theta'$ we make use of the
@@ -237,9 +233,9 @@ where
 <div>$$
 \begin{align}
 c_0 &=  1 + 2\epsilon_0', &
-c_1 &=  \epsilon_0' / c_0, &
-c_2 &=  \epsilon_0'^2 - 2\epsilon_0' - 2, &\\
-c_3 &=  \epsilon_0' - 1 - c_1^2/2, &
+c_1 &=  \epsilon_0' / c_0, &\\
+c_2 &=  \epsilon_0'^2 - 2\epsilon_0' - 2, &
+c_3 &=  \epsilon_0' - 1 - c_1^2/2, &\\
 c_4 &=  \left[ 4\epsilon_0' + 2\epsilon_0'(1 + \epsilon_0')c_1^2 + c_2\log(c_0) \right]^{-1}. &
 \end{align}
 $$</div>
@@ -362,12 +358,12 @@ electron and photon weight. This leads to the splitting of
 particles. The physical results are unaffected by such choice remain in
 excellent agreement with the case where all weights are 1.
 
-{% include image.html file="tristan_v2/qed/kompaneets.png" alt="mc1" max-width="85%" caption="Kompaneets test.
+{% include image.html file="tristan_v2/qed/kompaneets.png" alt="kmp" max-width="90%" caption="Kompaneets test.
 At late time, the photon spectrum approaches the
 theoretically expected Wien solution $\sim \epsilon_{\rm ph}^2\exp(−\epsilon_{\rm ph}/\theta_e)$,
 where $\theta_e =k_{\rm B}T_e/m_ec^2$ is the (dimensionless) background temperature. Left: both electrons
 and photons have weight 1. Right: electrons have initial weight 3.1 and photons 2.4." %}
 
-{% include image.html file="tristan_v2/qed/jones.png" alt="mc1" max-width="60%" caption="Spectrum of
+{% include image.html file="tristan_v2/qed/jones.png" alt="jns" max-width="50%" caption="Spectrum of
 photons scattered of a relativistic electron. The numerical result (blue line) is compared against the
 expression derived by Jones 1968, valid for $\gamma_e\gg 1$." %}
