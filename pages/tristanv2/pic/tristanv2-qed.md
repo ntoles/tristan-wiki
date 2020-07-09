@@ -192,7 +192,7 @@ Ions cannot participate in the process.
 The implementation details are similar to those described in
 [Del Gaudio+ 2020](https://arxiv.org/abs/2004.11404) with a few variations.
 Central to the model is the calculation of an appropriately
-normalized the scattering cross section for every electron-photon pair and
+normalized scattering cross section for every electron-photon pair and
 the random sampling of the photon scattering angle in the electron rest frame.
 The differential Klein-Nishina cross section for unpolarized
 photons in the electron frame reads (see, e.g.,
@@ -259,7 +259,7 @@ rest frame:
 $$</div>
 where $\boldsymbol p_0$ is the electron momentum and $\boldsymbol k_0$ is
 the initial simulation-frame photon momentum (both in units of $m_e c$).
-Once in the lab frame, the electron-photon pair is scattered with
+Once in the rest frame, the electron-photon pair is scattered with
 probability
 <div>$$
 \begin{align}
@@ -306,7 +306,7 @@ $$</div>
 where $n_{\rm ppc}$ is the number of particles per cell, $s_x$, $s_y$, $s_z$ are the tile
 sizes in cell units, $\Delta t_C$ is the time step for Compton scattering, and
 $\Delta t$ is the PIC loop step. By normalizing with the reference number of particles per tile,
-the physical density ia effectively set with the choice of the optical depth $\tau_C$. *Note*:
+the physical density is effectively set with the choice of the optical depth $\tau_C$. *Note*:
 If the number of particles per tile increases above the (fixed) reference value during simulation the
 probabilities *do* increase accordingly.
 
@@ -355,7 +355,7 @@ spectrum of isotropic photons scattered off a relativisic electron
 ([Jones 1968](https://doi.org/10.1103/PhysRev.167.1159)). The results
 agree well with theory. We also perform the tests with unequal initial
 electron and photon weight. This leads to the splitting of
-particles. The physical results are unaffected by such choice remain in
+particles. The physical results are unaffected by such choice and remain in
 excellent agreement with the case where all weights are 1.
 
 {% include image.html file="tristan_v2/qed/kompaneets.png" alt="kmp" max-width="90%" caption="Kompaneets test.
@@ -364,6 +364,6 @@ theoretically expected Wien solution $\sim \epsilon_{\rm ph}^2\exp(−\epsilon_{
 where $\theta_e =k_{\rm B}T_e/m_ec^2$ is the (dimensionless) background temperature. Left: both electrons
 and photons have weight 1. Right: electrons have initial weight 3.1 and photons 2.4." %}
 
-{% include image.html file="tristan_v2/qed/jones.png" alt="jns" max-width="50%" caption="Spectrum of
+{% include image.html file="tristan_v2/qed/jones.png" alt="jns" max-width="60%" caption="Spectrum of
 photons scattered of a relativistic electron. The numerical result (blue line) is compared against the
-expression derived by Jones 1968, valid for $\gamma_e\gg 1$." %}
+expression derived by Jones (1968), valid for $\gamma_e\gg 1$." %}
