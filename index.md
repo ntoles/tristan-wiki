@@ -20,6 +20,7 @@ If you would like to learn more about the code structure, compilation rules, or 
 * <span class='date'>May 13 2020</span>[Parameters file](tristanv2-visualization.html#parameters)
 * <span class='date'>May 14 2020</span>[History](tristanv2-visualization.html#history)
 * <span class='date'>Jun 28 2020</span>[Slice outputs in 3d](tristanv2-visualization.html#slices-for-3d-only)
+* <span class='date'>Jul 19 2020</span>[Cartesian particle binning](tristanv2-downsampling.html#cartesian-binning)
 
 #### Physics updates
 * <span class='date'>Aug 24 2019</span>[Synchrotron radiation/cooling](tristanv2-radiation.html#synchrotron-cooling)
