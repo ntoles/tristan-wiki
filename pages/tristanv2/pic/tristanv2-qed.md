@@ -10,7 +10,7 @@ folder: tristanv2
 
 ### Binary vs Monte-Carlo coupling
 
-To simulation "two-body" processes, i.e., quantum interactions of two macro-particles, it is first crucial to invent a proper pairing routine that will loop through the particles within a given region, randomly pair them together, compute the corresponding interaction cross sections and then decide to either proceed with the interaction or not.
+To simulate "two-body" processes, i.e., quantum interactions of two macro-particles, it is first crucial to invent a proper pairing routine that will loop through the particles within a given region, randomly pair them together, compute the corresponding interaction cross sections and then decide to either proceed with the interaction or not.
 
 There are two approaches one can employ. We can either loop through all the possible pairs in a given region; in general this requires `N^2` operations, where `N` is the number of particles in that region. This approach, while being the physically "correct" one, is extremely time-consuming. On the other hand, we could pair random particles in a given region only once at a given timestep, which can be done in `O(N)` operations. In our code we implement both approaches and then compare their performance and convergence. Also keep in mind, that there are two general scenarios that may occur: particles from group `A` may be interacting with particles from group `B`, or alternatively particles from the same group may be interacting with each other. Our generic coupling routines work with both of these situations.
 
@@ -60,15 +60,18 @@ species(sp)%tile(ti, tj, tk)%x(pp)
 ```
 Remember, that any particle can be uniquely identified by the corresponding tile indices (`ti`, `tj`, `tk`), the species index (`s`) and its own index (`p`).
 
-The subroutine can pair particles with arbitrary weights. For particles with weight larger than the
-reference weight of 1, we split the total weight evenly among `CEILING(weight)` copies of the
-particle. This improves the MC sampling for heavy particles, which can carry a large fraction of
-the total group weight but would be accounted for only crudely if they are not split into
-order-unity weight particles. *Note*: At this stage the particles are 'split' only in an
-abstract sense to construct pairs with reduced particle weights. The actual splitting may (or may not)
-occur later when particles get a chance to interact via some specific QED process.
+The subroutine can pair particles with arbitrary weights. For particles with weight larger than the reference weight of 1, we split the total weight evenly among `CEILING(weight)` copies of the particle. This improves the MC sampling for heavy particles, which can carry a large fraction of
+the total group weight but would be accounted for only crudely if they are not split into order-unity weight particles. This pairing algorithm for just two "heavy" particles is illustrated in the animation below. Similarly one can do grouping of two or more particles by splitting them within each group and treating them as individual light particles.
+
+{% include note.html content="At this stage the particles are 'split' only in an abstract sense to construct pairs with reduced particle weights. The actual splitting may (or may not) occur later when particles get a chance to interact via some specific QED process." %}
+
+
+<div class="p5canvas" id="sketch-div"></div>
+<script src="https://cdn.jsdelivr.net/npm/p5@1.0.0/lib/p5.js"></script>
+<script src="{{ "pages/tristanv2/pic/pairing.js" }}"></script>
 
 {% include note.html content="The subroutine `coupleParticlesOnTile()` only make couples from the given particle groups, it doesn't handle the consequent physics that should be carried on these particle couples later." %}
+
 
 ### Breit-Wheeler pair production
 
@@ -136,13 +139,29 @@ Notice the `bw1` and `bw2` parameters. The fact that they're different means the
   bw1           = 1
 ```
 
+#### Implementation details
+
+Breit-Wheeler process is a pair production mechanism that transforms two high energy photons into an electron-positron pair. This process can proceed if the energy of two photons in their common center-of-momentum frame is larger than $2m_e c^2$:
+<div>$$
+\begin{equation}
+s = \frac{\varepsilon_1 \varepsilon_2}{2 (m_e c^2)^2}(1-\cos{\theta}) > 1,
+\end{equation}
+$$</div>
+where $\varepsilon_1$ and $\varepsilon_2$ are the energies of two photons, and $\theta$ is the angle between their momentum vectors in the lab frame.
+
+In our simulations this process takes place in every simulation tile separately. Particles (with arbitrary weights in general) in each tile are paired using either the Monte-Carlo pairing [discussed above](tristanv2-qed.html#mc-pairing) or using a brute force binary pairing. This process provides us with pairs of abstract particles with weights $\sim 1$.
+
+For each of these pairs we first compute the $s$-parameter to find out whether these particles can in principle pair produce, and after that we compute their interaction cross section which is a function of $s$ (see the full expression in [Akhiezer & Berestetskii (1965) QED](https://www.worldcat.org/title/quantum-electrodynamics-bygt-ai-akhiezer-andgt-vb-berestetski-i/oclc/622903655)). This cross section, normalized to the tile size, BW interval and the fiducial number specified in the input, serves as a criterion for the particles to either pair produce or not. If it is decided that two particles shall pair produce -- we compute the weights, energies and momenta of produced electron and positron according to the differential cross section (in the C-o-M frame) in such a way, that the weight, energy and all momentum components are conserved. We then generate a random position in the tile where we initialize the two charged particles and subtract the corresponding weights from the original photons (if the photon "spends" all of its weights -- we destroy it, and it may not further participate in this process).
+
+{% include note.html content="Our numerical algorithm relies on the fact that at any point in time the probability of any of the two photons two pair produce is much lower than $1$. The code will throw an error if this probability is larger; to avoid that you can either decrease the interval between pair production events, increase `ppc0` or decrease `tau_BW`." %}
+
+#### Tests
+
 Depending on which algorithm is chosen, the routine goes through some procedure and produces electron/positron pairs respecting the computed differential cross section. The total energy and momentum (of two photons before the process, and of the pair after the process) is exactly conserved.
 
 On the plot below we compare the two pairing methods (binary and Monte-Carlo) with the analytic model from [Aharonyan+ 1983](https://link.springer.com/article/10.1007%2FBF01005624). We initialize a periodic box with two isotropically distributed monoenergetic photon populations with energies $\varepsilon_1 = 0.1 m_e c^2$ and $\varepsilon_2 = 100 m_e c^2$.
 
 {% include image.html file="tristan_v2/qed/mc_bin_an.png" alt="mc_bin_ad" max-width="70%"%}
-
-#### BW with variable weights
 
 Pair production process respects particle weights. This means that (in an ideal situation) there should be almost no difference between two-photon pair production of two macro-photons with weights `1` and `10`, and between `11` separate macro-photons. However, of course, there is no free lunch, so downsampling, as expected may reduce the sampling resolution of the photon distribution function, and, as a result, the distribution function of  produced electron-positron pairs.
 
@@ -199,7 +218,7 @@ photons in the electron frame reads (see, e.g.,
 [Berestetskii+, Quantum Electrodynamics (Pergamon, Oxford, 1982)](https://ui.adsabs.harvard.edu/abs/1980MINTF...4.....B/abstract)):
 <div>$$
 \begin{equation}
-\frac{\rm d\sigma}{\rm d u} = \frac{3\sigma_{\rm T}}{8}\rho^2
+\frac{\mathrm{d}\sigma}{\mathrm{d} u} = \frac{3\sigma_{\rm T}}{8}\rho^2
 \left(\rho + \frac{1}{\rho} + u^2 - 1 \right),
 \end{equation}
 $$</div>
@@ -278,8 +297,9 @@ transforms the probability from the rest frame into the simulation frame.
 It is worth noting that this last term not only adjusts the
 total probability but also assigns a different probability to
 each saparate scattering, depending on the momentum of the photon and electron.
-*Note*: For a self-consistent simulation of Compton scattering *together with* BW pair production, the `tau_BW` and `tau_Compton` parameters should be actually the
-same because both cross sections are normalized to $\sigma_{\rm T}$.
+
+{% include note.html content="For a self-consistent simulation of Compton scattering *together with* BW pair production, the `tau_BW` and `tau_Compton` parameters should be actually the
+same because both cross sections are normalized to $\sigma_{\rm T}$." %}
 
 Once an electron-photon pair is selected for scattering, we
 pick a random scattering cosine as described above, update the photon

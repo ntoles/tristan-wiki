@@ -31,3 +31,17 @@ li > span.date {
 .long-eqn {
   overflow-x: auto;
 }
+
+mjx-container {
+  overflow: scroll;
+}
+
+.p5canvas {
+  width: 100%;
+  display: flex;
+}
+
+.p5canvas canvas {
+  margin-left: auto;
+  margin-right: auto;
+}
