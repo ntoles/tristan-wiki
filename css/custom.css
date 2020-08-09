@@ -30,7 +30,7 @@ li > span.date {
 
 mjx-container {
   overflow-x: auto;
-  overflow-y: hidden;
+  overflow-y: visible;
 }
 
 .p5canvas {
