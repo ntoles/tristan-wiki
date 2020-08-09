@@ -3,38 +3,6 @@
 <head>
     {% include head.html %}
     <script>
-        // $(document).ready(function() {
-        //     // Initialize navgoco with default options
-        //     $("#mysidebar").navgoco({
-        //         caretHtml: '',
-        //         accordion: false,
-        //         openClass: 'active', // open
-        //         save: false, // leave false or nav highlighting doesn't work right
-        //         cookie: {
-        //             name: 'navgoco',
-        //             expires: false,
-        //             path: '/'
-        //         },
-        //         slide: {
-        //             duration: 400,
-        //             easing: 'swing'
-        //         }
-        //     });
-        //
-        //     $("#collapseAll").click(function(e) {
-        //         e.preventDefault();
-        //         $("#mysidebar").navgoco('toggle', false);
-        //     });
-        //
-        //     $("#expandAll").click(function(e) {
-        //         e.preventDefault();
-        //         $("#mysidebar").navgoco('toggle', true);
-        //     });
-        //
-        // });
-
-    </script>
-    <script>
         $(function () {
             $('[data-toggle="tooltip"]').tooltip()
         })
@@ -48,6 +16,7 @@
                 $("#tg-sb-icon").toggleClass('fa-toggle-on');
                 $("#tg-sb-icon").toggleClass('fa-toggle-off');
             });
+
         });
     </script>
     {% if page.datatable == true %}
@@ -71,6 +40,15 @@
     </script>
     {% endif %}
     {% include mathjax_support.html %}
+  <script>
+    window.onload = function() {
+      var equations = document.getElementsByTagName('mjx-container');
+      for (eqn of equations) {
+        eqn.parentElement.style.setProperty("overflow", "auto");
+      };
+    };
+    // $('mjx-container').parent().css('overflow', 'auto');
+  </script>
 </head>
 <body>
 {% include topnav.html %}
@@ -98,5 +76,10 @@
 </div>
 <!-- /#main -->
     </div>
+<script>
+  $(document).ready(function() {
+
+  });
+</script>
 </body>
 </html>

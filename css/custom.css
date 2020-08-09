@@ -28,11 +28,6 @@ li > span.date {
   margin-right:10px
 }
 
-mjx-container {
-  overflow-x: auto;
-  overflow-y: visible;
-}
-
 .p5canvas {
   width: 100%;
   display: flex;
