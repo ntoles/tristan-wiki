@@ -42,12 +42,14 @@
     {% include mathjax_support.html %}
   <script>
     window.onload = function() {
-      var equations = document.getElementsByTagName('mjx-container');
+      let equations = document.getElementsByTagName('mjx-container');
       for (eqn of equations) {
-        eqn.parentElement.style.setProperty("overflow", "auto");
+        let parent = eqn.parentElement;
+        if (parent.tagName == 'DIV') {
+          parent.style.setProperty("overflow", "auto");
+        }
       };
     };
-    // $('mjx-container').parent().css('overflow', 'auto');
   </script>
 </head>
 <body>
