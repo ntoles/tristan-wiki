@@ -8,8 +8,8 @@
 }
 
 .nav ul > li.active > a, .nav ul > li > a:hover {
-    background-color: #dfdfdf;
-    color: #333;
+  background-color: #dfdfdf;
+  color: #333;
 }
 
 .axis-grid line {
@@ -28,12 +28,9 @@ li > span.date {
   margin-right:10px
 }
 
-.long-eqn {
-  overflow-x: auto;
-}
-
 mjx-container {
-  overflow: scroll;
+  overflow-x: auto;
+  overflow-y: hidden;
 }
 
 .p5canvas {

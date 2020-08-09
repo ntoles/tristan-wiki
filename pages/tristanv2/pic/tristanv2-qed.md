@@ -270,7 +270,7 @@ The (Monte-Carlo) scattering algorithm works as follows. We first construct rand
 electron-photon pairs on every tile. For each pair from the list,
 the photon momentum and energy are transformed into the electron (or positron)
 rest frame:
-<div>$$
+<div class='long-eqn'>$$
 \begin{align}
 \epsilon_0' & =  \gamma \epsilon_0 - \boldsymbol p_0 \cdot \boldsymbol k_0,&
 \boldsymbol k_0' & =  \boldsymbol k_0 + \left(\frac{\boldsymbol p_0\cdot\boldsymbol k_0}{\gamma_0 + 1} - \epsilon_0\right)\boldsymbol p_0, &
@@ -280,7 +280,7 @@ where $\boldsymbol p_0$ is the electron momentum and $\boldsymbol k_0$ is
 the initial simulation-frame photon momentum (both in units of $m_e c$).
 Once in the rest frame, the electron-photon pair is scattered with
 probability
-<div>$$
+<div class="long-eqn">$$
 \begin{align}
     P =   \tau_{\rm T}\,\hat{\sigma} \,P_{\rm corr}\, \epsilon_0'/\epsilon_0\gamma_0  ,
 \end{align}
