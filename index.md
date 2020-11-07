@@ -9,6 +9,8 @@ permalink: index.html
 
 `Tristan-MP v2` is the second (arguably third) reincarnation of the most awesome astroplasma particle-in-cell code in the world written in Fortran 90. If you would like to learn more about the code structure, compilation process, or how to build a user file from scratch, feel free to read through this wiki.
 
+{% include note.html content="If you are a new user testing the code on a new computer cluster, please consider contributing to [this chapter](https://ntoles.github.io/tristan-wiki/tristanv2-configure.html#cluster-specific-customization) about cluster-specific configuration to make the life easier for future generations."%}
+
 _Disclaimer for the closed v2 version_. This wiki contains the most up-to-date info only for the `master` branch. Some of the new features added to the `dev/main` branch might not be documented yet. However, as soon as they are pushed to the `master` -- their documentation will immediately appear here.
 
 ### Recent updates
