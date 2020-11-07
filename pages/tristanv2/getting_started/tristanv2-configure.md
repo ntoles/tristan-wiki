@@ -68,3 +68,32 @@ cp $EXECUTABLE $OUTPUT_DIR
 cp $INPUT $OUTPUT_DIR
 srun $EXECUTABLE -i $INPUT -o $OUTPUT_DIR -s $SLICE_DIR -r $RESTART_DIR > $OUTPUT_DIR/$REPORT_FILE 2> $OUTPUT_DIR/$ERROR_FILE
 ```
+
+{% include note.html content="On a generic cluster not specified here please use the most up-to-date `intel`, `intel-mpi/intel`, `intel-mkl` and `hdf5/intel` modules to compile the code. Depending on the cluster"%}
+
+#### Running on Princeton's `Perseus` cluster
+
+Modules to load:
+
+```bash
+1) intel-mkl/2020.1/1/64              3) intel-mpi/intel/2019.7/64
+2) intel/19.1/64/19.1.1.217           4) hdf5/intel-16.0/intel-mpi/1.8.16
+```
+
+Also it is highly recommended to use the old version of the MPI (i.e. `-mpi` flag), as the new version seems to malfunction on large number of cores (600+).
+
+{% include warning.html content="There have been some problems reported with `openmpi` on `Perseus`, so please for now use `intel-mpi`."%}
+
+
+#### Running on IAS's `Helios` cluster
+
+Before running the code do the following:
+
+```bash
+# if running on a single node:
+export I_MPI_PMI_LIBRARY=/usr/lib64/libpmi.so
+
+# if running on multiple nodes:
+export I_MPI_PMI_LIBRARY=/usr/lib64/libpmi2.so
+export UCX_TLS=all
+```

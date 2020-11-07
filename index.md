@@ -7,9 +7,9 @@ permalink: index.html
 
 ## Latest on `Tristan-MP v2`
 
-`Tristan-MP v2` is the second (arguably third) reincarnation of the most awesome astroplasma particle-in-cell code in the world written in Fortran 90.
+`Tristan-MP v2` is the second (arguably third) reincarnation of the most awesome astroplasma particle-in-cell code in the world written in Fortran 90. If you would like to learn more about the code structure, compilation process, or how to build a user file from scratch, feel free to read through this wiki.
 
-If you would like to learn more about the code structure, compilation rules, or how to build a user file, feel free to read through this wiki.
+_Disclaimer for the closed v2 version_. This wiki contains the most up-to-date info only for the `master` branch. Some of the new features added to the `dev/main` branch might not be documented yet. However, as soon as they are pushed to the `master` -- their documentation will immediately appear here.
 
 ### Recent updates
 
@@ -37,3 +37,10 @@ If you would like to learn more about the code structure, compilation rules, or 
 ### Future plans
 
 * $\gamma + \boldsymbol{B}$ pair production
+
+## Releases
+* 2.0.1 <span class='date'>Jul 2020</span>
+  * Compton scattering and GCA pusher added
+  * Slice outputs for 3d added
+  * Particle momentum binning improved for downsampling
+  * Minor bugs fixed
