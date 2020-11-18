@@ -19,7 +19,7 @@ window.MathJax = {
 
 In this section we discuss how to understand the `Tristan-MP v2` code units, what the input quantities actually define and how to convert physical quantities into real-life (e.g., CGS) units.
 
-Let us take $$\Delta x$$ to be the size of the cells and $$\Delta t$$ -- the duration of the timestep. There are four fundamental dimensionless quantities defined in the `input` file that determine the physical dimensions:
+Let us take $$\Delta x$$ to be the size of the cells and $$\Delta t$$ -- the duration of the timestep. There are three fundamental dimensionless quantities defined in the `input` file:
 
 * $$\textrm{CC}$$ (or in the code `CC`):
   * the speed of light is then defined as $$c = \textrm{CC}\Delta x/\Delta t$$;
@@ -30,7 +30,7 @@ Let us take $$\Delta x$$ to be the size of the cells and $$\Delta t$$ -- the dur
 
 The choice of these three parameters is dictated purely by numerical requirements. $$\textrm{CC}$$ has to be $$<0.5$$ for the numerical scheme to satisfy the CFL condition, $$\textrm{PPC}$$ determines the resolution of sampling of the distribution function, and $$\textrm{C_OMP}$$ determines the spatial resolution of the main kinetic scale. This choice has no effect on actual physical scales the simulation is intended to reproduce.
 
-### TL;DR
+## Brief recap
 
 Essentially the following two equations provide a recipe to convert units between CGS and code quantities:
 
@@ -42,11 +42,15 @@ c &=& \textrm{CC}\frac{\Delta x}{\Delta t}.
 \end{eqnarray}
 $$</div>
 
+Here and further we will call the dimensional and dimensionless parameters $$\Delta x$$, $$\Delta t$$ and the ones with subscripts and superscripts of $$0$$ (e.g., $$n_0$$, $$w_0$$, $$d_e^0$$) -- **fiducial**.
+
 User provides three values in the input file: $$\textrm{CC}$$, $$\textrm{C_OMP}$$, $$\textrm{PPC}$$, that are purely computationally motivated. There are still five fiducial variables left: $$\Delta x$$, $$\Delta t$$, $$B_0$$, $$\sigma_0$$ and $$w_0$$. Typically in `Tristan` we also define $$\sigma_0$$, leaving us with three equations and four variables. If we define one of those fiducial variables in CGS units -- this will allow us to convert everything else to CGS.
 
 ### Useful relations
 
-These parameters apply for plasma species with density $$n_s$$, mass and charge per particle $$m_s$$ and $$q_s$$, threaded by a magnetic field $$B$$. When considering single particle, we assume its four-velocity to be $$\gamma_s\beta_s$$. Fiducial values are measured with code input parameters for some intrinsic species (it's easier to think about these species as electrons, but that can be anything). For simplicity we will measure all the masses, charges, densities and fields in this intrinsic units: $$\hat{n}_s=n_s / n_0$$, $$\hat{b} = B / B_0$$ etc. Lengthscales and timescales with a hat will be normalized to $\Delta x$ and $\Delta t$.
+Formulae below apply for plasma species with density $$n_s$$, mass and charge per particle $$m_s$$ and $$q_s$$, threaded by a magnetic field $$B$$. When considering single particle, we assume its four-velocity to be $$\gamma_s\beta_s$$. Fiducial values are measured with code input parameters for some intrinsic species (it's easier to think about these species as electrons, but that can be anything). For simplicity we will measure all the masses, charges, densities and fields in these intrinsic units: $$\hat{n}_s=n_s / n_0$$, $$\hat{b} = B / B_0$$ etc. Lengthscales and timescales with a hat will be normalized to $\Delta x$ and $\Delta t$.
+
+In our code we employ $$\Delta x = \Delta t$$ (a-priori). Here for simplicity we keep these values generic. In the code as well as here we also assume $$\lvert e\rvert \equiv m_e$$. We can do this, because all the electric and magnetic fields are present in the equations with a $$\lvert e\rvert/m_e$$ coefficient; this is equivalent to renormalizing the field quantities.
 
 |quantity|formula|fiducial value|actual value|
 |---|---|---|---|
@@ -62,9 +66,9 @@ These parameters apply for plasma species with density $$n_s$$, mass and charge 
 
 This table is the main takeaway from this page. In the subsequent paragraphs we go into more details in how to derive them.
 
-# Main PIC algorithm
+## Main PIC algorithm
 
-Here and further we will call the dimensional and dimensionless parameters $$\Delta x$$, $$\Delta t$$ and the ones with subscripts and superscripts of $$0$$ (e.g., $$n_0$$, $$w_0$$, $$d_e^0$$) -- **fiducial**. Let us also take:
+Let us take for simplicity:
 
 <div>$$
 \begin{equation}
@@ -136,7 +140,7 @@ Assume that the actual magnetic field in the system is $$B\sim 10^3$$ G. We can 
 ### Code units
 
 1. Measure all the spatial and temporal quantities in cell sizes and timesteps:
-  * i.e. $$\Delta x = 1$$ and $$\Delta t = 1$$.
+  * i.e. $$\Delta x = \Delta t$$.
 2. Take $$k_1 \equiv 1$$, i.e. $$\lvert e\rvert = m_e$$:
   * keep in mind, that this is not a constraint, this is the normalization of our units.
 3. Take $$4\pi \lvert e\rvert = \lvert \tilde{e}\rvert = \textrm{CC}^2 / \left(\textrm{PPC}\cdot\textrm{C_OMP}^2\right)$$:
