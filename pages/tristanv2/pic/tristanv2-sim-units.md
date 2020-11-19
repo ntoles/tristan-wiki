@@ -60,9 +60,9 @@ In our code we employ $$\Delta x = \Delta t$$ (a-priori). Here for simplicity we
 | plasma magnetization | $$\sigma_s = B^2/4\pi n_s m_s c^2$$ | $$\sigma_0$$ (input parameter) | $$\sigma_s=\sigma_0 \cdot\hat{b}^2\hat{n}_s^{-1}\hat{m}_s^{-1}$$ |
 | gyration frequency | $$\omega_{B}^s=\lvert q_s\rvert B/\gamma_s m_s c$$ | $$\omega_B^0 = \left(\textrm{CC}\sqrt{\sigma_0}/\textrm{C_OMP}^2\right)\Delta t^{-1}$$ | $$\omega_B^s = \omega_B^0 \cdot \lvert \hat{q}_s \rvert \hat{b} \gamma_s^{-1} \hat{m}_s^{-1} $$ |
 | particle gyroradius | $$r_L^s = \gamma_s\beta_s m_s c^2/\lvert q_s \rvert B$$ | $$r_L^0 = \textrm{C_OMP} \cdot\sigma_0^{-1/2}\Delta x$$ | $$r_L^s = r_L^0 \cdot \gamma_s\beta_s\hat{m}_s \lvert \hat{q}_s\rvert^{-1} \hat{b}^{-1}$$  |
-| strength of synchrotron cooling | $$\gamma_{\textrm{syn}} = (3/2) \lvert e\rvert\beta_{\rm rec}/r_e^2 B $$ | $$\gamma_{\textrm{syn}0} = \left(6\pi\beta_{\rm rec} \textrm{C_OMP}^{3}\cdot\textrm{PPC} \cdot w_0\sigma_0^{-1/2}\right)^{1/2}$$ <br> (typically defined as input) | $$\gamma_{\textrm{syn}} = \gamma_{\textrm{syn}0}\cdot \hat{b}^{-1}$$ |
-| QED optical depth over $l$ | $$\tau_s = n_s\sigma_T l $$ | $$\tau_{0} = (6\pi \cdot \textrm{C_OMP}^4\cdot \textrm{PPC}\cdot w_0)^{-1}$$ | $$\tau_s=\tau_0\cdot \hat{n}_s\hat{l}$$ |
-| QED mean free path | $$l_{\rm mfp}^s = 1/n_s\sigma_T $$ | $$l_{\rm mfp}^0 = 6\pi \cdot \textrm{C_OMP}^4\cdot \textrm{PPC}\cdot w_0 \Delta x$$ | $$l_{\rm mfp}^s = l_{\rm mfp}^0\cdot \hat{n}_s^{-1}$$ |
+| strength of synchrotron cooling | $$\gamma_{\textrm{syn}} = 4\pi \lvert e\rvert\beta_{\rm rec}/\sigma_T B $$ | $$\gamma_{\textrm{syn}0}$$ (input parameter) | $$\gamma_{\textrm{syn}} = \gamma_{\textrm{syn}0}\cdot \hat{b}^{-1}$$ |
+| QED optical depth over $l$ | $$\tau_s = n_s\sigma_T l $$ | $$\tau_0 = \beta_{\rm rec}/\left(\gamma_{\textrm{syn}0}^2 \sqrt{\sigma_0}\cdot\textrm{C_OMP}\right)$$ <br> (can also be an input parameter) | $$\tau_s=\tau_0\cdot \hat{n}_s\hat{l}$$ |
+| QED mean free path | $$l_{\rm mfp}^s = 1/n_s\sigma_T $$ | $$l_{\rm mfp}^0 = \Delta x/\tau_0$$ | $$l_{\rm mfp}^s = l_{\rm mfp}^0\cdot \hat{n}_s^{-1}$$ |
 
 This table is the main takeaway from this page. In the subsequent paragraphs we go into more details in how to derive them.
 
@@ -209,32 +209,28 @@ $$</div>
 
 # Radiation and QED
 
-The radiative and QED processes, which are the integral part of this code, all rely on a single dimensional quantity -- $$r_e=e^2/m_e c^2$$ -- the classical radius of the electron (or the Thomson cross-section). In our units the value of this scale can be easily found by evaluating $$k_2/4\pi c^2$$:
+The radiative and QED processes, which are the integral part of this code, all rely on a single dimensional quantity -- $$r_e=e^2/m_e c^2$$ -- the classical radius of the electron (or the Thomson cross-section). In our units the value of this scale is already defined by our fiducial parameters ($$k_2/4\pi c^2$$), and it corresponds to the low energy radiation self-consistently captured by PIC method. However, for computational purposes we rescale this parameter by defining the new $$r_e^0$$ (or $$\sigma_T^0$$) fiducial scale that will capture high energy radiation and QED effects.
+
+Depending on what physics is included one can define this scale by either specifying $$\gamma_{\textrm{syn}0}$$ or $$\tau_0$$ from the input file (more on that below).
+
+For details on this see [the following section](tristanv2-radiation.html#synchrotron-radiation-drag). Dimensionless parameter $$\gamma_{\textrm{syn}0}$$ is defined as the Lorentz factor of a particle the force on which from the accelerating electric field of strength $$\beta_{\rm rec} B_0$$ (characteristic electric field in reconnection) is equal to synchrotron drag in the background magnetic field of strength $$B_0$$:
 
 <div>$$
 \begin{equation}
-r_e = \frac{1}{4\pi} \frac{1}{\textrm{C_OMP}^2\cdot \textrm{PPC}}\frac{\Delta x}{w_0}.
+|e|\beta_{\rm rec}B_0 = 2\sigma_T^0\frac{B_0^2}{8\pi}\gamma_{\textrm{syn}0}^2,
 \end{equation}
 $$</div>
 
-### Synchrotron drag
+<!-- \gamma_{\textrm{syn}0}^2 = \frac{3}{2}\frac{\lvert e\rvert \beta_{\rm rec}}{r_e^2 B_0}, -->
+where $$\beta_{\rm rec} \equiv 0.1$$ (defined in the input file). From this we establish the connection between the $$\sigma_T^0$$ and $$\gamma_{\textrm{syn}0}$$.
 
-$$r_e$$ itself does not tell us much about the physics, we further define a more comprehensible dimensionless number to quantify the synchrotron drag (for details see [the following section](tristanv2-radiation.html#synchrotron-radiation-drag)):
-
-<div>$$
-\begin{equation}
-\gamma_{\textrm{syn}0}^2 = \frac{3}{2}\frac{\lvert e\rvert \beta_{\rm rec}}{r_e^2 B_0},
-\end{equation}
-$$</div>
-
-where $$\beta_{\rm rec} \equiv 0.1$$. Evaluating this expression gives us:
-<div>$$
+<!-- <div>$$
 \begin{equation}
 \gamma_{\textrm{syn}0}^2 = 6\pi\beta_{\rm rec} \textrm{C_OMP}^3\cdot\textrm{PPC}\frac{ w_0}{\sqrt{\sigma_0}},
 \end{equation}
-$$</div>
+$$</div> -->
 
-Notice that we don't have to introduce any other fiducial number here; in other words, both $$r_e$$ and $$\gamma_{\textrm{syn}0}$$ are just a linear combinations of $$k_1$$ and $$k_2$$. This means if we provide a numerical value for $$\gamma_{\textrm{syn}0}$$ in our simulation -- this essentially determines the numerical value for $$w_0$$, and we no longer have a freedom to choose any of the fiducial parameters in CGS ($$\Delta x$$, $$\Delta t$$, etc).
+<!-- Notice that we don't have to introduce any other fiducial number here; in other words, both $$r_e$$ and $$\gamma_{\textrm{syn}0}$$ are just a linear combinations of $$k_1$$ and $$k_2$$. This means if we provide a numerical value for $$\gamma_{\textrm{syn}0}$$ in our simulation -- this essentially determines the numerical value for $$w_0$$, and we no longer have a freedom to choose any of the fiducial parameters in CGS ($$\Delta x$$, $$\Delta t$$, etc). -->
 
 The equation of motion for the particle $$s$$ with (the simplified version of) the synchrotron drag will thus look like the following (provided that $$q_s=e$$ and $$m_s = m_e$$):
 
@@ -244,7 +240,7 @@ The equation of motion for the particle $$s$$ with (the simplified version of) t
 \end{equation}
 $$</div>
 
-The physically important $$\gamma_{\rm syn}$$ (which determines the physical regime of simulated plasma) is:
+The physically important $$\gamma_{\rm syn}$$, which determines the Lorentz factor of particles the acceleration of which is balanced by the synchrotron drag in an arbitrary field, is then:
 
 <div>$$
 \begin{equation}
@@ -252,23 +248,21 @@ The physically important $$\gamma_{\rm syn}$$ (which determines the physical reg
 \end{equation}
 $$</div>
 
-### QED processes
-
-The QED processes considered in our code (Compton scattering, pair producation/annihilation) all have a characteristic optical depth per $$\Delta x$$ (for density $$n_0$$):
+For QED processes considered in our code (Compton scattering, pair producation/annihilation), the easiest dimensionless number to construct is the characteristic optical depth per $$\Delta x$$ (for density $$n_0$$):
 
 <div>$$
 \begin{equation}
-\tau_0 = n_0\sigma_T\Delta x.
+\tau_0 = n_0\sigma_T^0\Delta x,
 \end{equation}
 $$</div>
 
-Plugging $$\sigma_T=8\pi r_e^2/3$$ and other parameters we find:
+<!-- Plugging $$\sigma_T=8\pi r_e^2/3$$ and other parameters we find:
 
 <div>$$
 \begin{equation}
 \tau_0^{-1} = 6\pi \cdot \textrm{C_OMP}^4\cdot \textrm{PPC}\cdot w_0,
-\end{equation}
-$$</div>
+\end{equation} -->
+<!-- $$</div> -->
 
 or for an arbitrary number density and distance:
 
@@ -277,6 +271,15 @@ or for an arbitrary number density and distance:
 \tau = \tau_0\left(\frac{n}{n_0}\right)\left(\frac{l}{\Delta x}\right).
 \end{equation}
 $$</div>
+
+Notice that defining $$\gamma_{\textrm{syn}0}$$ instantly defines $$\sigma_{\rm T}^0$$ (hence $$\tau_0$$) and vice versa. Depending on the physical problem we are trying to simulate we may define one or the other. The connection between the two can easily be found to be the following:
+
+<div>$$
+\begin{equation}
+\tau_0 \gamma_{\textrm{syn}0}^2 = \frac{\beta_{\rm rec}}{\sqrt{\sigma_0}\cdot\textrm{C_OMP}}.
+\end{equation}
+$$</div>
+
 
 <!-- #### Example
 
