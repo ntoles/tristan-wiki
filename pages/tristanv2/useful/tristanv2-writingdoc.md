@@ -7,9 +7,10 @@ folder: tristanv2
 summary: "Tutorial on how to contribute to this wiki."
 ---
 
+## Prerequisites
 This website is made with the help of the `jekyll` framework. To edit/update it -- you may want to first install a couple of things.
 
-### Prerequisites for Mac
+### for Mac
 
 1. install [brew](https://brew.sh/);
 2. install `rbenv`:
@@ -38,6 +39,15 @@ This website is made with the help of the `jekyll` framework. To edit/update it 
   ```bash
   gem install bundler
   ```
+
+### for Linux
+(will need to be added at some point)
+
+### for Windows
+
+1. remove Windows;
+2. install Linux;
+3. see instructions for Linux.
 
 ## Compiling the website
 
