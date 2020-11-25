@@ -8,7 +8,11 @@ folder: tristanv2
 
 {% include note.html content="This module is not available in the public version." %}
 
-### Binary vs Monte-Carlo coupling
+## Unit normalization
+
+...
+
+## Binary vs Monte-Carlo coupling
 
 To simulate "two-body" processes, i.e., quantum interactions of two macro-particles, it is first crucial to invent a proper pairing routine that will loop through the particles within a given region, randomly pair them together, compute the corresponding interaction cross sections and then decide to either proceed with the interaction or not.
 
@@ -72,10 +76,11 @@ the total group weight but would be accounted for only crudely if they are not s
 
 {% include note.html content="The subroutine `coupleParticlesOnTile()` only make couples from the given particle groups, it doesn't handle the consequent physics that should be carried on these particle couples later." %}
 
+## Breit-Wheeler pair production
 
-### Breit-Wheeler pair production
+### Theory
 
-#### Quick user guide
+### Quick user guide
 
 To enable the Breit-Wheeler pair production one must first add the following two flags when configuring the `Makefile`: `-qed`, `-bwpp`. In the input file this module requires several parameters to be included:
 
@@ -139,7 +144,7 @@ Notice the `bw1` and `bw2` parameters. The fact that they're different means the
   bw1           = 1
 ```
 
-#### Implementation details
+### Implementation details
 
 Breit-Wheeler process is a pair production mechanism that transforms two high energy photons into an electron-positron pair. This process can proceed if the energy of two photons in their common center-of-momentum frame is larger than $2m_e c^2$:
 <div>$$
@@ -155,7 +160,7 @@ For each of these pairs we first compute the $s$-parameter to find out whether t
 
 {% include note.html content="Our numerical algorithm relies on the fact that at any point in time the probability of any of the two photons two pair produce is much lower than $1$. The code will throw an error if this probability is larger; to avoid that you can either decrease the interval between pair production events, increase `ppc0` or decrease `tau_BW`." %}
 
-#### Tests
+### Tests
 
 Depending on which algorithm is chosen, the routine goes through some procedure and produces electron/positron pairs respecting the computed differential cross section. The total energy and momentum (of two photons before the process, and of the pair after the process) is exactly conserved.
 
@@ -173,9 +178,9 @@ Below we present an example simulation where we initialize two monoenergetic pho
 
 {% include image.html file="tristan_v2/qed/mc_5_1.png" alt="mc51" max-width="70%" caption="Left source emits weight 5 photons, while the right one -- with weight 1." %}
 
-### Compton scattering
+## Compton scattering
 
-#### Quick user guide
+### Quick user guide
 
 To include support for Compton scattering,
 run the `Makefile` configuration script with the `-qed` and `-compton` flags.
@@ -206,7 +211,7 @@ The list of Compton-enabled species has to include at least
 one electron/positron and one photon species.
 Ions cannot participate in the process.
 
-#### Implementation details
+### Implementation details
 
 The implementation details are similar to those described in
 [Del Gaudio+ 2020](https://arxiv.org/abs/2004.11404) with a few variations.
@@ -266,14 +271,13 @@ For $\epsilon_0'\ll 1$ we expand ${\rm CDF}(u)$ to 2nd
 order in $\epsilon_0'$ to avoid numerical issues with evaluating the
 full expresion in this regime.
 
-The (Monte-Carlo) scattering algorithm works as follows. We first construct random
-electron-photon pairs on every tile. For each pair from the list,
-the photon momentum and energy are transformed into the electron (or positron)
+The (Monte-Carlo) scattering algorithm works as follows. We first construct random electron-photon pairs on every tile. For each pair from the list, the photon momentum and energy are transformed into the electron (or positron)
 rest frame:
+
 <div class='long-eqn'>$$
 \begin{align}
-\epsilon_0' & =  \gamma \epsilon_0 - \boldsymbol p_0 \cdot \boldsymbol k_0,&
-\boldsymbol k_0' & =  \boldsymbol k_0 + \left(\frac{\boldsymbol p_0\cdot\boldsymbol k_0}{\gamma_0 + 1} - \epsilon_0\right)\boldsymbol p_0, &
+\epsilon_0' & =  \gamma \epsilon_0 - \boldsymbol{p}_0 \cdot \boldsymbol{k}_0,&
+\boldsymbol k_0' & =  \boldsymbol{k}_0 + \left(\frac{\boldsymbol{p}_0\cdot\boldsymbol{k}_0}{\gamma_0 + 1} - \epsilon_0\right)\boldsymbol{p}_0, &
 \end{align}
 $$</div>
 where $\boldsymbol p_0$ is the electron momentum and $\boldsymbol k_0$ is
@@ -308,7 +312,7 @@ onto an orthogonal basis) and Lorentz boost back into the simulation frame. The 
 is finally obtained via momentum conservation:
 $\boldsymbol p_1 = \boldsymbol p_0 + \boldsymbol k_0 - \boldsymbol k_1$
 
-#### Normalizations
+### Normalizations
 
 Several aspects need to be taken into account for an appropriate normalization
 of probabilities: (i) the time evolution should be independent of
@@ -366,7 +370,7 @@ P_{\rm corr} =  \frac{\Delta t_C / \Delta t} {n_{\rm ppc} s_x s_y s_z}
 \end{equation}
 $$</div>
 
-#### Tests
+### Tests
 
 Using the above-described algorithm, we perform a series of common tests. This includes the
 Comptonization of soft photons in a thermal electron background
