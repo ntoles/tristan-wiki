@@ -46,3 +46,14 @@ _Disclaimer for the closed v2 version_. This wiki contains the most up-to-date i
   * Slice outputs for 3d added
   * Particle momentum binning improved for downsampling
   * Minor bugs fixed
+* 2.1 <span class='date'>Dec 2020</span>
+  * Pair annihilation module (+ advanced test for all QED modules coupled)
+  * Merging of charged particles
+  * Particle payloads
+  * Vay pusher
+  * Individual particle current deposition (necessary for reflecting walls and downsampling of charged particles)
+  * Spatial binning for spectra
+  * Automated testing framework with `fulltest.py`
+  * Major restructuring of output modules
+  * Major restructuring of QED modules
+  * Minor issues fixed for GCA pusher

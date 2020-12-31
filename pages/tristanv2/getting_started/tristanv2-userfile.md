@@ -1,7 +1,7 @@
 ---
 title: User file
 keywords: userfile, setup, domain, fields, initialize
-last_updated: Dec 17, 2019
+last_updated: Dec 31, 2019
 permalink: tristanv2-userfile.html
 folder: tristanv2
 ---
@@ -12,9 +12,10 @@ User file is a problem specific set of instructions for the simulation. It basic
 1. User specific parameters [`userReadInput()`]: read the problem specific parameters from the input file (typically those under the `<problem>` block) and store them in private variables (ideally accessible only within the user file itself);
 2. user specific initialization [`userInitParticles()` and `userInitFields()`]: initialize problem specific configuration of particles and fields;
 3. user specific driving [`userDriveParticles()`]: a subroutine called every timestep to perform some action with particles;
-4. user specific boundary conditions [`userParticleBoundaryConditions()` and `userFieldBoundaryConditions()`]: these are also called at every timestep (field boundary conditions are called several times) and are meant to contain problem specific boundary conditions on particles (e.g., injection/reflection) and fields (e.g., forcing field values in specific regions).
+4. user specific current deposition [`userCurrentDeposit()`]: can be used, e.g., for reflecting wall boundaries;
+5. user specific boundary conditions [`userParticleBoundaryConditions()` and `userFieldBoundaryConditions()`]: these are also called at every timestep (field boundary conditions are called several times) and are meant to contain problem specific boundary conditions on particles (e.g., injection/reflection) and fields (e.g., forcing field values in specific regions).
 
-{% include note.html content="Even if you don't want to do anything inside some of these user-specific subroutines, it is necessary to at least define them (even if they are empty) in the user file, as the main loop will be trying to access them. The most up-to-date dummy user file is [user_dummy.F90](https://github.com/PrincetonUniversity/tristan-v2/blob/master/user/user_dummy.F90). When starting to write a problem generator from scratch it's always a good idea to start by modifying that file." %}
+{% include note.html content="Even if you don't want to do anything inside some of these user-specific subroutines, it is necessary to at least define them (even if they are empty) in the user file, as the main loop will be trying to access them. The most up-to-date dummy user file is `user_full.F90`]. When starting to write a problem generator from scratch it's always a good idea to start by modifying that file." %}
 
 {% include tip.html content="A more detailed step-by-step guide on how to write a user file can be found in the [\"Writing a user file\"](tristanv2-writinguserfile.html) section."%}
 
@@ -43,22 +44,22 @@ subroutine userInitFields()
         z_glob = REAL(k + this_meshblock%ptr%z0)
 
         ! bx is staggered only in x direction
-        bx(i, j, k) = func_bx(x_glob - 0.5, y_glob, z_glob)
+        bx(i, j, k) = func_bx(x_glob + 0.5, y_glob, z_glob)
 
         ! by is staggered only in y direction
-        by(i, j, k) = func_by(x_glob, y_glob - 0.5, z_glob)
+        by(i, j, k) = func_by(x_glob, y_glob + 0.5, z_glob)
 
         ! bz is staggered only in z direction
-        bz(i, j, k) = func_by(x_glob, y_glob, z_glob - 0.5)
+        bz(i, j, k) = func_by(x_glob, y_glob, z_glob + 0.5)
 
         ! ex is staggered only in y & z directions
-        ex(i, j, k) = func_ex(x_glob, y_glob - 0.5, z_glob - 0.5)
+        ex(i, j, k) = func_ex(x_glob, y_glob + 0.5, z_glob + 0.5)
 
         ! ey is staggered only in x & z directions
-        ey(i, j, k) = func_ey(x_glob - 0.5, y_glob, z_glob - 0.5)
+        ey(i, j, k) = func_ey(x_glob + 0.5, y_glob, z_glob + 0.5)
 
         ! ez is staggered only in x & y directions
-        ez(i, j, k) = func_ez(x_glob - 0.5, y_glob - 0.5, z_glob)
+        ez(i, j, k) = func_ez(x_glob + 0.5, y_glob + 0.5, z_glob)
       end do
     end do
   end do

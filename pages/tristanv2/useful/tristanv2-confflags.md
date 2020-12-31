@@ -1,10 +1,12 @@
 ---
 title: Supported configuration flags
 keywords: compile, flag, configure
-last_updated: Dec 17, 2019
+last_updated: Dec 31, 2019
 permalink: tristanv2-confflags.html
 folder: tristanv2
 ---
+
+To configure the code and generate a `Makefile` run the following in the root directory: `python configure.py [FLAGS]`. Following is a list of all the currently supported flags:
 
 <table>
 <colgroup>
@@ -49,12 +51,30 @@ folder: tristanv2
 </tr>
 <tr>
   <td markdown="span">
+    `-serial`
+  </td>
+  <td markdown="span">
+    Enable serial `hdf5` output (instead of parallel), this might help in some older filesystems.
+  </td>
+</tr>
+
+<tr>
+  <td markdown="span">
     `-ifport`
   </td>
   <td markdown="span">
     Enable `use ifport` or not. This handles `mkdir` commands, some systems do not support this.
   </td>
 </tr>
+<tr>
+  <td markdown="span">
+    `-avx2`/`-avx512`
+  </td>
+  <td markdown="span">
+    Enable avx2 or avx512 vectorization regimes.
+  </td>
+</tr>
+
 <tr>
   <td markdown="span">
     `-debug`
@@ -109,6 +129,14 @@ folder: tristanv2
   </td>
   <td markdown="span">
     Name of the unit file (for debugging) from the `unit/` directory (without the extension).
+  </td>
+</tr>
+<tr>
+  <td markdown="span">
+    `-vay`
+  </td>
+  <td markdown="span">
+    Enable Vay pusher (cannot be coupled with GCA).
   </td>
 </tr>
 <tr>
@@ -181,10 +209,18 @@ folder: tristanv2
 </tr>
 <tr>
   <td markdown="span">
-    `-gca`
+    `-annihilation`
   </td>
   <td markdown="span">
-    Enable GCA (guiding center approximation) mover.
+    Enable pair annihilation (requires `-qed` enabled).
+  </td>
+</tr>
+<tr>
+  <td markdown="span">
+    `--gca=<NITER>`
+  </td>
+  <td markdown="span">
+    Enable GCA (guiding center approximation) mover and set number of iterations (2-4 is usually enough).
   </td>
 </tr>
 

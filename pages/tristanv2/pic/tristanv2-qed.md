@@ -1,7 +1,7 @@
 ---
 title: QED Module
-keywords: pic, qed, algorithm, binary, pair production, pair, photon
-last_updated: Jan 25, 2020
+keywords: pic, qed, algorithm, binary, pair production, pair, photon, pair annihilation, annihilation, monte carlo, compton, recoil, scattering
+last_updated: Dec 31, 2020
 permalink: tristanv2-qed.html
 folder: tristanv2
 ---
@@ -10,7 +10,7 @@ folder: tristanv2
 
 ## Unit normalization
 
-...
+For details see [the following section](tristanv2-sim-units.html#radiation-and-qed).
 
 ## Binary vs Monte-Carlo coupling
 
@@ -80,6 +80,14 @@ the total group weight but would be accounted for only crudely if they are not s
 
 ### Theory
 
+Breit-Wheeler process is a pair production mechanism that transforms two high energy photons into an electron-positron pair. This process can proceed if the energy of two photons in their common center-of-momentum frame is larger than $2m_e c^2$:
+<div>$$
+\begin{equation}
+s = \frac{\varepsilon_1 \varepsilon_2}{2 (m_e c^2)^2}(1-\cos{\theta}) > 1,
+\end{equation}
+$$</div>
+where $\varepsilon_1$ and $\varepsilon_2$ are the energies of two photons, and $\theta$ is the angle between their momentum vectors in the lab frame.
+
 ### Quick user guide
 
 To enable the Breit-Wheeler pair production one must first add the following two flags when configuring the `Makefile`: `-qed`, `-bwpp`. In the input file this module requires several parameters to be included:
@@ -145,14 +153,6 @@ Notice the `bw1` and `bw2` parameters. The fact that they're different means the
 ```
 
 ### Implementation details
-
-Breit-Wheeler process is a pair production mechanism that transforms two high energy photons into an electron-positron pair. This process can proceed if the energy of two photons in their common center-of-momentum frame is larger than $2m_e c^2$:
-<div>$$
-\begin{equation}
-s = \frac{\varepsilon_1 \varepsilon_2}{2 (m_e c^2)^2}(1-\cos{\theta}) > 1,
-\end{equation}
-$$</div>
-where $\varepsilon_1$ and $\varepsilon_2$ are the energies of two photons, and $\theta$ is the angle between their momentum vectors in the lab frame.
 
 In our simulations this process takes place in every simulation tile separately. Particles (with arbitrary weights in general) in each tile are paired using either the Monte-Carlo pairing [discussed above](tristanv2-qed.html#mc-pairing) or using a brute force binary pairing. This process provides us with pairs of abstract particles with weights $\sim 1$.
 
@@ -391,3 +391,58 @@ and photons have weight 1. Right: electrons have initial weight 3.1 and photons 
 {% include image.html file="tristan_v2/qed/jones.png" alt="jns" max-width="60%" caption="Spectrum of
 photons scattered of a relativistic electron. The numerical result (blue line) is compared against the
 expression derived by Jones (1968), valid for $\gamma_e\gg 1$." %}
+
+
+## Pair annihilation
+
+### Quick user guide
+
+To enable the pair annihilation we must first add the following two flags when configuring the `Makefile`: `-qed`, `-annihilation`. In the input file this module requires several parameters to be included:
+
+```bash
+<annihilation>
+
+	interval			= 1							# perform pair annihilation every `interval` timestep [1]
+	photon_sp			= 3							# produced photons are saved to species #... [3]
+	sporadic      = 0							# enable/disable sporadic annihilation for interval > 1 [0]
+```
+
+`sporadic` enables randomization of this process in time for each tile if the interval is greater than 1.
+
+We may then enable this process for particle species:
+
+```bash
+<particles>
+
+  nspec         = 3             # number of species [2]
+
+  maxptl1       = 1e6           # max # per core [*]
+  m1            = 1             # mass (in units of m_e) [*]
+  ch1           = -1            # charge (in units of q_e) [*]
+	annihilation1 = 1							# species can participate in pair annihilation [0]
+
+  maxptl2       = 1e6
+  m2            = 1
+  ch2           = 1
+	annihilation2 = 1
+
+  maxptl3       = 1e6
+  m3            = 0
+  ch3           = 0
+```
+
+The list of species has to include at least two species with opposing charges and equal masses.
+
+### Tests
+
+{% include image.html file="tristan_v2/qed/ann.png" alt="ann" max-width="60%" caption="Uniform distribution of cold pairs annihilates predictably. 'hack' stands for the sporadic annihilation enabled." %}
+
+A simple setup that tests all the QED modules coupled together is described in [Beloborodov (2020)](https://ui.adsabs.harvard.edu/abs/2020arXiv201107310B/abstract), where we initialize a thermal $$e^\pm$$ distribution and enable all three of the QED processes: pair-production/-annihilation and Compton scattering. Pairs annihilate producing photons, photons upscatter on pairs, and the highest energy ones produce new pairs. The result is that we form a Wien distribution in photons and a corresponding thermal distribution in pairs with the same temperature.
+
+{% include image.html file="tristan_v2/qed/svensson.gif" alt="sv" max-width="80%" caption="If all 3 QED processes are enabled we form a Wien distribution in photons and thermal in pairs." %}
+
+{% include image.html file="tristan_v2/qed/svensson_nocompton.gif" alt="sv2" max-width="80%" caption="Without Compton scattering photons are not thermalized with the electrons and positrons." %}
+
+{% include image.html file="tristan_v2/qed/svensson_norecoil.gif" alt="sv2" max-width="80%" caption="With a Compton scattering and disabled electron/positron recoil pairs are not able to thermalize with the photons." %}
+
+{% include image.html file="tristan_v2/qed/svensson_nopp.gif" alt="sv2" max-width="80%" caption="Without pair-production we observe an excess in high energy photons, while the pairs are constantly being depleted without a steady state." %}

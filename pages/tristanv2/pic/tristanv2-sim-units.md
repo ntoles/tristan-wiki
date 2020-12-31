@@ -207,7 +207,7 @@ Dividing them to $$B_0$$ and plugging the relation for $$\boldsymbol{j}_s$$ we f
 \end{eqnarray}
 $$</div>
 
-# Radiation and QED
+## Radiation and QED
 
 The radiative and QED processes, which are the integral part of this code, all rely on a single dimensional quantity -- $$r_e=e^2/m_e c^2$$ -- the classical radius of the electron (or the Thomson cross-section). In our units the value of this scale is already defined by our fiducial parameters ($$k_2/4\pi c^2$$), and it corresponds to the low energy radiation self-consistently captured by PIC method. However, for computational purposes we rescale this parameter by defining the new $$r_e^0$$ (or $$\sigma_T^0$$) fiducial scale that will capture high energy radiation and QED effects.
 

@@ -1,7 +1,7 @@
 ---
 title: Particle downsampling
 keywords: merging, downsampling, particle, weight
-last_updated: Feb 18, 2020
+last_updated: Dec 31, 2020
 permalink: tristanv2-downsampling.html
 folder: tristanv2
 ---
@@ -31,7 +31,7 @@ Both [pair production routines](tristanv2-qed.html#binary-vs-monte-carlo-couplin
 
 ### Particle downsampling
 
-We provide a particle downsampling (or merging) routine performed on every tile. We employ a variation of the algorithm described by [Vranic + (2015)](https://www.sciencedirect.com/science/article/pii/S0010465515000405?via%3Dihub) where multiple particles in the same momentum bin are being merged into two, conserving weights, energy and momentum components.
+We provide a particle downsampling (or merging) routine performed on every tile (for massless and chargeless particles) or on every cell (for massive/charged particles). We employ a variation of the algorithm described by [Vranic + (2015)](https://www.sciencedirect.com/science/article/pii/S0010465515000405?via%3Dihub) where multiple particles in the same momentum bin are being merged into two, conserving weights, energy and momentum components. For charged particles the undeposited currents are taken care of with an extra deposit step (hence the constraint with merging region of only one cell).
 
 For a particular species (say, species #3) to be considered for downsampling one has to specify explicitly in the `input` file:
 
@@ -47,34 +47,33 @@ The downsampling parameters, also specified in the `input`, are the following:
 ```python
 <downsampling>
 
-  # particle downsampling (merging) parameters
-  interval      = 10
-  start         = 1             # starting timestep
-  max_weight    = 100           # maximum weight of merging particles
+  # particle downsampling (merging) parameters (`dwn` flag)
+  interval      = 10            # interval between downsampling steps [1]
+  start         = 1             # starting timestep [0]
+  max_weight    = 100           # maximum weight of merging particles [1e2]
 
-  cartesian_bins = 0            # cartesian or spherical momentum binning
-  energy_min    = 1e-1          # min energy of merged particle
-  energy_max    = 1e1           # max energy of merged particle
-  int_weights   = 1             # force integer weights when merging
+  cartesian_bins = 0            # cartesian or spherical momentum binning [0]
+  energy_min    = 1e-1          # min energy of merged particle [1e-2]
+  energy_max    = 1e1           # max energy of merged particle [1e2]
+  int_weights   = 1             # enforce integer weights when merging [0]
 
   # if spherical binning
-  angular_bins  = 5             # number of angular bins (theta/phi)
-  energy_bins   = 5             # number of log energy bins
-  log_e_bins    = 1             # log or linear energy bins
+  angular_bins  = 5             # number of angular bins (theta/phi) [5]
+  energy_bins   = 5             # number of log energy bins [5]
+  log_e_bins    = 1             # log or linear energy bins [1]
 
   # if cartesian binning
   dynamic_bins  = 1             # take min/max energy locally in each tile...
-                                # (energ_max/min still set the global maxima)
-  mom_bins      = 5             # number of momentum bins in XYZ phase space
-  mom_spread    = 0.1           # max momentum spread allowed for dynamic bins
+                                # (energ_max/min still set the global maxima) [0]
+  mom_bins      = 5             # number of momentum bins in XYZ phase space [5]
+  mom_spread    = 0.1           # max momentum spread allowed for dynamic bins [0.1]
 ```
 
 Parameter `int_weights` makes sure that the resulting particles during downsampling have integer weights. For example, if the sum of all weights in a given momentum bin is `123` -- two of the particles that others are merged into will have weights: `61` and `62` (otherwise, they would both have weights `61.5`).
 
-{% include warning.html content="Downsampling may significantly reduce the memory usage and computation time depending on a given setup, and it is currently possible for both massive and massless particles. However, be careful when using this routine for **charged** particles, as some undeposited current may be left behind that can accumulate over time and cause non-physical effects on sufficiently long timescales."%}
+{% include warning.html content="Downsampling may significantly reduce the memory usage and computation time depending on a given setup."%}
 
 {% include warning.html content="Downsampling also has some side effects. While it conserves the total weight, energy and momenta, and also properly mimics the (non-)uniformity in the phase space, downsampling routine alters the 3d distribution function by smoothing and flattening it. Depending on the application, this side-effect may be important, so consider change the energy ranges of merging particles or the number of bins."%}
-
 
 There are two options for momentum binning: cartesian, where we bin separately all the components of particle momenta, and spherical.
 
