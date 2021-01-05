@@ -65,3 +65,6 @@ _Disclaimer for the closed v2 version_. This wiki contains the most up-to-date i
   * Major restructuring of output modules
   * Major restructuring of QED modules
   * Minor issues fixed for GCA pusher
+* 2.1.1 <span class='date'>Dec 2020</span>
+  * Patched the Compton cross section normalization
+  * Minor bug fixes
