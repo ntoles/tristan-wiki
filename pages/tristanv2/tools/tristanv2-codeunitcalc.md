@@ -1,310 +1,282 @@
 ---
 title: Code unit calculator tool
-keywords: tool, calculator, units, convert, interactive
-last_updated: May 16, 2019
+keywords: 'tool, calculator, units, convert, interactive'
+last_updated: 'May 16, 2019'
 permalink: tristanv2-codeunitcalc.html
 folder: tristanv2
 ---
 
-### Main parameters
+# Main parameters
 
 All temporal and spatial units are normalized correspondingly to the timestep $\Delta t$ and the cell size $\Delta x$; the fields are normalized to the fiducial value $B_{\rm norm}$, and the densities are normalized to $n_{\rm ppc}$. We use the following equations
 
 <div class="long-eqn">$$
-d_e = \frac{c}{\omega_{\rm p}},~~\omega_{\rm p}^2=\frac{4\pi n_e e^2}{m_e},~~r_L=\gamma\beta \frac{m_e c^2}{|e|B},~~\sigma=\frac{B^2}{4\pi n_e m_e c^2}.
+d<em>e = \frac{c}{\omega</em>{\rm p}},<del>\omega_{\rm p}^2=\frac{4\pi n_e e^2}{m_e},</del>r_L=\gamma\beta \frac{m_e c^2}{|e|B},~~\sigma=\frac{B^2}{4\pi n_e m_e c^2}.
 $$</div>
 
 For all the details on how the code units are defined see the following [section](tristanv2-sim-units.html).
 
 <div>
   <div class="row justify-content-center" style="margin-top: 15px">
-    <div class="col-sm-4">
-      <div id="c-def" class="setvalue-group col-xs-12">
-        <div class="value-input">
-          <p>$c=\mathrm{CC}\frac{\Delta x}{\Delta t}$</p>
-        </div>
-      </div>
-    </div>
-    <div class="col-sm-4">
-      <div id="de-def" class="setvalue-group col-xs-12">
-        <div class="value-input">
-          <p>$d_e=\mathrm{COMP}\Delta x$</p>
-        </div>
-      </div>
-    </div>
-    <div class="col-sm-4">
-      <div id="nppc-def" class="independent-value setvalue-group col-xs-12">
-        <div class="value-input">
-          <p>$n_{\rm ppc}=\mathrm{PPC}\Delta x^{-3}$</p>
-        </div>
-      </div>
-    </div>
-  </div>
+  <div class="col-sm-4">
+  <div id="c-def" class="setvalue-group col-xs-12">
+  <div class="value-input">
+  <p>$c=\mathrm{CC}\frac{\Delta x}{\Delta t}$</p>
+</div>
+</div>
+</div>
+  <div class="col-sm-4">
+  <div id="de-def" class="setvalue-group col-xs-12">
+  <div class="value-input">
+  <p>$d<em>e=\mathrm{COMP}\Delta x$</em></p>
+  <em>
+</em>
+</div>
+  <em></em>
+</div>
+  <em>
+</em>
+</div>
+  <em></em>
+  <div class="col-sm-4">
+  <em>
+</em>
+  <div id="nppc-def" class="independent-value setvalue-group col-xs-12">
+  <em></em>
+  <div class="value-input">
+  <em>
+</em>
+  <p><em>$n</em>{\rm ppc}=\mathrm{PPC}\Delta x^{-3}$</p>
+</div>
+</div>
+</div>
+</div>
   <div class="row justify-content-center">
-    <div class="col-sm-3">
-      <div id="c-input" class="independent-value setvalue-group col-xs-12">
-        <div class="value-input">
-          <p>$\mathrm{CC}=$<input class="value input-small" value="0.45"></p>
-        </div>
-      </div>
-    </div>
-    <div class="col-sm-3">
-      <div id="comp-input" class="independent-value setvalue-group col-xs-12">
-        <div class="value-input">
-          <p>$\mathrm{COMP}=$<input class="value input-small" value="4"></p>
-        </div>
-      </div>
-    </div>
-    <div class="col-sm-3">
-      <div id="nppc-input" class="independent-value setvalue-group col-xs-12">
-        <div class="value-input">
-          <p>$\mathrm{PPC}=$<input class="value input-small" value="1"></p>
-        </div>
-      </div>
-    </div>
-    <div class="col-sm-3">
-      <div id="sigma-input" class="independent-value setvalue-group col-xs-12">
-        <div class="value-input">
-          <p>$\sigma=$<input class="value input-small" value="100"></p>
-        </div>
-      </div>
-    </div>
-  </div>
+  <div class="col-sm-3">
+  <div id="c-input" class="independent-value setvalue-group col-xs-12">
+  <div class="value-input">
+  <p>$\mathrm{CC}=$<input class="value input-small" value="0.45"></p>
+</div>
+</div>
+</div>
+  <div class="col-sm-3">
+  <div id="comp-input" class="independent-value setvalue-group col-xs-12">
+  <div class="value-input">
+  <p>$\mathrm{COMP}=$<input class="value input-small" value="4"></p>
+</div>
+</div>
+</div>
+  <div class="col-sm-3">
+  <div id="nppc-input" class="independent-value setvalue-group col-xs-12">
+  <div class="value-input">
+  <p>$\mathrm{PPC}=$<input class="value input-small" value="1"></p>
+</div>
+</div>
+</div>
+  <div class="col-sm-3">
+  <div id="sigma-input" class="independent-value setvalue-group col-xs-12">
+  <div class="value-input">
+  <p>$\sigma=$<input class="value input-small" value="100"></p>
+</div>
+</div>
+</div>
+</div>
   <div class="row justify-content-center">
-    <div class="col-sm-4">
-      <div id="omegap-output" class="dependent-value getvalue-group col-xs-12">
-        <div class="value-output">
-          <p>$\omega_{\rm p}^{-1}=~$<span class="value"></span>$~\Delta t$</p>
-        </div>
-      </div>
-    </div>
-    <div class="col-sm-4">
-      <div id="omegaB-output" class="dependent-value getvalue-group col-xs-12">
-        <div class="value-output">
-          <p>$\omega_B^{-1}=(\gamma\beta)^{-1}~$<span class="value"></span>$~\Delta t$</p>
-        </div>
-      </div>
-    </div>
-    <div class="col-sm-4">
-      <div id="gyro-output" class="dependent-value getvalue-group col-xs-12">
-        <div class="value-output">
-          <p>$r_L=\gamma\beta~$<span class="value"></span>$~\Delta x$</p>
-        </div>
-      </div>
-    </div>
-  </div>
+  <div class="col-sm-4">
+  <div id="omegap-output" class="dependent-value getvalue-group col-xs-12">
+  <div class="value-output">
+  <p>$\omega_{\rm p}^{-1}=~$<span class="value">
+</span>$~\Delta t$</p>
+</div>
+</div>
+</div>
+  <div class="col-sm-4">
+  <div id="omegaB-output" class="dependent-value getvalue-group col-xs-12">
+  <div class="value-output">
+  <p>$\omega_B^{-1}=(\gamma\beta)^{-1}~$<span class="value">
+</span>$~\Delta t$</p>
+</div>
+</div>
+</div>
+  <div class="col-sm-4">
+  <div id="gyro-output" class="dependent-value getvalue-group col-xs-12">
+  <div class="value-output">
+  <p>$r_L=\gamma\beta~$<span class="value">
+</span>$~\Delta x$</p>
+</div>
+</div>
+</div>
+</div>
 </div>
 
-<!-- <div>
-  <div class="row slider-row">
-    <div class="col-sm-4 small-container">
-      <div id="nppc-slider" class="independent-value slider-group col-sm-12">
-        <div class="slider border border-primary">
-          <p>$n_{\rm ppc}=$<input class="value slider-label" value="1"></p>
-          <input type="range" class="value slider-small" step="1">
-          <div class="slider-minmax">
-            <input class="slider-min" value="0">
-            <input class="slider-max" value="100">
-          </div>
-        </div>
-      </div>
-    </div>
+<!-- <div> <div class="row slider-row"> <div class="col-sm-4 small-container"> <div id="nppc-slider" class="independent-value slider-group col-sm-12"> <div class="slider border border-primary"> <p>$n_{\rm ppc}=$<input class="value slider-label" value="1"></p> <input type="range" class="value slider-small" step="1"> <div class="slider-minmax"> <input class="slider-min" value="0"> <input class="slider-max" value="100"> </div> </div> </div> </div> <div class="col-sm-4 small-container"> <div id="comp-slider" class="independent-value slider-group col-sm-12"> <div class="slider"> <p>$d_e=$<input class="value slider-label" value="5"></p> <input type="range" class="value slider-small" step="1"> <div class="slider-minmax"> <input class="slider-min" value="0"> <input class="slider-max" value="50"> </div> </div> </div> </div> <div class="col-sm-4 small-container"> <div id="sigma-slider" class="independent-value slider-group col-sm-12"> <div class="slider"> <p>$\sigma=$<input class="value slider-label" value="100"></p> <input type="range" class="value slider-small" step="1"> <div class="slider-minmax"> <input class="slider-min" value="0"> <input class="slider-max" value="1000"> </div> </div> </div> </div> </div> </div> -->
 
-    <div class="col-sm-4 small-container">
-      <div id="comp-slider" class="independent-value slider-group col-sm-12">
-        <div class="slider">
-          <p>$d_e=$<input class="value slider-label" value="5"></p>
-          <input type="range" class="value slider-small" step="1">
-          <div class="slider-minmax">
-            <input class="slider-min" value="0">
-            <input class="slider-max" value="50">
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="col-sm-4 small-container">
-      <div id="sigma-slider" class="independent-value slider-group col-sm-12">
-        <div class="slider">
-          <p>$\sigma=$<input class="value slider-label" value="100"></p>
-          <input type="range" class="value slider-small" step="1">
-          <div class="slider-minmax">
-            <input class="slider-min" value="0">
-            <input class="slider-max" value="1000">
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div> -->
-
-<div class="panel-group">
+ <div class="panel-group">
   <div class="panel panel-default">
-      <div class="panel-heading">
-        <h4 class="panel-title">
-          <a class="noCrossRef accordion-toggle" data-toggle="collapse" href="#collapseOne">
+  <div class="panel-heading">
+  <h4 class="panel-title">
+  <a class="noCrossRef accordion-toggle" data-toggle="collapse" href="#collapseOne">
             Pulsar setup
           </a>
-        </h4>
-      </div>
-      <div id="collapseOne" class="panel-collapse collapse noCrossRef in" aria-expanded="true">
-        <div class="panel-body">
-          <p>
-            Pulsar setup is initialized with a conducting sphere of radius $R_*$ in the middle of the simulation box. The field is initially dipolar with an enforced strength $B_*$ at the surface. The conductor rotates with a period $P$.
-            <!-- Important quantities include $R_{\rm LC}$ - size of the light cylinder, $r_L^{\rm LC}$ - larmor radius of particles near the light cylinder, $n_{\rm GJ}^*$ - GJ density required to screen the parallel electric field near the star, and the associated magnetization - $\sigma^*(n_{\rm GJ}^*)$ - and the skin depth - $d_e(n_{\rm GJ}^*)$. $\Delta V$ is the potential drop across the polar cap. All the other quantities with a sub-/super- script "${}^*$" are measured at the stellar surface, and with "${}^{\rm LC}$" - near the light cylinder. -->
+</h4>
+</div>
+  <div id="collapseOne" class="panel-collapse collapse noCrossRef in" aria-expanded="true">
+  <div class="panel-body">
+  <p>
+            Pulsar setup is initialized with a conducting sphere of radius $R<em>*$ in the middle of the simulation box. The field is initially dipolar with an enforced strength $B</em><em>$ at the surface. The conductor rotates with a period $P$.
+            &lt;!-- Important quantities include $R<em>{\rm LC}$ - size of the light cylinder, $r_L^{\rm LC}$ - larmor radius of particles near the light cylinder, $n</em>{\rm GJ}^</em>$ - GJ density required to screen the parallel electric field near the star, and the associated magnetization - $\sigma^<em>(n_{\rm GJ}^</em>)$ - and the skin depth - $d<em>e(n</em>{\rm GJ}^<em>)$. $\Delta V$ is the potential drop across the polar cap. All the other quantities with a sub-/super- script "${}^</em>$" are measured at the stellar surface, and with "${}^{\rm LC}$" - near the light cylinder. --&gt;
             <button type="button" id="resetPulsar">Reset to fiducial parameters</button>.
           </p>
-
-          <p>
+  <p>
             We use the following equations (all the quantities are in code units)
 
-            <div class="long-eqn">$$
-            \Omega = \frac{2\pi}{P},~~R_{\rm LC} = \frac{c}{\Omega},~~B_{\rm LC}\approx B_*\left(\frac{R_{\rm LC}}{R_*}\right)^{-3},
+            </p>
+  <div class="long-eqn">$$
+            \Omega = \frac{2\pi}{P},<del>R_{\rm LC} = \frac{c}{\Omega},</del>B<em>{\rm LC}\approx B</em><em>\left(\frac{R<em>{\rm LC}}{R</em></em>}\right)^{-3},
             $$</div>
+  <pre><code>        &lt;div class="long-eqn"&gt;$$
+        n_{\rm GJ} = \frac{\Omega B}{2\pi c|e|},~~\frac{\Delta V_{\rm pc}}{m_e c^2}=\omega_B^0\frac{B_*}{B_{\rm norm}}\frac{R_*}{c}\left(\frac{R_*}{R_{\rm LC}}\right)^2,~~s_{\rm LC}=\frac{d_e(n_{\rm GJ}^{\rm LC})}{R_{\rm LC}}.
+        $$&lt;/div&gt;
+      &lt;/p&gt;
+      &lt;!-- &lt;input type="range" id="psr" class="value slider-small" step="100"&gt;
+      &lt;div class="slider-minmax"&gt;
+        &lt;input class="slider-min" value="0"&gt;
+        &lt;input class="slider-max" value="5000"&gt;
+      &lt;/div&gt; --&gt;
 
-            <div class="long-eqn">$$
-            n_{\rm GJ} = \frac{\Omega B}{2\pi c|e|},~~\frac{\Delta V_{\rm pc}}{m_e c^2}=\omega_B^0\frac{B_*}{B_{\rm norm}}\frac{R_*}{c}\left(\frac{R_*}{R_{\rm LC}}\right)^2,~~s_{\rm LC}=\frac{d_e(n_{\rm GJ}^{\rm LC})}{R_{\rm LC}}.
-            $$</div>
-          </p>
-          <!-- <input type="range" id="psr" class="value slider-small" step="100">
-          <div class="slider-minmax">
-            <input class="slider-min" value="0">
-            <input class="slider-max" value="5000">
-          </div> -->
+      &lt;div style="margin-top: 20px"&gt;
 
-          <div style="margin-top: 20px">
+        &lt;div class="row"&gt;
 
-            <div class="row">
+          &lt;div class="col-sm-6 small-container"&gt;
 
-              <div class="col-sm-6 small-container">
+            &lt;div id="rstar-input" class="independent-value setvalue col-xs-12"&gt;
+              &lt;div class="value-input"&gt;
+                &lt;p&gt;$R_*=~$&lt;input class="value input-small" value="20"&gt;$~{\color{lightgray}\Delta x}$&lt;/p&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
 
-                <div id="rstar-input" class="independent-value setvalue col-xs-12">
-                  <div class="value-input">
-                    <p>$R_*=~$<input class="value input-small" value="20">$~{\color{lightgray}\Delta x}$</p>
-                  </div>
-                </div>
+            &lt;div id="bstar-input" class="independent-value setvalue col-xs-12"&gt;
+              &lt;div class="value-input"&gt;
+                &lt;p&gt;$B_*=~$&lt;input class="value input-small" value="1"&gt;$~{\color{lightgray}B_{\rm norm}}$&lt;/p&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
 
-                <div id="bstar-input" class="independent-value setvalue col-xs-12">
-                  <div class="value-input">
-                    <p>$B_*=~$<input class="value input-small" value="1">$~{\color{lightgray}B_{\rm norm}}$</p>
-                  </div>
-                </div>
+            &lt;div id="dv-output" class="dependent-value col-xs-12"&gt;
+              &lt;div class="value-output"&gt;
+                &lt;p&gt;$\frac{\Delta V_{\rm pc}}{m_e c^2}=~$&lt;span class="value"&gt;&lt;/span&gt;&lt;/p&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
 
-                <div id="dv-output" class="dependent-value col-xs-12">
-                  <div class="value-output">
-                    <p>$\frac{\Delta V_{\rm pc}}{m_e c^2}=~$<span class="value"></span></p>
-                  </div>
-                </div>
+            &lt;!-- &lt;div id="rlc-output" class="dependent-value col-xs-12"&gt;
+              &lt;div class="value-output"&gt;
+                &lt;p&gt;$R_{\rm LC}=~$&lt;span class="value"&gt;&lt;/span&gt;&lt;/p&gt;
+              &lt;/div&gt;
+            &lt;/div&gt; --&gt;
 
-                <!-- <div id="rlc-output" class="dependent-value col-xs-12">
-                  <div class="value-output">
-                    <p>$R_{\rm LC}=~$<span class="value"></span></p>
-                  </div>
-                </div> -->
+            &lt;div id="degj-output" class="dependent-value col-xs-12"&gt;
+              &lt;div class="value-output"&gt;
+                &lt;p&gt;$d_e^*=~$&lt;span class="value"&gt;&lt;/span&gt;${\color{lightgray}\langle\gamma\rangle^{1/2} \left(\frac{n}{n_{\rm GJ}^*}\right)^{-1/2} \Delta x}$&lt;/p&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
 
-                <div id="degj-output" class="dependent-value col-xs-12">
-                  <div class="value-output">
-                    <p>$d_e^*=~$<span class="value"></span>${\color{lightgray}\langle\gamma\rangle^{1/2} \left(\frac{n}{n_{\rm GJ}^*}\right)^{-1/2} \Delta x}$</p>
-                  </div>
-                </div>
+            &lt;div id="ngj-output" class="dependent-value col-xs-12"&gt;
+              &lt;div class="value-output"&gt;
+                &lt;p&gt;$n^*_{\rm GJ}=~$&lt;span class="value"&gt;&lt;/span&gt;$~{\color{lightgray}\Delta x^{-3}}$&lt;/p&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
 
-                <div id="ngj-output" class="dependent-value col-xs-12">
-                  <div class="value-output">
-                    <p>$n^*_{\rm GJ}=~$<span class="value"></span>$~{\color{lightgray}\Delta x^{-3}}$</p>
-                  </div>
-                </div>
+            &lt;div id="sigmagj-output" class="dependent-value col-xs-12"&gt;
+              &lt;div class="value-output"&gt;
+                &lt;p&gt;$\sigma^*=~$&lt;span class="value"&gt;&lt;/span&gt;${\color{lightgray}\left(\frac{n}{n_{\rm GJ}^*}\right)^{-1}\left(\frac{B}{B_*}\right)^2}$&lt;/p&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
 
-                <div id="sigmagj-output" class="dependent-value col-xs-12">
-                  <div class="value-output">
-                    <p>$\sigma^*=~$<span class="value"></span>${\color{lightgray}\left(\frac{n}{n_{\rm GJ}^*}\right)^{-1}\left(\frac{B}{B_*}\right)^2}$</p>
-                  </div>
-                </div>
+          &lt;/div&gt;
 
-              </div>
+          &lt;div class="col-sm-6 small-container"&gt;
 
-              <div class="col-sm-6 small-container">
+            &lt;div id="psrperiod-input" class="independent-value slider-group col-xs-6"&gt;
+              &lt;div class="value-input"&gt;
+                &lt;p&gt;$P=~$&lt;input class="value slider-label" value="1500"&gt;$~{\color{lightgray}\Delta t}$&lt;/p&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div id="rlc-output" class="independent-value setvalue col-xs-6"&gt;
+              &lt;div class="value-output"&gt;
+                &lt;p&gt;$R_{\rm LC}=~$&lt;span class="value"&gt;&lt;/span&gt;$~{\color{lightgray}\Delta x}$&lt;/p&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
 
-                <div id="psrperiod-input" class="independent-value slider-group col-xs-6">
-                  <div class="value-input">
-                    <p>$P=~$<input class="value slider-label" value="1500">$~{\color{lightgray}\Delta t}$</p>
-                  </div>
-                </div>
-                <div id="rlc-output" class="independent-value setvalue col-xs-6">
-                  <div class="value-output">
-                    <p>$R_{\rm LC}=~$<span class="value"></span>$~{\color{lightgray}\Delta x}$</p>
-                  </div>
-                </div>
+            &lt;div id="blc-output" class="dependent-value col-xs-12"&gt;
+              &lt;div class="value-output"&gt;
+                &lt;p&gt;$B_{\rm LC}=~$&lt;span class="value"&gt;&lt;/span&gt;$~{\color{lightgray}B_{\rm norm}}$&lt;/p&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
 
-                <div id="blc-output" class="dependent-value col-xs-12">
-                  <div class="value-output">
-                    <p>$B_{\rm LC}=~$<span class="value"></span>$~{\color{lightgray}B_{\rm norm}}$</p>
-                  </div>
-                </div>
+            &lt;div id="degjlc-output" class="dependent-value col-xs-12"&gt;
+              &lt;div class="value-output"&gt;
+                &lt;p&gt;$d_e^{\rm LC}=~$&lt;span class="value"&gt;&lt;/span&gt;${\color{lightgray}\langle\gamma\rangle^{1/2} \left(\frac{n}{n_{\rm GJ}^*}\right)^{-1/2} \Delta x}$&lt;/p&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
 
-                <div id="degjlc-output" class="dependent-value col-xs-12">
-                  <div class="value-output">
-                    <p>$d_e^{\rm LC}=~$<span class="value"></span>${\color{lightgray}\langle\gamma\rangle^{1/2} \left(\frac{n}{n_{\rm GJ}^*}\right)^{-1/2} \Delta x}$</p>
-                  </div>
-                </div>
+            &lt;div id="rlatlc-output" class="dependent-value col-xs-12"&gt;
+              &lt;div class="value-output"&gt;
+                &lt;p&gt;$r_L^{\rm LC}={\color{lightgray}\gamma\beta}~$&lt;span class="value"&gt;&lt;/span&gt;${\color{lightgray}\left(\frac{B}{B_{\rm LC}}\right)^{-1} \Delta x}$&lt;/p&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
 
-                <div id="rlatlc-output" class="dependent-value col-xs-12">
-                  <div class="value-output">
-                    <p>$r_L^{\rm LC}={\color{lightgray}\gamma\beta}~$<span class="value"></span>${\color{lightgray}\left(\frac{B}{B_{\rm LC}}\right)^{-1} \Delta x}$</p>
-                  </div>
-                </div>
+            &lt;div id="slc-output" class="dependent-value col-xs-12"&gt;
+              &lt;div class="value-output"&gt;
+                &lt;p&gt;$s_{\rm LC}=~$&lt;span class="value"&gt;&lt;/span&gt;&lt;/p&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
 
-                <div id="slc-output" class="dependent-value col-xs-12">
-                  <div class="value-output">
-                    <p>$s_{\rm LC}=~$<span class="value"></span></p>
-                  </div>
-                </div>
+            &lt;div id="ngjatlc-output" class="dependent-value col-xs-12"&gt;
+              &lt;div class="value-output"&gt;
+                &lt;p&gt;$n^{\rm LC}_{\rm GJ}=~$&lt;span class="value"&gt;&lt;/span&gt;$~{\color{lightgray}\Delta x^{-3}}$&lt;/p&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
 
-                <div id="ngjatlc-output" class="dependent-value col-xs-12">
-                  <div class="value-output">
-                    <p>$n^{\rm LC}_{\rm GJ}=~$<span class="value"></span>$~{\color{lightgray}\Delta x^{-3}}$</p>
-                  </div>
-                </div>
+            &lt;div id="sigmagjatlc-output" class="dependent-value col-xs-12"&gt;
+              &lt;div class="value-output"&gt;
+                &lt;p&gt;$\sigma^{\rm LC}=~$&lt;span class="value"&gt;&lt;/span&gt;${\color{lightgray}\left(\frac{n}{n^{\rm LC}_{\rm GJ}}\right)^{-1}\left(\frac{B}{B_{\rm LC}}\right)^2}$&lt;/p&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
 
-                <div id="sigmagjatlc-output" class="dependent-value col-xs-12">
-                  <div class="value-output">
-                    <p>$\sigma^{\rm LC}=~$<span class="value"></span>${\color{lightgray}\left(\frac{n}{n^{\rm LC}_{\rm GJ}}\right)^{-1}\left(\frac{B}{B_{\rm LC}}\right)^2}$</p>
-                  </div>
-                </div>
+          &lt;/div&gt;
 
-              </div>
+        &lt;/div&gt;
 
-            </div>
+      &lt;/div&gt;
 
-          </div>
-
-        </div>
-      </div>
-  </div>
-  <!-- /.panel -->
+    &lt;/div&gt;
+  &lt;/div&gt;
+</code></pre>
+  <p></p>
+</div>
+  <_comment> /.panel </_comment>
   <div class="panel panel-default">
-      <div class="panel-heading">
-          <h4 class="panel-title">
-              <a class="noCrossRef accordion-toggle" data-toggle="collapse" href="#collapseTwo">
+  <div class="panel-heading">
+  <h4 class="panel-title">
+  <a class="noCrossRef accordion-toggle" data-toggle="collapse" href="#collapseTwo">
                 Other setup
               </a>
-          </h4>
-      </div>
-      <div id="collapseTwo" class="panel-collapse collapse noCrossRef">
-          <div class="panel-body">
+</h4>
+</div>
+  <div id="collapseTwo" class="panel-collapse collapse noCrossRef">
+  <div class="panel-body">
             Some explanation goes here...
             <div style="margin-top: 20px">
-            </div>
-          </div>
-      </div>
-  </div>
+</div></div>
 </div>
-
-
-<script>
+</div>
+</div>
+  <p></p>
+  <script>
   window.onload = function() {
     // let slider_groups = document.getElementsByClassName("slider-group");
     // [].forEach.call(slider_groups, function (group) {
-    // 	let slider = group.getElementsByClassName("slider-small")[0];
+    //     let slider = group.getElementsByClassName("slider-small")[0];
     //   let label = group.getElementsByClassName("slider-label")[0];
     //   let slider_min = group.getElementsByClassName("slider-min")[0];
     //   let slider_max = group.getElementsByClassName("slider-max")[0];
@@ -446,3 +418,5 @@ For all the details on how the code units are defined see the following [section
     }
   };
 </script>
+</div>
+</div>
