@@ -1,14 +1,14 @@
 ---
 title: Input file
 keywords: input, parameter, domain, problem
-last_updated: Dec 17, 2019
+last_updated: Dec 31, 2019
 permalink: tristanv2-inputfile.html
 folder: tristanv2
 ---
 
 Input file is where user stores all the relevant simulation related parameters and constants, be it technical (i.e., number of cores, max number of particles, etc), domain specific (boundary types, number of grid cells, etc) or physical and problem specific (`sigma`, `c_omp`, etc).
 
-{% include tip.html content="The most complete example of the input file containing all the possible necessary settings can be found in the [`inputs/input.dummy`](https://github.com/PrincetonUniversity/tristan-v2/blob/master/inputs/input.dummy) file with all the relevant descriptions. When starting to work on a new simulation it's a good idea to inherit input file from that particular one. This file also contains the most up to date description of all the relevant input parameters." %}
+{% include tip.html content="The most complete example of the input file containing all the possible necessary settings can be found in the `inputs/input.full` file with all the relevant descriptions. When starting to work on a new simulation it's a good idea to inherit input file from that particular one. This file also contains the most up to date description of all the relevant input parameters." %}
 
 The user file is specified as a command line argument using `-i` or `--input` flag when running the simulation:
 ```bash

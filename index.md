@@ -16,21 +16,29 @@ _Disclaimer for the closed v2 version_. This wiki contains the most up-to-date i
 ### Recent updates
 
 #### Technical updates
-* <span class='date'>Aug 12 2019</span>[Static load balancing](tristanv2-loadbal.html#static-load-balancing)
+<!-- * <span class='date'>Aug 12 2019</span>[Static load balancing](tristanv2-loadbal.html#static-load-balancing)
 * <span class='date'>Feb 12 2020</span>[Particle weights & downsampling](tristanv2-downsampling.html)
 * <span class='date'>May 10 2020</span>[Restart](tristanv2-restart.html)
 * <span class='date'>May 13 2020</span>[Parameters file](tristanv2-visualization.html#parameters)
 * <span class='date'>May 14 2020</span>[History](tristanv2-visualization.html#history)
 * <span class='date'>Jun 28 2020</span>[Slice outputs in 3d](tristanv2-visualization.html#slices-for-3d-only)
-* <span class='date'>Jul 19 2020</span>[Cartesian particle binning](tristanv2-downsampling.html#cartesian-binning)
+* <span class='date'>Jul 19 2020</span>[Cartesian particle binning](tristanv2-downsampling.html#cartesian-binning) -->
+* <span class='date'>Dec 31 2020</span>[Charged particle downsampling](tristanv2-downsampling.html#particle-downsampling)
+* <span class='date'>Dec 31 2020</span>[Spatial binning for spectra output](tristanv2-visualization.html#read-spectra)
+* <span class='date'>Dec 31 2020</span>[Automated testing](tristanv2-testing.html)
+* <span class='date'>Dec 31 2020</span>[Visualization functions](tristanv2-visualization.html#built-in-visualization-functions)
+* <span class='date'>Dec 31 2020</span>[Particle payloads](tristanv2-output.html#particle-payloads)
 
 #### Physics updates
-* <span class='date'>Aug 24 2019</span>[Synchrotron radiation/cooling](tristanv2-radiation.html#synchrotron-cooling)
+<!-- * <span class='date'>Aug 24 2019</span>[Synchrotron radiation/cooling](tristanv2-radiation.html#synchrotron-cooling)
 * <span class='date'>Dec 02 2019</span>[Inverse Compton radiation/cooling](tristanv2-radiation.html#inverse-compton-cooling)
 * <span class='date'>Dec 16 2019</span>[Two-photon pair production](tristanv2-qed.html)
 * <span class='date'>Mar 16 2020</span>Absorbing boundary conditions in 2D/3D
 * <span class='date'>Jun 25 2020</span>[Guiding center approximation (GCA)](tristanv2-algorithms.html#guiding-center-approximation)
-* <span class='date'>Jul 09 2020</span>[Compton scattering](tristanv2-qed.html#compton-scattering)
+* <span class='date'>Jul 09 2020</span>[Compton scattering](tristanv2-qed.html#compton-scattering) -->
+* <span class='date'>Dec 31 2020</span>[Pair annihilation](tristanv2-qed.html#pair-annihilation)
+* <span class='date'>Dec 31 2020</span>Vay pusher
+* <span class='date'>Dec 31 2020</span>[Universal unit normalization for QED](tristanv2-sim-units.html#radiation-and-qed)
 
 ### Under development
 
@@ -46,3 +54,17 @@ _Disclaimer for the closed v2 version_. This wiki contains the most up-to-date i
   * Slice outputs for 3d added
   * Particle momentum binning improved for downsampling
   * Minor bugs fixed
+* 2.1 <span class='date'>Dec 2020</span>
+  * Pair annihilation module (+ advanced test for all QED modules coupled)
+  * Merging of charged particles
+  * Particle payloads
+  * Vay pusher
+  * Individual particle current deposition (necessary for reflecting walls and downsampling of charged particles)
+  * Spatial binning for spectra
+  * Automated testing framework with `fulltest.py`
+  * Major restructuring of output modules
+  * Major restructuring of QED modules
+  * Minor issues fixed for GCA pusher
+* 2.1.1 <span class='date'>Dec 2020</span>
+  * Patched the Compton cross section normalization
+  * Minor bug fixes

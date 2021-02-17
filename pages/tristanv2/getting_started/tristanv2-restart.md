@@ -22,11 +22,12 @@ Rest of the configurations for the restart are specified in the `input` file:
 
 ```python
 <restart>
-
-  enable        = 0              # enable/disable restart
-  start         = 1              # first restart step
-  interval      = 1000           # step interval between restarts
-  rewrite       = 1              # 1 = rewrite each restart; 0 = separate restart each time
+  do_restart    = 0              # perform simulation restart [0]
+  cpu_group     = 50             # simultaneously written restart files [50]
+  enable        = 0              # enable/disable restart [0]
+  start         = 1              # first restart step [0]
+  interval      = 1000           # step interval between restarts [10000]
+  rewrite       = 1              # 1 = rewrite each restart; 0 = separate restart each time [0]
 ```
 
 There are two options for the `rewrite` variable: you can either create a single restart folder and overwrite it once every `interval` timesteps (`rewrite = 1`), or you can create separate folders for each of the restart steps (`rewrite = 0`). All the directories will be saved in the path specified above -- `[restart_dir_name]`. If `rewrite = 1` -- there will be just one directory called `step_00000/` where all the restart files will be saved. If `rewrite = 0` -- you'll see several directories of the form `step_*****`, where `*****` will be the number of the restart.
