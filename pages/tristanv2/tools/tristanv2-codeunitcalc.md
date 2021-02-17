@@ -426,7 +426,7 @@ For all the details on how the code units are defined see the following [section
         degjlc_el.getElementsByClassName("value")[0].innerHTML = precise(deGJLC);
 
         let slc_el = document.getElementById("slc-output");
-        slc_el.getElementsByClassName("value")[0].innerHTML = precise(rstar / rlc);
+        slc_el.getElementsByClassName("value")[0].innerHTML = precise(deGJLC / rlc);
 
         let sigmagjlc_el = document.getElementById("sigmagjatlc-output");
         sigmagjlc_el.getElementsByClassName("value")[0].innerHTML = precise(sigmaGJLC);
