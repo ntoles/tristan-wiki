@@ -35,7 +35,7 @@ $ mpiexec -np [NPROC] exec/tristan-mp2d -i [input_file_name] -o [output_dir_name
 
 ### Cluster specific customization
 
-Code can be configured for a specific cluster saved into the `configure.py` file. For example, to enable all the `Perseus`-specific configurations (Princeton University) include the `-perseus` flag when calling the `python configure.py`. This will automatically enable the new MPI version, `ifport` library, `intel` compilers and specific vectorization flags.
+Code can be configured for a specific cluster saved into the `configure.py` file. For example, to enable all the `Perseus`-specific configurations (Princeton University) include the `--cluster=perseus` flag when calling the `python configure.py`. This will automatically enable the new MPI version, `ifport` library, `intel` compilers and specific vectorization flags.
 
 Most clusters use the so-called `slurm` scheduling system where jobs are submitted for scheduling using a submit script. Here is a best practice example of such a script:
 
@@ -69,9 +69,9 @@ cp $INPUT $OUTPUT_DIR
 srun $EXECUTABLE -i $INPUT -o $OUTPUT_DIR -s $SLICE_DIR -r $RESTART_DIR > $OUTPUT_DIR/$REPORT_FILE 2> $OUTPUT_DIR/$ERROR_FILE
 ```
 
-{% include note.html content="On a generic cluster not specified here please use the most up-to-date `intel`, `intel-mpi/intel`, `intel-mkl` and `hdf5/intel` modules to compile the code. Depending on the cluster"%}
+<!-- {% include note.html content="On a generic cluster not specified here please use the most up-to-date `intel`, `intel-mpi/intel`, `intel-mkl` and `hdf5/intel` modules to compile the code. Depending on the cluster"%} -->
 
-#### Running on Princeton's `Perseus` cluster
+#### `Perseus` (PU)
 
 Modules to load:
 
@@ -84,8 +84,53 @@ Also it is highly recommended to use the old version of the MPI (i.e. `-mpi` fla
 
 {% include warning.html content="There have been some problems reported with `openmpi` on `Perseus`, so please for now use `intel-mpi`."%}
 
+#### `Stellar` (PU)
 
-#### Running on IAS's `Helios` cluster
+Modules to load:
+
+```bash
+1) intel-rt/2021.1.2                                                          
+2) intel-tbb/2021.1.1
+3) intel-mkl/2021.1.1
+4) intel-debugger/10.0.0
+5) intel-dpl/2021.1.2
+6) /opt/intel/oneapi/compiler/2021.1.2/linux/lib/oclfpga/modulefiles/oclfpga
+7) intel/2021.1.2
+8) ucx/1.9.0
+9) intel-mpi/intel/2021.1.1
+10) hdf5/intel-2021.1/intel-mpi/1.10.6
+11) anaconda3/2020.11
+```
+
+Simply loading the following modules will automatically load all the others:
+
+```bash
+intel/2021.1.2
+intel-mpi/intel/2021.1.1
+hdf5/intel-2021.1/intel-mpi/1.10.6
+anaconda3/2020.11 # <- used when configuring with python
+```
+
+You can make an alias for simplicity and put in your `.zshrc` or `.bashrc`:
+
+```bash
+alias tristan_modules='module purge; module load intel/2021.1.2 intel-mpi/intel/2021.1.1 hdf5/intel-2021.1/intel-mpi/1.10.6 anaconda3/2020.11'
+```
+
+#### `Frontera`
+
+Modules:
+
+```bash
+  1) intel/18.0.5   2) impi/18.0.5   3) phdf5/1.10.4   4) python3/3.7.0
+```
+
+Useful alias:
+```bash
+alias tristan_modules="module purge; module load intel/18.0.5; module load impi/18.0.5; module load phdf5/1.10.4; module load python3/3.7.0"
+```
+
+#### `Helios` (IAS)
 
 Before running the code do the following:
 

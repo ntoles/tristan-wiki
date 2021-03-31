@@ -87,7 +87,7 @@ domains = isolde.getDomains(filename)
 
 Now `domains` will contain a dictionary with the sizes (`sx`, `sy`, `sz`) and the coordinates of the "left bottom" corners of the MPI domains (`x0`, `y0`, `z0`).
 
-#### Parse the `report` and `history` files
+#### Parse the `report`, `history` and `input` files
 
 History output can be parsed using the predefined function in the `isolde` module:
 
@@ -117,18 +117,32 @@ print (report.keys())
 
 For each of these step/substep durations we can find the mean duration `dt`, and the `min` and `max` durations among the MPI processes to estimate the possible load imbalance.
 
+In the same way one can parse the `input` file to obtain the relevant quantities specified at the runtime:
+
+```python
+import tristanVis.isolde as isolde
+input_params = isolde.parseInput(input_file_name)
+```
+
+Now the `input_params` is a depth-2 dictionary with all the parameters. To obtain, say, the speed of light specified one would do:
+
+```python
+input_params['algorithm']['c']
+# in general: input_params[<BLOCKNAME>][<VARIABLE>]
+```
+
 ### Built-in visualization functions
 
 There are a couple of very useful python scripts that are included with this code to help make analysis of data and interaction with it much easier. First of all there are three libraries that you might want to preload to access these capabilities:
 
 ```python
 import tristanVis.tristanVis as tVis
-import tristanVis.aux as aux
+import tristanVis.snippets as trS
 import tristanVis.isolde as isolde
-aux.loadCustomStyles(style='default', fs=15)
+trS.loadCustomStyles(style='default', fs=15)
 ```
 
-The last line will enable LaTeX with matplotlib, load several colormaps (e.g. `fire`, `bipolar` and `turbo`) which are unavailable in standard `matplotlib`, and configure a few settings with the font. You can pass any style supported by `matplotlib` (e.g. `dark_background`, `fivethirtyeight`).
+The last line will enable LaTeX with matplotlib, load several colormaps (e.g. `fire` and `bipolar`) which are unavailable in standard `matplotlib`, and configure a few settings with the font. You can pass any style supported by `matplotlib` (e.g. `dark_background`, `fivethirtyeight`).
 
 #### Loading field data for the whole simulation
 

@@ -15,10 +15,13 @@ python fulltest.py [FLAGS]
 ```
 
 Flags include:
+* `--path`: specify the path where to write the simulation;
+* `--cluster`: specify the cluster to load the proper modules (current options are `perseus` and `stellar`);
 * `-v`: verbose mode, i.e., show all the outputs;
 * `-c`: compilation mode (only test compilation without running);
 * `-t 1,2,...4`: specify tests to run (by default it runs all the tests);
-* `-d`: diagnostic mode: plot the results after the simulations are done.
+* `-d`: diagnostic mode: plot the results after the simulations are done;
+* `-r`: run mode: only runs the preexisting simulations compiled and written into the `path`.
 
 So a typical workflow to test the code would be:
 

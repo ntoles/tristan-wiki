@@ -6,6 +6,35 @@ permalink: tristanv2-output.html
 folder: tristanv2
 ---
 
+## Runtime diagnostics
+
+The code outputs three types of runtime diagnostics. The regular output (in `fortran` it is written as `print *, ...`) shows the timing and particle diagnostics for each timestep (example below):
+
+```text
+-----------------------------------------------------------------------
+Timestep: 6364...................................................[DONE]
+[ROUTINE]          [TIME, ms]      [MIN  /  MAX, ms]      [FRACTION, %]
+Full_step:            224.818     204.271    237.594
+  move_step:           51.701      46.020     58.292             22.997
+  deposit_step:        72.232      66.151     83.288             32.129
+  filter_step:         11.442       4.631     23.036              5.089
+  fld_exchange:         8.607       3.622     18.671              3.828
+  prtl_exchange:       71.497      63.071     78.582             31.802
+  fld_solver:           2.886       2.423      3.325              1.284
+  usr_funcs:            6.448       5.630      7.452              2.868
+  output_step:          0.000       0.000      0.000              0.000
+[NPART per S]       [AVERAGE]      [MIN/MAX per CPU]            [TOTAL]
+  species # 1       8.221E+05   7.437E+05  9.604E+05          1.579E+08
+  species # 2       8.221E+05   7.421E+05  9.585E+05          1.579E+08
+  species # 3           0.000       0.000      0.000              0.000
+  species # 4           0.000       0.000      0.000              0.000
+.......................................................................
+```
+
+The `diag.log` output can be used for debugging; it is written in the specified `output/` and shows all the functions called after their successful execution.
+
+The `warn.log` output (also written into `output/` directory) can be used to log all the manual warnings called during the simulation. For instance, the simulation artificially suppresses cooling, or interaction probabilities that are too high. The amount of times on each timestep these "hacks" are executed is logged in the `warn.log`.
+
 ## Output
 
 `Tristan-MP v2` outputs several files in `hdf5` and text format while running the simulation.
@@ -213,4 +242,39 @@ Parameters for slice outputs are specified in the `input` file:
   sliceY_2      = 140
 
   sliceZ_1      = 100
+```
+
+## User-specified output
+
+On top of all that we also have a user-specific output that is written as a formatted binary file by a single processor (called `usroutput`, can be found in the same directory as the regular output). This can be used to output small pre-computed (compared to particle or field array) quantities or arrays.
+
+Enable this output from the input-file:
+
+```python
+<output>
+
+  # user-specific output
+  usr_enable    = 0          # enable/disable usr-output [0]
+  usr_interval  = 100        # interval between usr-output steps [100]
+```
+
+User output is specified from the userfile with the `userOutput(step)` subroutine. This subroutine has to do all the required calculations, send all the data to the root rank and then the root rank will pass those arguments further. An example might look something like this:
+
+```fortran
+subroutine userOutput(step)
+  implicit none
+  ! ...
+  ! 1. do calculations and save to a real-type array `myarr` ...
+  ! ... or a real-type variable `myvar`
+  ! 2. send all the data to the `root_rank` (typically defined as 0) ...
+  ! ... which saves everything to, say, `myarr_global` and `myvar_global`
+  ! 3. now pass for writing
+  if (mpi_rank .eq. root_rank) then
+    call writeUsrOutputTimestep(step)
+    call writeUsrOutputArray('my_array_name', myarr_global)
+    call writeUsrOutputReal('my_var_name', myvar_global)
+    ! you may add as many of these outputs as you want
+    call writeUsrOutputEnd()
+  end if
+end subroutine userOutput
 ```

@@ -136,7 +136,7 @@ To configure the code and generate a `Makefile` run the following in the root di
     `-vay`
   </td>
   <td markdown="span">
-    Enable Vay pusher (cannot be coupled with GCA).
+    Enable Vay pusher.
   </td>
 </tr>
 <tr>
@@ -230,10 +230,10 @@ To configure the code and generate a `Makefile` run the following in the root di
 </tr>
 <tr>
   <td markdown="span">
-    `-perseus`
+    `--cluster=<CLUSTER>`
   </td>
   <td markdown="span">
-    Configures with `ifport`, `mpi` and `intel` for the [Perseus](https://researchcomputing.princeton.edu/systems-and-services/available-systems/perseus) cluster.
+    Configures the code specific to the cluster. Current options are: `stellar`, `perseus` and `frontera`.
   </td>
 </tr>
 

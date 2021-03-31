@@ -28,6 +28,7 @@ _Disclaimer for the closed v2 version_. This wiki contains the most up-to-date i
 * <span class='date'>Dec 31 2020</span>[Automated testing](tristanv2-testing.html)
 * <span class='date'>Dec 31 2020</span>[Visualization functions](tristanv2-visualization.html#built-in-visualization-functions)
 * <span class='date'>Dec 31 2020</span>[Particle payloads](tristanv2-output.html#particle-payloads)
+* <span class='date'>Mar 31 2021</span>[Diagnostics and warning facility](tristanv2-output.html#runtime-diagnostics)
 
 #### Physics updates
 <!-- * <span class='date'>Aug 24 2019</span>[Synchrotron radiation/cooling](tristanv2-radiation.html#synchrotron-cooling)
@@ -49,11 +50,18 @@ _Disclaimer for the closed v2 version_. This wiki contains the most up-to-date i
 * $\gamma + \boldsymbol{B}$ pair production
 
 ## Releases
-* 2.0.1 <span class='date'>Jul 2020</span>
-  * Compton scattering and GCA pusher added
-  * Slice outputs for 3d added
-  * Particle momentum binning improved for downsampling
-  * Minor bugs fixed
+* 2.1.2 <span class='date'>Mar 2021</span>
+  * Dynamic reallocation of tiles
+  * Coupling of GCA with Vay pusher
+  * Major restructuring in the initializer
+  * A facility for warnings and diagnostic output
+  * Cooling limiter
+  * Fluid velocity output
+  * Lots of subroutines to be used in the future for the adaptive load balancing
+  * Minor improvements, restructurings and bugfixes.
+* 2.1.1 <span class='date'>Dec 2020</span>
+  * Patched the Compton cross section normalization
+  * Minor bug fixes
 * 2.1 <span class='date'>Dec 2020</span>
   * Pair annihilation module (+ advanced test for all QED modules coupled)
   * Merging of charged particles
@@ -65,6 +73,8 @@ _Disclaimer for the closed v2 version_. This wiki contains the most up-to-date i
   * Major restructuring of output modules
   * Major restructuring of QED modules
   * Minor issues fixed for GCA pusher
-* 2.1.1 <span class='date'>Dec 2020</span>
-  * Patched the Compton cross section normalization
-  * Minor bug fixes
+* 2.0.1 <span class='date'>Jul 2020</span>
+  * Compton scattering and GCA pusher added
+  * Slice outputs for 3d added
+  * Particle momentum binning improved for downsampling
+  * Minor bugs fixed
