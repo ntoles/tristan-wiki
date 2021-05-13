@@ -88,10 +88,6 @@ entries:
       - title: F.A.Q.
         url: /tristanv2-faq.html
         output: web
-
-  - title: Useful Tools
-    output: web
-    folderitems:
       - title: Code unit calculator tool
         url: /tristanv2-codeunitcalc.html
         output: web
