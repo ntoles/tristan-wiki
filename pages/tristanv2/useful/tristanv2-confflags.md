@@ -1,7 +1,7 @@
 ---
 title: Supported configuration flags
 keywords: compile, flag, configure
-last_updated: Dec 31, 2019
+last_updated: May 24, 2021
 permalink: tristanv2-confflags.html
 folder: tristanv2
 ---
@@ -77,10 +77,26 @@ To configure the code and generate a `Makefile` run the following in the root di
 
 <tr>
   <td markdown="span">
-    `-debug`
+    `--debug=<LEVEL>`
   </td>
   <td markdown="span">
-    Enable debug mode (enables custom `-DDEBUG` macros flag, `traceback`, `qopt` reports for intel compilers etc).
+    Enable debug mode and specify the debug level [0, 1, 2] (also enables custom `-DDEBUG` macros flag, `traceback`, `qopt` reports for intel compilers etc).
+  </td>
+</tr>
+<tr>
+  <td markdown="span">
+    `-lowmem`
+  </td>
+  <td markdown="span">
+    Enable full dynamic allocation of tiles (tiles can be allocated by arbitrary amount). Useful for low memory machines.
+  </td>
+</tr>
+<tr>
+  <td markdown="span">
+    `-usroutput`
+  </td>
+  <td markdown="span">
+    Enable the user-specified output written into `<OUTPUT_DIR>/usroutput` (also enabled the `-DUSROUTPUT` flag).
   </td>
 </tr>
 
@@ -217,7 +233,7 @@ To configure the code and generate a `Makefile` run the following in the root di
 </tr>
 <tr>
   <td markdown="span">
-    `--gca=<NITER>`
+    `--gca=<N_ITER>`
   </td>
   <td markdown="span">
     Enable GCA (guiding center approximation) mover and set number of iterations (2-4 is usually enough).

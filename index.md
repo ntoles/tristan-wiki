@@ -13,9 +13,9 @@ permalink: index.html
 
 _Disclaimer for the closed v2 version_. This wiki contains the most up-to-date info only for the `master` branch. Some of the new features added to the `dev/main` branch might not be documented yet. However, as soon as they are pushed to the `master` -- their documentation will immediately appear here.
 
-### Recent updates
+<!--### Recent updates-->
 
-#### Technical updates
+<!--#### Technical updates-->
 <!-- * <span class='date'>Aug 12 2019</span>[Static load balancing](tristanv2-loadbal.html#static-load-balancing)
 * <span class='date'>Feb 12 2020</span>[Particle weights & downsampling](tristanv2-downsampling.html)
 * <span class='date'>May 10 2020</span>[Restart](tristanv2-restart.html)
@@ -23,33 +23,46 @@ _Disclaimer for the closed v2 version_. This wiki contains the most up-to-date i
 * <span class='date'>May 14 2020</span>[History](tristanv2-visualization.html#history)
 * <span class='date'>Jun 28 2020</span>[Slice outputs in 3d](tristanv2-visualization.html#slices-for-3d-only)
 * <span class='date'>Jul 19 2020</span>[Cartesian particle binning](tristanv2-downsampling.html#cartesian-binning) -->
-* <span class='date'>Dec 31 2020</span>[Charged particle downsampling](tristanv2-downsampling.html#particle-downsampling)
-* <span class='date'>Dec 31 2020</span>[Spatial binning for spectra output](tristanv2-visualization.html#read-spectra)
-* <span class='date'>Dec 31 2020</span>[Automated testing](tristanv2-testing.html)
-* <span class='date'>Dec 31 2020</span>[Visualization functions](tristanv2-visualization.html#built-in-visualization-functions)
-* <span class='date'>Dec 31 2020</span>[Particle payloads](tristanv2-output.html#particle-payloads)
-* <span class='date'>Mar 31 2021</span>[Diagnostics and warning facility](tristanv2-output.html#runtime-diagnostics)
+<!--* <span class='date'>Dec 31 2020</span>[Charged particle downsampling](tristanv2-downsampling.html#particle-downsampling)-->
+<!--* <span class='date'>Dec 31 2020</span>[Spatial binning for spectra output](tristanv2-visualization.html#read-spectra)-->
+<!--* <span class='date'>Dec 31 2020</span>[Automated testing](tristanv2-testing.html)-->
+<!--* <span class='date'>Dec 31 2020</span>[Visualization functions](tristanv2-visualization.html#built-in-visualization-functions)-->
+<!--* <span class='date'>Dec 31 2020</span>[Particle payloads](tristanv2-output.html#particle-payloads)-->
+<!--* <span class='date'>Mar 31 2021</span>[Diagnostics and warning facility](tristanv2-output.html#runtime-diagnostics)-->
 
-#### Physics updates
+<!--#### Physics updates-->
 <!-- * <span class='date'>Aug 24 2019</span>[Synchrotron radiation/cooling](tristanv2-radiation.html#synchrotron-cooling)
 * <span class='date'>Dec 02 2019</span>[Inverse Compton radiation/cooling](tristanv2-radiation.html#inverse-compton-cooling)
 * <span class='date'>Dec 16 2019</span>[Two-photon pair production](tristanv2-qed.html)
 * <span class='date'>Mar 16 2020</span>Absorbing boundary conditions in 2D/3D
 * <span class='date'>Jun 25 2020</span>[Guiding center approximation (GCA)](tristanv2-algorithms.html#guiding-center-approximation)
 * <span class='date'>Jul 09 2020</span>[Compton scattering](tristanv2-qed.html#compton-scattering) -->
-* <span class='date'>Dec 31 2020</span>[Pair annihilation](tristanv2-qed.html#pair-annihilation)
-* <span class='date'>Dec 31 2020</span>Vay pusher
-* <span class='date'>Dec 31 2020</span>[Universal unit normalization for QED](tristanv2-sim-units.html#radiation-and-qed)
+<!--* <span class='date'>Dec 31 2020</span>[Pair annihilation](tristanv2-qed.html#pair-annihilation)-->
+<!--* <span class='date'>Dec 31 2020</span>Vay pusher-->
+<!--* <span class='date'>Dec 31 2020</span>[Universal unit normalization for QED](tristanv2-sim-units.html#radiation-and-qed)-->
 
-### Under development
+<!--### Under development-->
 
-* Adaptive load balancing
 
 ### Future plans
 
 * $\gamma + \boldsymbol{B}$ pair production
 
 ## Releases
+* v2.2 <span class='date'>__May 2021__</span>
+  * Adaptive load balancing
+  * Dynamic reallocation of tiles (more stable on low memory machines, slightly slower)
+  * Explicit low-memory mode for clusters such as frontera (-lowmem flag)
+  * User-specific output added at runtime
+  * Updated the fulltest.py facility (see wiki)
+  * Debug levels (0, 1, 2)
+  * A facility for warnings and diagnostic output (see wiki)
+  * Coupling of GCA with Vay pusher
+  * Cooling limiter
+  * Fluid velocity output
+  * Major bugfix in the momentum output
+  * Major restructuring in the initializer
+  * Minor improvements, restructurings and bugfixes
 * 2.1.2 <span class='date'>Mar 2021</span>
   * Dynamic reallocation of tiles
   * Coupling of GCA with Vay pusher

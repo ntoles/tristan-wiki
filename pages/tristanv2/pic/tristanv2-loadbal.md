@@ -61,3 +61,30 @@ which results in the following distribution of meshblocks.
 Below is another example of static load balancing done in three dimensions with meshblocks concentrated at the center of the grid.
 
 {% include image.html file="tristan_v2/loadbal/3d.png" alt="slb"%}
+
+### Adaptive load balancing
+
+Since version `v2.2` adaptive load balancing during runtime is also supported. It is enabled with the `-alb` flag during the code configuration. Adaptive load balancing has the following configurations that can be set from the input file (their explanations as well as default values are shown below).
+
+```shell
+<adaptive_load_balancing>
+
+  # (if `alb` flag is enabled)
+  in_x         = 1               # enable along x [0]
+  sx_min       = 10              # min # of cells per meshblock [10]
+  interval_x   = 100             # timesteps between load balancing in x [1000]
+  start_x      = 1000            # first timestep for load balancing in x [1]
+  slab_x       = 10              # slab to be sent in x direction [1]
+
+  in_y         = 1               # enable along y [0]
+  sy_min       = 10              # min # of cells per meshblock [10]
+  interval_y   = 100             # timesteps between load balancing in y [1000]
+  start_y      = 1000            # first timestep for load balancing in y [1]
+  slab_y       = 10              # slab to be sent in y direction [1]
+
+  in_z         = 1               # enable along z [0]
+  sz_min       = 10              # min # of cells per meshblock [10]
+  interval_z   = 100             # timesteps between load balancing in z [1000]
+  start_z      = 1000            # first timestep for load balancing in z [1]
+  slab_z       = 10              # slab to be sent in z direction [1]
+```
