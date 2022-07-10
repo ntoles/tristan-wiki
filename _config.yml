@@ -1,15 +1,15 @@
-repository: PrincetonUniversity/tristan-v2
+#repository: PrincetonUniversity/tristan-v2
 
 output: web
 # this property is useful for conditional filtering of content that is separate from the PDF.
 
-topnav_title: Tristan-MP v2 Documentation
+#topnav_title: Tristan-MP v2 Documentation
 # this appears on the top navigation bar next to the home button
 
-site_title: Tristan-MP v2 Wiki
+#site_title: Tristan-MP v2 Wiki
 # this appears in the html browser tab for the site title (seen mostly by search engines, not users)
 
-company_name: Plasmoids
+#company_name: Plasmoids
 # this appears in the footer
 
 github_editme_path: 
@@ -67,32 +67,7 @@ collections:
     output: false
 # collections are declared here. this renders the content in _tooltips and processes it, but doesn't output it as actual files in the output unless you change output to true
 
-defaults:
-  -
-    scope:
-      path: ""
-      type: "pages"
-    values:
-      layout: "page"
-      comments: false
-      search: true
-      sidebar: tristanv2_sidebar
-      topnav: topnav
-  -
-    scope:
-      path: "pages/tristanv2"
-      type: "pages"
-    values:
-      layout: "page"
-      comments: false
-      search: true
-      sidebar: tristanv2_sidebar
-      topnav: topnav
-
 # these are defaults used for the frontmatter for these file types
-
-sidebars:
-- tristanv2_sidebar
 
 description: ""
 # the description is used in the feed.xml file
